@@ -1,0 +1,84 @@
+.signup__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    background-color: aliceblue;
+    padding: 5%;
+  }
+
+  
+  .login__container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: aliceblue;
+    padding: 5%;
+  }
+  
+  
+  .signup__form {
+    padding: 40px; /* Increase padding for a larger background */
+    padding-right: 60px;
+    background: #fafafa;
+    text-align: center;
+    width: 400px; /* Adjust width as needed */
+  }
+  
+  .form-heading {
+    margin-top: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .btn--form {
+    padding: 10px 20px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn--form:hover {
+    background: #555;
+  }
+  
+  .login-link {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .login-link a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+
+  #toggleLogin {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    }

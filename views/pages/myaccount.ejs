@@ -1,0 +1,190 @@
+<!--
+    Created by Michael Piercey 2206222 -- finalised 11/12/23d
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../partials/head.ejs', { title: 'Cinemind | Account', cssFiles: ['/styles/account.css', '/styles/nav.css'], bootstrap: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../partials/nav.ejs', { currentPage: 'myaccount'}) %>
+
+
+  <div id="main-container" class="wrapper">
+    <div class="side-nav">
+      <!-- side nav show the container -->
+        <a href="#" onclick="showAccountContent('My-Account')">My Account</a>
+        <a href="#" onclick="showAccountContent('Reviews')">Reviews</a>
+        <a href="#" onclick="showAccountContent('Watchlist')">Watchlist</a>
+    </div>
+
+    <div id="container-My-Account" class="account-container">
+            <div class="your-account-container">
+                <h1 class="welcome-title">Welcome to Your Account page <%= user.name.first %></h1>
+                <h3 class="welcome-text">Here you can view and make changes to your account details</h3>
+            </div>
+        
+            <div class="account-details-container">
+                <div class="account-detail" style="margin-left: 0;">
+                    <h3>Current Email</h3>
+                    <p><%= user.email %></p>
+                </div>
+                <div class="account-detail">
+                    <h3>Current Name</h3>
+                    <p><%= user.name.first %></p>
+                </div>
+                <div class="account-detail">
+                    <h3>Current Username</h3>
+                    <p><%= user.login.username %></p>
+                </div>
+            </div>
+        
+            <div class="account-activites-container">
+                <div class="activities-container" style="margin-left: 0;">
+                    <h3>Change Account Details</h3>
+                    <p>change name etc.</p><br>
+                    <h3>Change your name:</h3>
+                    <form action="/change-first-name" method="POST">
+                      <label for="newName">New Name:</label><br>
+                      <input type="text" class="account-textbox" id="newName" name="newFirstName">
+                      <button class="account-change-button" type="submit">Change</button>
+                  </form>
+        
+                    <h3>Change your email:</h3>
+                    <form action="/change-email" method="POST">
+                      <label for="newEmail">New Email:</label><br>
+                      <input type="email" class="account-textbox" id="newEmail" name="newEmail">
+                      <button class="account-change-button" type="submit">Change</button>
+                  </form>
+        
+                    <h3>Change your username:</h3>
+                    <form action="/change-username" method="POST">
+                      <label for="newUsername">New Username:</label><br>
+                      <input type="text" class="account-textbox" id="newUsername" name="newUsername">
+                      <button class="account-change-button" type="submit">Change</button>
+                  </form>
+
+                    <h3>Change your password:</h3>
+                    <form action="/change-password" method="POST">
+                      <label for="newPassword">New Password:</label><br>
+                      <input type="password" class="account-textbox" id="newPassword" name="newPassword">
+                      <input type="password" class="account-textbox" id="newPassword2" name="newPassword2">
+                      <button class="account-change-button" type="submit">Change</button>
+                  </form>
+        
+                </div>
+                <div class="activities-container" style="padding: 5px;">
+                    <h3>Test Launching CineMinds <b>+</b></h3>
+                    <p>Enhanced search features</p><br>
+                    <p>Add free experience</p><br>
+                    <p>Recieve upcoming/new movies a week in advance</p><br>
+                    <p>Unlimited joinable groups, find others with similar movie choices to chat to</p><br>
+                    <p>Have your review posted on our offical X account (potentially)</p><br>
+                    <p>Recieve the fabled Gold tick next to your name, shows that you are verified</p><br>
+                    <p>And much more to come in fall 2024!</p><br>
+                </div>
+            </div>
+
+            <div class="preferences-container">
+              <div class="preference" style="margin-left: 0;">
+                <h3>Profile Picture</h3>
+                <img src="<%= user.picture.thumbnail %>"  class="profile-picture" alt="Profile Picture">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                  <input type="file" name="photo" accept="image/*">
+                  <button type="submit">Upload</button>
+              </form>
+            </div>
+            <div class="preference">
+              <h3>Account Support</h3>
+              <p>Have a problem? get in touch!</p>
+              <textarea id="problem-description" placeholder="Describe the problem..."></textarea>
+              <button type="button" onclick="reportProblem()">Report Problem</button>
+              <script>
+                  function reportProblem() {
+                      var problemDescription = document.getElementById('problem-description').value;
+                      // Add logic to handle the reported problem
+                      alert("Problem reported: " + problemDescription); // Example alert, replace with your logic
+                  }
+              </script>
+          </div>
+              <div class="preference">
+                  <h3>Logout</h3>
+                  <form action="/logout" method="POST">
+                    <button type="submit">Logout now</button>
+                </form>
+              </div>
+          </div>
+          </div>
+        
+
+  <div id="container-Reviews" class="account-container">
+      <h1>Reviews</h1>
+      <div class="reviews-movie-card-container" id="reviews-movie-ids"></div>
+  </div>
+
+  <div id="container-Freinds" class="account-container">
+    <h1>Add Friends</h1>
+    <p>Add friends by entering their username:</p>
+  
+    <table>
+      <tr>
+        <th>Username</th>
+        <th>Action</th>
+      </tr>
+      
+      <tr>
+        <td><input type="text" id="friend-username" placeholder="Enter username"></td>
+        <td><button type="button" onclick="addFriend()">Add Friend</button></td>
+      </tr>
+    </table>
+  
+    <h1>Friends List</h1>
+    <p>List of all your friends:</p>
+  
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Username</th>
+      </tr>
+      
+      <tr>
+        <td>Marty McFly</td>
+        <td>MartyMcFly</td>
+      </tr>
+      
+      <tr>
+        <td>Doc Brown</td>
+        <td>DocBrown</td>
+      </tr>
+  
+      <tr>
+        <td>Biff Tannen</td>
+        <td>BiffTannen</td>
+      </tr>
+  
+    </table>
+
+  </div>
+
+  <div id="container-Watchlist" class="account-container">
+    <h1>Your Watchlist</h1>
+    <p>List of all the movies you want to watch</p>
+    <div class="watchlist-movie-card-container" id="watchlist-movie-ids"></div>
+  </div>
+  </div>
+  
+
+    <%- include('../partials/footer.ejs')%>
+
+</body>
+
+
+<script src="/scripts/account.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</html>

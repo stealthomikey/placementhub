@@ -1,0 +1,165 @@
+<!--
+    Created by Jonathan Boyd 2207435 -- finalised 24/04/24
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../partials/head.ejs', { title: 'Cinemind | Home', cssFiles: ['/styles/home.css', '/styles/nav.css', '/styles/signup.css'], bootstrap: true }) %>
+
+
+<body>
+<!-- Include the nav-->
+<%- include('../partials/nav.ejs', { currentPage: 'index'}) %>
+
+    <div class="error_message">
+        <h1>Congratulations</h1>
+        <h3>Well done, you have found our little easter egg.</h3>
+        <br><h3>To reward your detective skills here's a little game :)</h3>
+        
+    </div>
+    </div>
+
+<script>
+    //Setting variables
+var myGamePiece;
+var myObstacles = [];
+var myScore;
+
+function startGame() {
+    // creating the player character, setting base speed upon game starting
+    myGamePiece = new component(30, 30, "img/gameChar.png", 10, 120, "image");
+    myGamePiece.gravity = 0.05;
+    myGameArea.start();
+}
+
+var myGameArea = {
+    //creating the playable game are
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 400;
+        this.canvas.height = 250;
+        this.context = this.canvas.getContext("2d");
+        //Where to place the area
+        document.body.insertBefore(this.canvas, document.body.childNodes[6]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+//playable character setting characteristics and setting to image
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image"){
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;
+    this.gravity = 0;
+    this.gravitySpeed = 0;
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (type == "image") {
+        ctx.drawImage(this.image,
+            this.x,
+            this.y,
+            this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    //setting the gravity, how the character floats
+    this.newPos = function() {
+        this.gravitySpeed += this.gravity;
+        this.x += this.speedX;
+        this.y += this.speedY + this.gravitySpeed;
+        this.hitBottom();
+    }
+    //setting gravity upon hitting top/bottom
+    this.hitBottom = function() {
+        var rockbottom = myGameArea.canvas.height - this.height;
+        if (this.y > rockbottom) {
+            this.y = rockbottom;
+            this.gravitySpeed = 0;
+        }
+    }
+    this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            crash = false;
+        }
+        return crash;
+    }
+}
+//generating objects
+function updateGameArea() {
+    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+    for (i = 0; i < myObstacles.length; i += 1) {
+        if (myGamePiece.crashWith(myObstacles[i])) {
+            return;
+        } 
+    }
+    myGameArea.clear();
+    myGameArea.frameNo += 1;
+    if (myGameArea.frameNo == 1 || everyinterval(150)) {
+        x = myGameArea.canvas.width;
+        //setting the obstacle sizes and frequency
+        minHeight = 20;
+        maxHeight = 200;
+        height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+        minGap = 50;
+        maxGap = 200;
+        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+        myObstacles.push(new component(10, height, "purple", x, 0));
+        myObstacles.push(new component(10, x - height - gap, "purple", x, height + gap));
+    }
+    for (i = 0; i < myObstacles.length; i += 1) {
+        myObstacles[i].x += -1;
+        myObstacles[i].update();
+    }
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
+
+function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+    return false;
+}
+
+function accelerate(n) {
+    myGamePiece.gravity = n;
+}
+</script>
+<br>
+<!--buttons to start and jump in the game-->
+<button id="jump" onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)" style="background-color: black; color: white; width: 100px;">JUMP</button>
+<button style="width: 100px;" onclick="startGame();gameScroll()" id="starter">start</button>
+
+
+<%- include('../partials/footer.ejs')%>
+    <!-- links to bootstrap js and jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- scripts for this page eg get serach and movie cards -->
+    <script src="scripts/home.js"></script>
+    <script src="scripts/easterEgg.js"></script>
+</body>
+
+</html>

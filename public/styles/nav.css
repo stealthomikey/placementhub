@@ -1,0 +1,258 @@
+/*
+    Created by Michael Piercey 2206222 -- finalised 08/12/23
+*/
+
+:root {
+    --main-colour: #df5441;
+    --text-colour1: #e8e8e8;
+    --text-colour2: #787878;
+    --text-colour3: #363636;
+    --background-colour1: #e87f54;
+    --background-colour2: #f0a967;
+    --background-colour3: #ecc9a8;
+  }
+  
+  .custom-row {
+    display: flex;
+  }
+  
+  .custom-footer {
+    background-color: var(--background-colour3);
+    padding: 45px 0 20px;
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-colour3);
+    margin-top: auto;
+    padding-left: 5px;
+  }
+  
+  .custom-footer h6 {
+    color: var(--text-colour3);
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 2px;
+  }
+  
+  .footer-links {
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .footer-links a {
+    color: var(--text-colour2);
+    text-decoration: none;
+  }
+  
+  .footer-links a:active,
+  .footer-links a:focus,
+  .footer-links a:hover {
+    color: var(--text-colour1);
+  }
+  
+  /* Custom styles for column widths */
+  .about-column {
+    flex: 40%;
+  }
+  
+  .categories-column,
+  .quick-links-column {
+    flex: 30%;
+  }
+  
+  .navbar {
+    background-color: var(--background-colour2);
+    overflow: hidden;
+  }
+  
+  .navbar-logo {
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  
+  .navbar-logo img {
+    height: 70px; /* Adjust the height as needed */
+  }
+  
+  .navbar-search {
+    float: right;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .search-bar {
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+  }
+  
+  .account-button {
+    margin-left: 10px;
+    padding: 8px;
+    background-color: var(--text-colour1);
+    color: var(--background-colour1);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .navbar-links {
+    background-color: var(--text-colour2);
+    overflow: hidden;
+  }
+  
+  .navbar-links a {
+    float: left;
+    display: block;
+    color: var(--background-colour2);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .navbar-links a:hover {
+    background-color: var(--text-colour1);
+    color: var(--main-colour);
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--text-colour1);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--background-colour1);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--text-colour3);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .custom-row {
+        flex-direction: column;
+    }
+    
+    .custom-footer {
+        text-align: center; 
+    }
+    
+    .footer-links {
+        margin-top: 15px; 
+    }
+    
+    .custom-container {
+        padding: 0 15px; 
+    }
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 600px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+}
+
+.popuptext2, .popuptext3 {
+  visibility: hidden;
+  width: 500px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 350%;
+  right: 70%;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: 5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}

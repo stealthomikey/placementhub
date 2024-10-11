@@ -1,0 +1,478 @@
+/*
+    Created by Michael Piercey 2206222 -- finalised 11/12/23
+*/
+
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .wrapper {
+    display: flex;
+    max-height: 150%;
+    overflow: auto; /* Add this line */
+    min-height: 70%;
+  }
+  
+  .side-nav {
+    flex: 0 0 200px; /* Fixed width for side-nav */
+    background-color: rgb(217, 208, 233);
+    color: white;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Add overflow-y to enable scrolling if content exceeds height */
+}
+  
+  .account-container {
+    flex: 1; /* Allow the account container to take up the remaining space */
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    outline: 2px solid #000;
+    max-height: 100%;
+    overflow: auto; /* Add this line */
+  }
+  
+  .side-nav a {
+    text-decoration: none;
+    height: 7vh; 
+    width: 90%;
+    padding-left: 15px; 
+    line-height: 70px;
+    background-color: #1c2e3a; 
+    color: #fff; 
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: block;
+  }
+  
+  .side-nav a:hover {
+    background-color: #2980b9; 
+  }
+  
+  .channel-side-nav {
+    flex: 0 0 200px; /* Fixed width for side-nav */
+    background-color: rgb(177, 123, 177);
+    color: white;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  
+  .channel-side-nav a {
+    text-decoration: none;
+    height: 7vh; 
+    width: 90%;
+    padding-left: 15px; 
+    line-height: 70px;
+    background-color: #1c2e3a; 
+    color: #fff; 
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: block;
+  }
+  
+  .channel-side-nav a:hover {
+    background-color: #2980b9; 
+  }
+  
+  .your-account-container, .account-activites, .preferences-container {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  .group-review-container, .group-selector-container-chat, .group-selector-container-watchlist, .watchlist-container, .chat-container {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-top: 5%;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: aliceblue;
+    outline: 2px solid #000;
+    padding: 10px;
+    overflow: auto; /* Add this line */
+    max-height: 500px; /* Adjust the height as needed */
+  }
+
+  .chat-container{
+    min-height: 500px;
+  }
+
+  .join-group-container{
+    margin-top: 5%;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  .join-group-container{
+    background-color: aliceblue;
+    outline: 2px solid #000;
+    padding: 10px;
+  }
+  
+  .your-account-container{
+    background-color: aliceblue;
+    outline: 2px solid #000;
+    padding: 10px;
+  }
+  
+  .welcome-title, .welcome-text {
+    margin: 0;
+  }
+
+  .account-activites-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+  .activities-container {
+    flex: 1;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: aliceblue;
+    outline: 2px solid #000;
+    width: 45%;
+    margin-left: 5%; 
+    padding: 10px;
+  }
+  
+
+  #container-My-Group {
+    display: none; /* Shows the my account container but not the others hehe */
+  }
+  
+  #container-New-Channel {
+    display: none;
+  }
+  
+  #container-New-Group {
+    display: block;
+  }
+  
+
+  
+/* Chat section styles */
+
+.chat-container {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-top: 5%;
+  background-color: aliceblue;
+  outline: 2px solid #000;
+  padding: 10px;
+  overflow: auto;
+  max-height: 200px;
+}
+
+.previous-chats {
+  margin-bottom: 10px;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  clear: both;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+
+
+/* Text input styling */
+.text-input {
+  display: flex;
+  align-items: center;
+}
+
+.text-input input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.text-input button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.text-input button:hover {
+  background-color: #45a049;
+}
+
+.username{
+  font-weight: bold;
+  color: #333;
+}
+
+
+
+
+
+.watchlist-movie-card {
+  display: flex;
+  width: 60%;
+  height: 30vh;
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(95, 93, 93, 0.1);
+}
+
+.watchlist-movie-details {
+  display: flex;
+  flex-basis: 40%;
+  flex-direction: column;
+  align-items: center;
+  background-color: #587dad;
+}
+
+.watchlist-extra {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: auto;
+  display: flex;
+  flex-basis: 60%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #ad3c3c;
+  padding: 20px;
+  overflow: auto;
+}
+
+.watchlist-movie-details img {
+  max-width: 60%;
+  max-height: 55%;
+  border-radius: 4px;
+}
+
+.watchlist-extra h6 {
+  margin: 5px 0; /* Adjust the top and bottom margin as needed */
+}
+
+
+/* Buton styling */
+.change-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.change-btn:hover {
+  background-color: #112e8f;
+}
+
+/* Form styling */
+.watchlist-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.watchlist-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.watchlist-form input[type="text"],
+.watchlist-form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.watchlist-form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.watchlist-form button:hover {
+  background-color: #45a049;
+}
+
+/* Time input styling */
+.watchlist-form input[type="time"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+
+
+
+.results-movie-card {
+  display: flex;
+  width: 100%;
+  height: 30vh; 
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(95, 93, 93, 0.1);
+}
+
+@media (max-width: 800px) {
+  .results-movie-card {
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
+}
+
+.results-movie-details {
+  display: flex;
+  flex-basis: 40%; 
+  flex-direction: column;
+  align-items: center;
+  background-color: #587dad;
+  overflow: auto;
+
+}
+
+.results-extra {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: auto;
+  display: flex;
+  flex-basis: 60%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Adjusted to allow scrolling */
+  color: white;
+  background-color: #ad3c3c;
+  padding: 20px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  text-shadow:
+    -1px -1px 0 #000, /* Top-left shadow */
+    1px -1px 0 #000,  /* Top-right shadow */
+    -1px 1px 0 #000,  /* Bottom-left shadow */
+    1px 1px 0 #000;   /* Bottom-right shadow */
+}
+
+
+.results-movie-details img{
+  max-width: 60%;
+  max-height: 55%;
+  border-radius: 4px;
+}
+
+.make-review {
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center;
+  width: auto;
+  display: flex;
+  flex-basis: 60%; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #ad3c3c;
+  padding: 20px;
+  overflow-y: auto;
+  text-shadow: 
+    -1px -1px 0 #000, /* Top-left shadow */
+    1px -1px 0 #000,  /* Top-right shadow */
+    -1px 1px 0 #000,  /* Bottom-left shadow */
+    1px 1px 0 #000;   /* Bottom-right shadow */
+}
+
+.make-review img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.review-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.review-section label {
+  font-size: 18px; /* Adjust as needed */
+  margin-bottom: 5px; /* Adjust as needed */
+}
+
+.review-section textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px; /* Adjust as needed */
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.back {
+  margin-top: 20px; /* Adjust as needed */
+}

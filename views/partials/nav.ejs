@@ -1,0 +1,31 @@
+<nav>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img src="img/cinemind_logo.png" alt="Logo">
+        </div>
+        <div class="navbar-search">
+            <!-- Search bar called the get search function from js and gets the balue from text box -->
+            <% if (currentPage === 'index') { %>
+                <input type="text"  id="movie-search-bar" class="search-bar" placeholder="Search">
+                <button id="movie-search-btn" class="search-button" onclick="getSearchFromTMDB($('#movie-search-bar').val())">search</button>
+            <% } %>
+            <!-- Account button -->
+            <% if (!user) { %>
+                <!-- If user is not logged in, display login button -->
+                <button onclick="window.location.href='/#signup__container';" class="account-button">Login</button>
+            <% } else { %>
+                <!-- If user is logged in, display account button -->
+                <button onclick="window.location.href='/myaccount';" class="account-button">Account</button>
+            <% } %>
+
+            
+        </div>
+    </div>
+
+    <div class="navbar-links">
+        <a href="/">Home</a>
+        <a href="/#signup__container">Sign Up</a>
+        <a href="/groups">Groups</a>
+        <a href="/#movies">Movies</a>
+    </div>
+</nav>

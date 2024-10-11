@@ -2,6 +2,15 @@
   max-height: 650px;
 }
 
+.custom-carousel .carousel-caption h5 {
+  font-size: 2rem; /* Adjust size as needed */
+}
+
+.custom-carousel .carousel-caption p {
+  font-size: 1.25rem; /* Adjust size as needed */
+}
+
+
 body {
   display: flex;
   flex-direction: column;

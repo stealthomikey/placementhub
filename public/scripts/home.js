@@ -44,50 +44,6 @@ $(document).ready(function () {
     toggleStyles(false);
 
 
-    // gets the top trending movies from the movie data base
-    function getResultsFromTMDB() {
-        // api key and link to trending movie json 
-        var apiKey = "7e6dd248e2a77acc70a843ea3a92a687";
-        var url = "https://api.themoviedb.org/3/trending/movie/week?api_key=" + apiKey;
-        
-        // extracts the jsondata from the results
-        $.getJSON(url, function (jsondata) {
-            // sends json data to display trending movies function
-            getTrendingMovieDisplay(jsondata);
-            // sends jsondata to display movies functions 
-            displayAndCreateMovies(jsondata.results);
-        });
-        }
-        
-        // displays the trending movies for carosel
-        function getTrendingMovieDisplay(jsondata) {
-        // start off with an empty html string we can edit later
-        var htmlstring = "";
-        // loops for 3 times so the carosel will get 3 movies
-        for (var i = 0; i < 3; i++) {
-            // gets data from search result json data
-            var title = jsondata.results[i].title;
-            var movieBackdrop = jsondata.results[i].backdrop_path;
-            var movieDescription = jsondata.results[i].overview;
-        
-            // test to make sure it gets the right data
-            console.log("Title: " + title);
-            console.log("Backdrop Path: " + movieBackdrop);
-            console.log("Overview: " + movieDescription);
-        
-            // builds the html for the caroseul. in the first loop set the div to active so it will appear on page load
-            htmlstring += "<div class='carousel-item" + (i === 0 ? " active" : "") + "'>" +
-                // set the image background
-                "<img src='https://image.tmdb.org/t/p/original/" + movieBackdrop + "' class='d-block w-100' alt='" + title + "'>" +
-                "<div class='carousel-caption d-none d-md-block'>" +
-                "<h5 class='movieTitle'>" + title + "</h5>" +
-                "<p class='movieDescription'>" + movieDescription + "</p>" +
-                "</div></div>";
-        }
-        
-        // inserts the html into the carousel div in the html file
-        $('.carousel-inner').html(htmlstring);
-    }
 
     // dispaly the top trending movies as cards
     function displayAndCreateMovies(movies) {

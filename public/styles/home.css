@@ -7,8 +7,12 @@
     font-family: 'Roboto', sans-serif; /* Use the imported font */
     font-weight: bold; /* Make the text bold */
     color: white; /* Set text color to white */
-    text-shadow: 2px 2px 0 black, -1px -1px 0 black, 1px -1px 0 black, 
-                 -1px 1px 0 black, 1px 1px 0 black; /* Add black outline effect */
+    text-shadow: 
+    3px 3px 0 black,   /* Increased shadow for thickness */
+    -2px -2px 0 black, 
+    2px -2px 0 black, 
+    -2px 2px 0 black, 
+    2px 2px 0 black;   /* Increased shadow for thickness */
 }
 
 .custom-carousel .carousel-caption h5 {

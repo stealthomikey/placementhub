@@ -3,7 +3,8 @@
 }
 
 .custom-carousel .carousel-caption h5 {
-  font-size: 2rem; /* Adjust size as needed */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3rem; /* Adjust size as needed */
 }
 
 .custom-carousel .carousel-caption p {

@@ -39,7 +39,7 @@ connectDB();
 
 // Routes
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'img', 'cinemind_small_logo.png')));
+app.use(favicon(path.join(__dirname, 'public', 'img', 'placementhub_logo_small.png')));
 
 // Route to render the index.ejs page
 app.get('/', (req, res) => {

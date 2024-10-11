@@ -2,14 +2,23 @@
   max-height: 650px;
 }
 
+.custom-carousel .carousel-caption h5,
+.custom-carousel .carousel-caption p {
+    font-family: 'Roboto', sans-serif; /* Use the imported font */
+    font-weight: bold; /* Make the text bold */
+    color: white; /* Set text color to white */
+    text-shadow: 2px 2px 0 black, -1px -1px 0 black, 1px -1px 0 black, 
+                 -1px 1px 0 black, 1px 1px 0 black; /* Add black outline effect */
+}
+
 .custom-carousel .carousel-caption h5 {
-  font-family: sans-serif;
-  font-size: 3rem; /* Adjust size as needed */
+    font-size: 4rem; /* Adjust size as needed */
 }
 
 .custom-carousel .carousel-caption p {
-  font-size: 1.25rem; /* Adjust size as needed */
+    font-size: 2rem; /* Adjust size as needed */
 }
+
 
 
 body {

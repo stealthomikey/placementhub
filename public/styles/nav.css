@@ -75,6 +75,10 @@
   .navbar-logo img {
     height: 70px; /* Adjust the height as needed */
   }
+
+  .navtitle {
+    align-items: center;
+  }
   
   .navbar-search {
     float: right;

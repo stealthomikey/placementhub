@@ -15,15 +15,7 @@
 <%- include('../partials/nav.ejs', { currentPage: 'myaccount'}) %>
 
 
-  <div id="main-container" class="wrapper">
-    <div class="side-nav">
-      <!-- side nav show the container -->
-        <a href="#" onclick="showAccountContent('My-Account')">My Account</a>
-        <a href="#" onclick="showAccountContent('Reviews')">Reviews</a>
-        <a href="#" onclick="showAccountContent('Watchlist')">Watchlist</a>
-    </div>
 
-    <div id="container-My-Account" class="account-container">
             <div class="your-account-container">
                 <h1 class="welcome-title">Welcome to Your Account page <%= user.name.first %></h1>
                 <h3 class="welcome-text">Here you can view and make changes to your account details</h3>
@@ -118,65 +110,10 @@
                     <button type="submit">Logout now</button>
                 </form>
               </div>
-          </div>
-          </div>
         
+         
+    
 
-  <div id="container-Reviews" class="account-container">
-      <h1>Reviews</h1>
-      <div class="reviews-movie-card-container" id="reviews-movie-ids"></div>
-  </div>
-
-  <div id="container-Freinds" class="account-container">
-    <h1>Add Friends</h1>
-    <p>Add friends by entering their username:</p>
-  
-    <table>
-      <tr>
-        <th>Username</th>
-        <th>Action</th>
-      </tr>
-      
-      <tr>
-        <td><input type="text" id="friend-username" placeholder="Enter username"></td>
-        <td><button type="button" onclick="addFriend()">Add Friend</button></td>
-      </tr>
-    </table>
-  
-    <h1>Friends List</h1>
-    <p>List of all your friends:</p>
-  
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Username</th>
-      </tr>
-      
-      <tr>
-        <td>Marty McFly</td>
-        <td>MartyMcFly</td>
-      </tr>
-      
-      <tr>
-        <td>Doc Brown</td>
-        <td>DocBrown</td>
-      </tr>
-  
-      <tr>
-        <td>Biff Tannen</td>
-        <td>BiffTannen</td>
-      </tr>
-  
-    </table>
-
-  </div>
-
-  <div id="container-Watchlist" class="account-container">
-    <h1>Your Watchlist</h1>
-    <p>List of all the movies you want to watch</p>
-    <div class="watchlist-movie-card-container" id="watchlist-movie-ids"></div>
-  </div>
-  </div>
   
 
     <%- include('../partials/footer.ejs')%>

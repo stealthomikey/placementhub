@@ -136,7 +136,7 @@
     }
 
     .credits {
-      text-align: center;
+      align-items: center;
     }
     
     .footer-links {

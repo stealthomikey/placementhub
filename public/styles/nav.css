@@ -57,6 +57,7 @@
 
   .credits{
     width: 80%;
+    align-items: center;
   }
   
   .categories-column,

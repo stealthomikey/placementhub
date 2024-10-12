@@ -1,0 +1,27 @@
+<!--
+    Created by Michael Piercey 2206222 -- finalised 11/12/23d
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../partials/head.ejs', { title: 'Forum | PlacementHub', cssFiles: ['/styles/forum.css', '/styles/nav.css'], bootstrap: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../partials/nav.ejs', { currentPage: 'forum'}) %>
+
+  
+
+<%- include('../partials/footer.ejs')%>
+
+</body>
+
+
+<script src="/scripts/forum.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</html>

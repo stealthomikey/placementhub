@@ -57,7 +57,6 @@
 
   .credits{
     width: 80%;
-    align-items: center;
   }
   
   .categories-column,
@@ -134,10 +133,6 @@
     
     .custom-footer {
         text-align: center; 
-    }
-
-    .credits {
-      align-items: center;
     }
     
     .footer-links {

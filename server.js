@@ -65,6 +65,12 @@ app.get('/myaccount', (req, res) => {
     res.render('pages/myaccount', { user: req.session.user});
 });
 
+// Route to render the forum.ejs page
+app.get('/forum', (req, res) => {
+    // Render myaccount page with user data and watchlist
+    res.render('pages/forum', { user: req.session.user});
+});
+
 app.get('/groups', (req, res) => {
     // Redirect to login if not logged in
     if (!req.session.loggedin) {

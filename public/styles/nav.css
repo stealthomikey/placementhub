@@ -134,6 +134,10 @@
     .custom-footer {
         text-align: center; 
     }
+
+    .credits {
+      text-align: center;
+    }
     
     .footer-links {
         margin-top: 15px; 

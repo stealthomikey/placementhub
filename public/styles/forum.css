@@ -117,7 +117,14 @@ body {
     }
   }
   
-  .forum-title {
+  .main-cards {
+    display: grid; /* Use grid layout for main cards */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between cards */
+    margin: 20px;
+}
+
+.forum-title {
     width: 100%; /* Make the title take the full width */
     background-color: #f0f0f0; /* Set a background color for the title */
     padding: 16px; /* Add padding for spacing */

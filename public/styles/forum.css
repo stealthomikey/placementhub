@@ -6,7 +6,7 @@ body {
     box-sizing: border-box;
   }
   
-  /* Assign grid instructions to our parent grid container, mobile-first (hide the sidenav) */
+  /* Assign grid instructions to our parent grid container, mobile-first (stack overview cards vertically by default) */
   .grid-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -29,8 +29,8 @@ body {
   
   .main-overview {
     display: flex;
-    justify-content: space-between;
-    gap: 20px; /* Add space between the cards */
+    flex-direction: column; /* Stack overview cards vertically on mobile by default */
+    gap: 20px;
     width: 100%;
   }
   
@@ -40,7 +40,7 @@ body {
     justify-content: space-between;
     padding: 20px;
     background-color: #d3d3;
-    flex: 1; /* Allows cards to stretch evenly */
+    flex: 1;
   }
   
   .main-cards {
@@ -66,14 +66,21 @@ body {
     height: 200px;
   }
   
-  /* Medium screens breakpoint (1050px) */
+  /* Medium screens breakpoint (768px) */
+  @media only screen and (min-width: 48em) {
+    .main-overview {
+      flex-direction: row; /* Switch to horizontal layout on tablets and above */
+    }
+  }
+  
+  /* Large screens breakpoint (1050px) */
   @media only screen and (min-width: 65.625em) {
     /* Break out main cards into two columns */
     .main-cards {
       column-count: 2;
     }
   
-    /* Align the main-header to be horizontal on larger screens */
+    /* Keep main-header horizontal for large screens */
     .main-header {
       flex-direction: row;
     }

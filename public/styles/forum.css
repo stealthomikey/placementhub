@@ -117,3 +117,11 @@ body {
     }
   }
   
+  .forum-title {
+    width: 100%; /* Make the title take the full width */
+    background-color: #f0f0f0; /* Set a background color for the title */
+    padding: 16px; /* Add padding for spacing */
+    border-radius: 5px; /* Optional: rounded corners for aesthetics */
+    text-align: center; /* Center the text inside the title */
+    margin-bottom: 20px; /* Space between title and content */
+}

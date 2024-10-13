@@ -67,7 +67,7 @@ app.get('/forum', (req, res) => {
 // Route to render the accommodation.ejs page
 app.get('/accommodation', (req, res) => {
     // Render myaccount page with user data
-    res.render('pages/accommodation.ejs', { user: req.session.user});
+    res.render('pages/accommodation', { user: req.session.user});
 });
 
 // Route to handle login form submission

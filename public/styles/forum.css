@@ -127,6 +127,5 @@ body {
     font-size: 2.5rem; /* Large text size */
     text-align: center; /* Center the text */
     margin-bottom: 20px; /* Add space between title and overview cards */
-    width: 100%; /* Ensure title spans the full width */
     color: slategray; /* Matching color for title */
   }

@@ -4,51 +4,60 @@ body {
     color: #fff;
     font-family: 'Open Sans', Helvetica, sans-serif;
     box-sizing: border-box;
-  }
+}
 
-  .forum-section {
+.forum-section {
     display: none;
 }
 
-  
-  /* Assign grid instructions to our parent grid container, mobile-first */
-  .grid-container {
+/* Assign grid instructions to our parent grid container, mobile-first */
+.grid-container {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr 50px;
     grid-template-areas:
-      'header'
-      'main'
-      'footer';
+        'header'
+        'main'
+        'footer';
     height: 100vh;
-  }
-  
-  .main-header {
+}
+
+/* Common styling for both main-header and forum-title */
+.header-and-title {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 20px auto; /* Center the content */
     padding: 20px;
     background-color: #e3e4e6;
     color: slategray;
-  }
-  
-  /* Styling for the title */
-  .main-title {
+    max-width: 1200px; /* Limit the width */
+    box-sizing: border-box;
+}
+
+.main-header {
+    /* Inherit styles from the shared class */
+}
+
+.forum-title {
+    /* Inherit styles from the shared class */
+}
+
+.main-title {
     font-size: 2.5rem; /* Large text size */
     text-align: center; /* Center the text */
     margin-bottom: 20px; /* Add space between title and overview cards */
     width: 100%; /* Ensure title spans the full width */
     color: slategray; /* Matching color for title */
-  }
-  
-  .main-overview {
+}
+
+.main-overview {
     display: flex;
     flex-direction: column; /* Stack overview cards vertically on mobile by default */
     gap: 20px;
     width: 100%;
-  }
-  
-  .overviewcard {
+}
+
+.overviewcard {
     display: flex;
     align-items: center;
     justify-content: center; /* Center content horizontally */
@@ -57,30 +66,31 @@ body {
     flex: 1;
     text-align: center;
     cursor: pointer;
-  }
+}
 
-  .overviewcard:hover {
+.overviewcard:hover {
     background-color: #c3c3c3;
 }
-  
-  .overviewcard__info {
+
+.overviewcard__info {
     display: flex;
     justify-content: center;
     align-items: center; /* Center content vertically */
     text-align: center;
     width: 100%;
-  }
-  
-  .active {
+}
+
+.active {
     display: block;
 }
-  .main-cards {
+
+.main-cards {
     column-count: 1;
     column-gap: 20px;
     margin: 20px;
-  }
-  
-  .card {
+}
+
+.card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,43 +100,29 @@ body {
     -webkit-column-break-inside: avoid;
     padding: 24px;
     box-sizing: border-box;
-  }
-  
-  /* Force varying heights to simulate dynamic content */
-  .card {
+}
+
+/* Force varying heights to simulate dynamic content */
+.card {
     height: 200px;
-  }
-  
-  /* Medium screens breakpoint (768px) */
-  @media only screen and (min-width: 48em) {
+}
+
+/* Medium screens breakpoint (768px) */
+@media only screen and (min-width: 48em) {
     .main-overview {
-      flex-direction: row; /* Switch to horizontal layout on tablets and above */
+        flex-direction: row; /* Switch to horizontal layout on tablets and above */
     }
-  }
-  
-  /* Large screens breakpoint (1050px) */
-  @media only screen and (min-width: 65.625em) {
+}
+
+/* Large screens breakpoint (1050px) */
+@media only screen and (min-width: 65.625em) {
     /* Break out main cards into two columns */
     .main-cards {
-      column-count: 2;
+        column-count: 2;
     }
-  
+
     /* Keep main-header horizontal for large screens */
     .main-header {
-      flex-direction: column; /* Keep it column to ensure title stays on top */
+        flex-direction: column; /* Keep it column to ensure title stays on top */
     }
-  }
-
-  .forum-title {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    padding: 20px;
-    background-color: #e3e4e6;
-    color: slategray;
-    font-size: 2.5rem; /* Large text size */
-    text-align: center; /* Center the text */
-    margin-bottom: 20px; /* Add space between title and overview cards */
-    width: 100%; /* Ensure title spans the full width */
-    color: slategray; /* Matching color for title */
-  }
+}

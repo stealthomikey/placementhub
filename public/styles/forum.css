@@ -7,8 +7,37 @@ body {
 }
 
 .forum-section {
-    display: none;
+    display: none; /* Hide sections by default */
 }
+
+.active {
+    display: block; /* Show the active section */
+}
+
+.main-cards {
+    margin: 20px; /* Margin around the card section */
+}
+
+.forum-title {
+    width: 100%; /* Ensure title spans the full width */
+    margin: 20px 0; /* Vertical margin for spacing */
+    padding: 20px; /* Padding around the title */
+    background-color: #e3e4e6; /* Match the background color */
+    color: slategray; /* Matching color for the title text */
+    text-align: center; /* Center the text horizontally */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Styling for the main title */
+.main-title {
+    font-size: 2.5rem; /* Large text size */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add space between title and overview cards */
+    width: 100%; /* Ensure title spans the full width */
+    color: slategray; /* Matching color for title */
+}
+
+/* Rest of your existing CSS */
 
 .grid-container {
     display: grid;
@@ -30,14 +59,6 @@ body {
     color: slategray;
 }
 
-/* Styling for the title */
-.main-title {
-    font-size: 2.5rem; /* Large text size */
-    text-align: center; /* Center the text */
-    margin-bottom: 20px; /* Add space between title and overview cards */
-    width: 100%; /* Ensure title spans the full width */
-    color: slategray; /* Matching color for title */
-}
 
 .main-overview {
     display: flex;
@@ -94,16 +115,6 @@ body {
 /* Force varying heights to simulate dynamic content */
 .card {
     height: 200px;
-}
-
-/* Forum title styling */
-.forum-title {
-    width: 100%; /* Ensure title spans the full width */
-    margin: 20px 0; /* Vertical margin for spacing */
-    padding: 20px; /* Padding around the title */
-    background-color: #e3e4e6; /* Match the background color */
-    color: slategray; /* Matching color for the title text */
-    text-align: center; /* Center the text horizontally */
 }
 
 /* Medium screens breakpoint (768px) */

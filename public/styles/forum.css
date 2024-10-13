@@ -4,116 +4,131 @@ body {
     color: #fff;
     font-family: 'Open Sans', Helvetica, sans-serif;
     box-sizing: border-box;
+  }
+
+  .forum-section {
+    display: none;
 }
 
-.forum-section {
-    display: none; /* Hide sections by default */
-}
-
-.active {
-    display: block; /* Show the active section */
-}
-
-.main-cards {
-    margin: 20px; /* Margin around the card section */
-}
-
-.forum-title {
-    width: 100%; /* Ensure title spans the full width */
-    margin: 20px 0; /* Vertical margin for spacing */
-    padding: 20px; /* Padding around the title */
-    background-color: #e3e4e6; /* Background color for the title */
-    color: slategray; /* Matching color for the title text */
-    text-align: center; /* Center the text horizontally */
-    box-sizing: border-box; /* Ensure padding is included in width */
-}
-
-.main-header {
+  
+  /* Assign grid instructions to our parent grid container, mobile-first */
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas:
+      'header'
+      'main'
+      'footer';
+    height: 100vh;
+  }
+  
+  .main-header {
     display: flex;
     flex-direction: column;
     margin: 20px;
     padding: 20px;
     background-color: #e3e4e6;
     color: slategray;
-}
-
-/* Styling for the main title */
-.main-title {
+  }
+  
+  /* Styling for the title */
+  .main-title {
     font-size: 2.5rem; /* Large text size */
     text-align: center; /* Center the text */
     margin-bottom: 20px; /* Add space between title and overview cards */
     width: 100%; /* Ensure title spans the full width */
     color: slategray; /* Matching color for title */
-}
-
-.main-overview {
+  }
+  
+  .main-overview {
     display: flex;
     flex-direction: column; /* Stack overview cards vertically on mobile by default */
     gap: 20px;
     width: 100%;
-}
-
-.overviewcard {
+  }
+  
+  .overviewcard {
     display: flex;
     align-items: center;
     justify-content: center; /* Center content horizontally */
     padding: 20px;
-    background-color: #d3d3d3; /* Color for overview cards */
+    background-color: #d3d3;
     flex: 1;
     text-align: center;
     cursor: pointer;
-}
+  }
 
-.overviewcard:hover {
-    background-color: #c3c3c3; /* Change background color on hover */
+  .overviewcard:hover {
+    background-color: #c3c3c3;
 }
-
-.overviewcard__info {
+  
+  .overviewcard__info {
     display: flex;
     justify-content: center;
     align-items: center; /* Center content vertically */
     text-align: center;
     width: 100%;
+  }
+  
+  .active {
+    display: block;
 }
-
-.main-cards {
+  .main-cards {
     column-count: 1;
     column-gap: 20px;
     margin: 20px;
-}
-
-.card {
+  }
+  
+  .card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Ensure cards take the full width */
-    background-color: #82bef6; /* Original card background color */
+    width: 100%;
+    background-color: #82bef6;
     margin-bottom: 20px;
+    -webkit-column-break-inside: avoid;
     padding: 24px;
     box-sizing: border-box;
-}
-
-/* Force varying heights to simulate dynamic content */
-.card {
-    height: 200px; /* Set a fixed height for cards */
-}
-
-/* Medium screens breakpoint (768px) */
-@media only screen and (min-width: 48em) {
+  }
+  
+  /* Force varying heights to simulate dynamic content */
+  .card {
+    height: 200px;
+  }
+  
+  /* Medium screens breakpoint (768px) */
+  @media only screen and (min-width: 48em) {
     .main-overview {
-        flex-direction: row; /* Switch to horizontal layout on tablets and above */
+      flex-direction: row; /* Switch to horizontal layout on tablets and above */
     }
-}
-
-/* Large screens breakpoint (1050px) */
-@media only screen and (min-width: 65.625em) {
+  }
+  
+  /* Large screens breakpoint (1050px) */
+  @media only screen and (min-width: 65.625em) {
     /* Break out main cards into two columns */
     .main-cards {
-        column-count: 2; /* Change to two columns for larger screens */
+      column-count: 2;
     }
-
+  
     /* Keep main-header horizontal for large screens */
     .main-header {
-        flex-direction: column; /* Keep it column to ensure title stays on top */
+      flex-direction: column; /* Keep it column to ensure title stays on top */
     }
-}
+  }
+  
+
+
+  .forum-section {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    background-color: #e3e4e6;
+    font-size: 2.5rem; /* Large text size */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add space between title and overview cards */
+    width: 100%; /* Ensure title spans the full width */
+    color: slategray; /* Matching color for title */
+  }
+  

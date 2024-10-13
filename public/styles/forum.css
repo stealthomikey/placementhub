@@ -33,6 +33,13 @@ body {
     gap: 20px;
     width: 100%;
   }
+
+  .main-title {
+    font-size: 2.5rem; /* Large text size */
+    text-align: center;
+    margin-bottom: 20px; /* Add space between title and cards */
+    color: slategray; /* Matching color for title */
+  }  
   
   .overviewcard {
     display: flex;

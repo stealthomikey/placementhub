@@ -54,14 +54,20 @@ app.get('/myaccount', (req, res) => {
         res.redirect('/?notloggedin=true');
         return;
     }
-    // Render myaccount page with user data and watchlist
+    // Render myaccount page with user data
     res.render('pages/myaccount', { user: req.session.user});
 });
 
 // Route to render the forum.ejs page
 app.get('/forum', (req, res) => {
-    // Render myaccount page with user data and watchlist
+    // Render myaccount page with user data
     res.render('pages/forum', { user: req.session.user});
+});
+
+// Route to render the accommodation.ejs page
+app.get('/accommodation', (req, res) => {
+    // Render myaccount page with user data
+    res.render('pages/accommodation', { user: req.session.user});
 });
 
 // Route to handle login form submission
@@ -82,13 +88,8 @@ app.post('/dologin', (req, res) => {
             req.session.currentuser = uname;
             req.session.userId = result._id; // Set userId in session
             req.session.user = result; // Store user data in session
-            
-            // Retrieve watchlist data for the user and store it in the session
-            db.collection('people').findOne({ _id: result._id }, { watchlist: 1 }, (err, watchlistResult) => {
-                if (err) throw err;
-                req.session.user.watchlist = watchlistResult.watchlist;
-                res.redirect('/myaccount'); // Redirect to myaccount if login successful
-            });
+            res.redirect('/myaccount'); // Redirect to myaccount if login successful
+
         } else {
             res.redirect('/?notloggedin=true');
         }
@@ -109,9 +110,6 @@ app.post('/adduser', (req, res) => {
         },
         "picture": { // Nested structure for profile picture
             "thumbnail": defaultProfilePic // Using default picture if no thumbnail provided
-        },
-        "watchlist": { // Adding watchlist field
-            "movieIds": ["105", "165"] // Initial movie IDs to add upon signup
         }
     };
 

@@ -42,6 +42,10 @@ body {
     background-color: #d3d3;
     flex: 1;
   }
+
+  .overviewcard__info {
+    align-items: center;
+  }
   
   .main-cards {
     column-count: 1;

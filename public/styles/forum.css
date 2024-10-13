@@ -23,7 +23,7 @@ body {
     width: 100%; /* Ensure title spans the full width */
     margin: 20px 0; /* Vertical margin for spacing */
     padding: 20px; /* Padding around the title */
-    background-color: #e3e4e6; /* Match the background color */
+    background-color: #e3e4e6; /* Background color for the title */
     color: slategray; /* Matching color for the title text */
     text-align: center; /* Center the text horizontally */
     box-sizing: border-box; /* Ensure padding is included in width */
@@ -59,7 +59,7 @@ body {
     align-items: center;
     justify-content: center; /* Center content horizontally */
     padding: 20px;
-    background-color: #d3d3d3; /* Set a background color for overview cards */
+    background-color: #d3d3d3; /* Original color for overview cards */
     flex: 1;
     text-align: center;
     cursor: pointer;

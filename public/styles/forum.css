@@ -63,17 +63,10 @@ body {
   }
   
   /* Force varying heights to simulate dynamic content */
-  .card:first-child {
-    height: 485px;
-  }
-  
-  .card:nth-child(2) {
+  .card {
     height: 200px;
   }
-  
-  .card:nth-child(3) {
-    height: 265px;
-  }
+
   
   /* Medium screens breakpoint (1050px) */
   @media only screen and (min-width: 65.625em) {

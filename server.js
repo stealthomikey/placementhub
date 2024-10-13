@@ -60,14 +60,20 @@ app.get('/myaccount', (req, res) => {
 
 // Route to render the forum.ejs page
 app.get('/forum', (req, res) => {
-    // Render myaccount page with user data
+    // Render forum page with user data
     res.render('pages/forum', { user: req.session.user});
 });
 
 // Route to render the accommodation.ejs page
 app.get('/accommodation', (req, res) => {
-    // Render myaccount page with user data
+    // Render accommodation page with user data
     res.render('pages/accommodation', { user: req.session.user});
+});
+
+// Route to render the socials.ejs page
+app.get('/socials', (req, res) => {
+    // Render socials page with user data
+    res.render('pages/socials', { user: req.session.user});
 });
 
 // Route to handle login form submission

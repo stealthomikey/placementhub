@@ -17,9 +17,6 @@ body {
       'footer';
     height: 100vh;
   }
-  .main {
-    margin-top: 5%;
-  }
   
   .main-header {
     display: flex;

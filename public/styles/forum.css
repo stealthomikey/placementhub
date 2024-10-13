@@ -18,8 +18,6 @@ body {
     height: 100vh;
   }
   .main {
-    grid-area: main;
-    background-color: #8fd4d9;
     margin-top: 5%;
   }
   

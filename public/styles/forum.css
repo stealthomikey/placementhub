@@ -22,24 +22,15 @@ body {
     height: 100vh;
 }
 
-/* Common styling for both main-header and forum-title */
-.header-and-title {
+.main-header {
     display: flex;
     flex-direction: column;
-    margin: 20px auto; /* Center the content */
+    margin: 20px auto; /* Center the main-header */
     padding: 20px;
     background-color: #e3e4e6;
     color: slategray;
     max-width: 1200px; /* Limit the width */
     box-sizing: border-box;
-}
-
-.main-header {
-    /* Inherit styles from the shared class */
-}
-
-.forum-title {
-    /* Inherit styles from the shared class */
 }
 
 .main-title {
@@ -107,13 +98,6 @@ body {
     height: 200px;
 }
 
-/* Medium screens breakpoint (768px) */
-@media only screen and (min-width: 48em) {
-    .main-overview {
-        flex-direction: row; /* Switch to horizontal layout on tablets and above */
-    }
-}
-
 /* Large screens breakpoint (1050px) */
 @media only screen and (min-width: 65.625em) {
     /* Break out main cards into two columns */
@@ -125,4 +109,18 @@ body {
     .main-header {
         flex-direction: column; /* Keep it column to ensure title stays on top */
     }
+}
+
+.forum-title {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto; /* Center the forum title */
+    padding: 20px;
+    background-color: #e3e4e6;
+    color: slategray;
+    max-width: 1200px; /* Limit the width */
+    box-sizing: border-box;
+    font-size: 2.5rem; /* Large text size */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add space between title and content */
 }

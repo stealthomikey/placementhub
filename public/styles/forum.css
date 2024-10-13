@@ -116,13 +116,6 @@ body {
       flex-direction: column; /* Keep it column to ensure title stays on top */
     }
   }
-  
-  .main-cards {
-    display: grid; /* Use grid layout for main cards */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
-    gap: 20px; /* Space between cards */
-    margin: 20px;
-}
 
 .forum-title {
     width: 100%; /* Make the title take the full width */

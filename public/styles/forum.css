@@ -44,7 +44,7 @@ body {
   }
 
   .overviewcard__info {
-    align-items: center;
+    text-align: center;
   }
   
   .main-cards {

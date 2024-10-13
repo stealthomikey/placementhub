@@ -19,7 +19,7 @@ body {
     grid-template-areas:
       'header'
       'main'
-      'footer';
+      'forum-title';
     height: 100vh;
   }
   

@@ -117,11 +117,16 @@ body {
     }
   }
 
-.forum-title {
-    width: 100%; /* Make the title take the full width */
-    background-color: #f0f0f0; /* Set a background color for the title */
-    padding: 16px; /* Add padding for spacing */
-    border-radius: 5px; /* Optional: rounded corners for aesthetics */
-    text-align: center; /* Center the text inside the title */
-    margin-bottom: 20px; /* Space between title and content */
-}
+  .forum-title {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    background-color: #e3e4e6;
+    color: slategray;
+    font-size: 2.5rem; /* Large text size */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Add space between title and overview cards */
+    width: 100%; /* Ensure title spans the full width */
+    color: slategray; /* Matching color for title */
+  }

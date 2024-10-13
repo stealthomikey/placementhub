@@ -96,6 +96,15 @@ body {
   .card {
     height: 200px;
   }
+
+  .forum-title {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    background-color: #e3e4e6;
+    color: slategray;
+  }
   
   /* Medium screens breakpoint (768px) */
   @media only screen and (min-width: 48em) {

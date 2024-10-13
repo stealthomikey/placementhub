@@ -6,81 +6,17 @@
 <html lang="en">
 
 <!-- Include the head -->
-<%- include('../partials/head.ejs', { title: 'Forum | PlacementHub', cssFiles: ['/styles/forum.css', '/styles/nav.css'], bootstrap: true }) %>
+<%- include('../partials/head.ejs', { title: 'accommodation | PlacementHub', cssFiles: ['/styles/accommodation.css', '/styles/nav.css'], bootstrap: true }) %>
 
 
 <body>
 
 <!-- Include the navbar -->
-<%- include('../partials/nav.ejs', { currentPage: 'forum'}) %>
+<%- include('../partials/nav.ejs', { currentPage: 'accommodation'}) %>
 
 
 <main class="main">
-    <div class="main-header">
-        <h1 class="main-title">Explore Our Forums</h1>
-        <div class="main-overview">
-            <div class="overviewcard" data-forum="regions">
-                <div class="overviewcard__info">NHS regions</div>
-            </div>
-            <div class="overviewcard" data-forum="degree">
-                <div class="overviewcard__info">Degree</div>
-            </div>
-            <div class="overviewcard" data-forum="accommodation">
-                <div class="overviewcard__info">Accommodation</div>
-            </div>
-            <div class="overviewcard" data-forum="other">
-                <div class="overviewcard__info">Other</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="forum-section regions-forums active">
-        <div class="forum-title">
-            <h3>Welcome to the NHS regions forums, join your region forum now or explore other regions!</h3>
-        </div>
-        <div class="main-cards">
-            <div class="card">NHS regions Forum Card 1</div>
-            <div class="card">NHS regions Forum Card 2</div>
-            <div class="card">NHS regions Forum Card 3</div>
-            <div class="card">NHS regions Forum Card 4</div>
-        </div>
-    </div>
-
-    <div class="forum-section degree-forums">
-        <div class="forum-title">
-            <h3>Welcome to the degree forums, join your degree forum now or explore other degrees!</h3>
-        </div>
-        <div class="main-cards">
-            <div class="card">Degree Forum Card 1</div>
-            <div class="card">Degree Forum Card 2</div>
-            <div class="card">Degree Forum Card 3</div>
-            <div class="card">Degree Forum Card 4</div>
-        </div>
-    </div>
-
-    <div class="forum-section accommodation-forums">
-        <div class="forum-title">
-            <h3>Welcome to the Accommodation forums, find out more about accommodation while on your placements!</h3>
-        </div>
-        <div class="main-cards">
-            <div class="card">Accommodation Forum Card 1</div>
-            <div class="card">Accommodation Forum Card 2</div>
-            <div class="card">Accommodation Forum Card 3</div>
-            <div class="card">Accommodation Forum Card 4</div>
-        </div>
-    </div>
-
-    <div class="forum-section other-forums">
-        <div class="forum-title">
-            <h3>Looking for something else? Create a new forum section!</h3>
-        </div>
-        <div class="main-cards">
-            <div class="card">Other Forum Card 1</div>
-            <div class="card">Other Forum Card 2</div>
-            <div class="card">Other Forum Card 3</div>
-            <div class="card">Other Forum Card 4</div>
-        </div>
-    </div>
+<h1>accommodation</h1>
 </main>
 
 
@@ -94,7 +30,7 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-  <script src="/scripts/forum.js"></script>
+  <script src="/scripts/accommodation.js"></script>
 
 
 </html>

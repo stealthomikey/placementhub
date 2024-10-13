@@ -21,10 +21,19 @@ body {
   .main-header {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center content horizontally */
     margin: 20px;
     padding: 20px;
     background-color: #e3e4e6;
     color: slategray;
+  }
+  
+  /* Styling for the title */
+  .main-title {
+    font-size: 2.5rem; /* Large text size */
+    text-align: center;
+    margin-bottom: 20px; /* Add space between title and cards */
+    color: slategray; /* Matching color for title */
   }
   
   .main-overview {
@@ -33,13 +42,6 @@ body {
     gap: 20px;
     width: 100%;
   }
-
-  .main-title {
-    font-size: 2.5rem; /* Large text size */
-    text-align: center;
-    margin-bottom: 20px; /* Add space between title and cards */
-    color: slategray; /* Matching color for title */
-  }  
   
   .overviewcard {
     display: flex;
@@ -48,14 +50,14 @@ body {
     padding: 20px;
     background-color: #d3d3;
     flex: 1;
-    text-align: center; /* Center text */
+    text-align: center;
   }
   
   .overviewcard__info {
     display: flex;
     justify-content: center;
     align-items: center; /* Center content vertically */
-    text-align: center; /* Center text */
+    text-align: center;
     width: 100%;
   }
   

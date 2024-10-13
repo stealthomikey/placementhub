@@ -14,7 +14,6 @@ body {
     display: block; /* Show the active section */
 }
 
-/* Main cards section */
 .main-cards {
     margin: 20px; /* Margin around the card section */
 }
@@ -59,7 +58,7 @@ body {
     align-items: center;
     justify-content: center; /* Center content horizontally */
     padding: 20px;
-    background-color: #d3d3d3; /* Original color for overview cards */
+    background-color: #d3d3d3; /* Color for overview cards */
     flex: 1;
     text-align: center;
     cursor: pointer;

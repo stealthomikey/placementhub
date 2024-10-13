@@ -6,7 +6,7 @@ body {
     box-sizing: border-box;
   }
   
-  /* Assign grid instructions to our parent grid container, mobile-first (stack overview cards vertically by default) */
+  /* Assign grid instructions to our parent grid container, mobile-first */
   .grid-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -37,14 +37,19 @@ body {
   .overviewcard {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* Center content horizontally */
     padding: 20px;
     background-color: #d3d3;
     flex: 1;
+    text-align: center; /* Center text */
   }
-
+  
   .overviewcard__info {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+    text-align: center; /* Center text */
+    width: 100%;
   }
   
   .main-cards {

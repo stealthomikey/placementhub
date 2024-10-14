@@ -118,13 +118,16 @@ main {
     }
 }
 
-.card:nth-child(odd) main .card {
-    border-top-right-radius: 20px;
+.card:nth-child(odd) {
+    border-top-right-radius: 20px; /* Round top right corner for odd cards */
+    border-top-left-radius: 20px;  /* Round top left corner for odd cards */
 }
 
-.card:nth-child(even) main .card {
-    border-top-right-radius: 20px;
+.card:nth-child(even) {
+    border-top-left-radius: 20px;   /* Round top left corner for even cards */
+    border-top-right-radius: 20px;  /* Round top right corner for even cards */
 }
+
 
 /* Styles for larger screens */
 @media (min-width: 800px) {

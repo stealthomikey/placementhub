@@ -1,6 +1,7 @@
 /* Global styles */
 html {
     box-sizing: border-box;
+    font-size: 100%; /* Reset to default browser font size */
   }
   
   html,
@@ -8,7 +9,6 @@ html {
     font-family: "Roboto", helvetica, arial, sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    font-size: 62.5%;
   }
   
   body {
@@ -17,6 +17,7 @@ html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    font-size: 1rem; /* Set base font size to 16px */
   }
   
   figure {
@@ -55,23 +56,22 @@ html {
   }
   
   .flex-content h2 {
-    font-size: 2.4rem; /* Increased size for h2 */
+    font-size: 1.8rem; /* Adjusted size for h2 */
     margin: 0; /* Remove default margin */
   }
   
   .flex-content h3 {
-    font-size: 2rem; /* Increased size for h3 */
+    font-size: 1.6rem; /* Adjusted size for h3 */
     margin: 0; /* Remove default margin */
   }
   
   .flex-content p,
   .flex-content li {
     position: relative;
-    font-size: 1.6rem;
-    line-height: 3.2rem;
+    font-size: 1rem; /* Adjusted body font size */
+    line-height: 1.5rem; /* Adjusted line-height */
     overflow-wrap: break-word; /* Allow breaking long words */
   }
-  
   
   .card footer p {
     display: flex;
@@ -101,15 +101,15 @@ html {
   @media (max-width: 799px) {
     .card,
     .card > a {
-      flex-flow: column; 
+      flex-flow: column; /* Stack image and content vertically */
     }
   
     .card figure {
-      width: 100%; 
+      width: 100%; /* Full width for the figure */
     }
   
     .card .flex-content {
-      width: 90%; /* Full width for the content */
+      width: 90%; /* Adjusted width for mobile */
     }
   
     .card footer {

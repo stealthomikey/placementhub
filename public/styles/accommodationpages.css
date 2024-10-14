@@ -3,22 +3,6 @@ html {
     font-size: 100%; /* Reset to default browser font size */
 }
 
-html,
-body {
-    font-family: "Roboto", helvetica, arial, sans-serif;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-}
-
-body {
-    background: #fafafa;
-    color: #333;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    font-size: 1rem; /* Set base font size to 16px */
-}
-
 figure {
     position: relative;
     margin: 0;

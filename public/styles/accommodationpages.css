@@ -119,10 +119,11 @@ main {
 }
 
 .card:nth-child(odd) main .card {
-    border-top-right-radius: 20px ;
+    border-top-right-radius: 20px;
 }
 
 .card:nth-child(even) main .card {
+    border-top-right-radius: 20px;
 }
 
 /* Styles for larger screens */

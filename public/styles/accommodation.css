@@ -52,6 +52,18 @@
     border-bottom: none;          
   }
 
+  .forum-title {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    background-color: #e3e4e6;
+    color: slategray;
+    font-size: 2.5rem; 
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; 
+  }
+
   @media(max-width: 900px) {
     .home-cards {
       grid-template-columns: repeat(2, 1fr);

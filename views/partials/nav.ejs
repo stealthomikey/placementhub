@@ -1,7 +1,12 @@
 <nav>
     <div class="navbar">
         <div class="navbar-logo">
-            <a href="/"><img src="img/thumbnail_image.png" alt="Logo"></a>
+                <!-- logo with conditional paths -->
+                <% if (infolder) { %>
+                    <a href="/"><img src="../img/thumbnail_image.png" alt="Logo"></a>
+                <% } else { %>
+                    <a href="/"><img src="img/thumbnail_image.png" alt="Logo"></a>
+                <% } %>
         </div>
         <div class="navtitle">
             <h1>Placement Hub</h1>

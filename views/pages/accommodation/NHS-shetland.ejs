@@ -1,0 +1,96 @@
+<!--
+    Created by Michael Piercey
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../../partials/head.ejs', { title: 'NHS Shetland | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true, infolder: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../../partials/nav.ejs', { currentPage: 'NHS-Shetland', infolder: true }) %>
+
+
+<main role="main">
+
+    <article class="card">
+      <figure>
+        <img src="../img/NHS-tayside.jpg" alt="Nike Shoes">
+      </figure>
+  
+      <div class="flex-content">
+         <u><h2>NHS Shetland</h2></u>
+        <h3>
+            Gilbert Bain Hospital
+        </h3>
+         
+        <ul>
+          <li>
+            <strong title="Type">Cost:</strong>
+              Contact
+          </li>
+          <li><strong title="Location">Location:</strong> Shetland</li>
+          <li><strong title="Phone">Phone:</strong> 01595 743000</li>
+        </ul>
+        <p>
+            Accommodation has been arranged within the Montfield NHS Accommodation Block. Your room will have a single bed, wardrobe, dressing table and chair, sink and mirror.　 Bed linen will also be provided and WIFI is also available within the accommodation block.　 You will have access to a shared kitchen area, and a shared shower and toilet for the four bedrooms on your floor.　 There are also laundry facilities available to you.　
+            On your arrival to Shetland, please go to the 24-hour reception desk at the Gilbert Bain Hospital and give your name.　 The key for your room will be at reception for you to pick up.　            
+        </p>
+        <footer>
+            <div class="footer-content">
+              <p>
+                <a class="email-link" title="Email" href="">Email</a>
+              </p>
+              <p class="address">
+                Gilbert Bain Hospital<br>
+                South Road,<br>
+                Lerwick<br>
+                ZE1 0TB
+                
+              </p>
+            </div>
+          </footer>
+          
+          
+      </div>
+  
+    </article>
+
+    <article class="card">
+        <figure>
+          <img src="../img/tayside-ttd.jpg" alt="Tapas"> 
+        </figure>
+        <div class="flex-content">
+          <h2>
+            Things to do while at Tayside!
+          </h2>
+          <p>
+            While on placement why dont you check out one of the local things to do?
+          </p>
+          <ul>
+            <li><strong title="ttd">Speciality Museums:</strong> Vist the V&A museum</li>
+            <li><strong title="ttd">Speciality Museums:</strong> Explore the Discovery Point</li>
+            <li><strong title="ttd">Farms:</strong> Vist the cute Balnuith Alpacas</li>
+            <li><strong title="ttd">Sports Complexes:</strong> Have a splash at Olympia</li>
+            <li><strong title="ttd">Parks:</strong> Relax at Camperdown Country Park</li>
+          </ul>
+        </div>
+      </article>
+  
+  </main>
+
+<%- include('../../partials/footer.ejs')%>
+
+</body>
+
+  <!-- links to bootstrap js and jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="/scripts/accommodationpages.js"></script>
+
+</html>

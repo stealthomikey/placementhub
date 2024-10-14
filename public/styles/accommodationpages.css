@@ -120,12 +120,12 @@ main {
 
 .card:nth-child(odd) {
     border-top-right-radius: 20px; /* Round top right corner for odd cards */
-    border-top-left-radius: 20px;  /* Round top left corner for odd cards */
+    border-bottom-right-radius: 20px;  /* Round top left corner for odd cards */
 }
 
 .card:nth-child(even) {
     border-top-left-radius: 20px;   /* Round top left corner for even cards */
-    border-top-right-radius: 20px;  /* Round top right corner for even cards */
+    border-bottom-left-radius: 20px;  /* Round top right corner for even cards */
 }
 
 

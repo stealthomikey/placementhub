@@ -35,6 +35,10 @@
     border-bottom-right-radius: 5px;
     margin-top: -20px;
     height: 250px;
+    border-left: 3px solid black; 
+    border-right: 3px solid black; 
+    border-bottom: 3px solid black;   
+    border-top: none;    
   }
   
   .accommodation-img {

@@ -76,6 +76,13 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
+// Route to render the accommodation.ejs page
+app.get('/accommodation/nhs-tayside', (req, res) => {
+    // Render accommodation page with user data
+    res.render('pages/accommodation/NHS-tayside', { user: req.session.user});
+});
+
+
 // Route to handle login form submission
 app.post('/dologin', (req, res) => {
     const uname = req.body.username;

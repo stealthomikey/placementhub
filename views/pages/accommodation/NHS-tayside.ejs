@@ -1,0 +1,101 @@
+<!--
+    Created by Michael Piercey
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../partials/head.ejs', { title: 'NHS Tayside | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../partials/nav.ejs', { currentPage: 'myaccount'}) %>
+
+
+<main role="main">
+
+    <article class="card">
+      <figure>
+        <img src="C:\rgu\third\interdisciplinary\placementhub\placementhub\public\img\NHS-tayside.jpg" alt="Nike Shoes">
+      </figure>
+  
+      <div class="flex-content">
+         <h2>
+          NHS Tayside
+        </h2>
+        <h3>
+          Ninewells Nursing residence
+        </h3>
+         
+        <ul>
+          <li>
+            <strong title="Type">Cost:</strong>
+              Contact
+          </li>
+          <li><strong title="Location">Location:</strong> Ninewells Nurses Residence</li>
+          <li><strong title="Contact">Contact:</strong> Wendy Valentine (Accommodation Officer)</li>
+          <li><strong title="Phone">Phone:</strong> 01382 632107 Extension 32107</li>
+        </ul>
+        <p>
+          Accommodation Details (e.g. self catering, shared facilities): Self catering single rooms with shared kitchen and sitting room facility
+        </p>
+        <footer>
+          <p>
+            <a class="email-link" title="Email" href="">Email</a>
+          </p>
+        </footer>
+      </div>
+  
+    </article>
+    
+    <article class="card">
+      <figure>
+        <img src="C:\rgu\third\interdisciplinary\placementhub\placementhub\public\img\NHS-tayside.jpg" alt="Tapas"> 
+      </figure>
+      <div class="flex-content">
+        <h2>
+          NHS Tayside
+        </h2>
+        <h3>
+          Ninewells residence 
+        </h3>
+  
+        <ul>
+          <li>
+            <strong title="Type">Cost:</strong>
+            £9 per night
+          </li>
+          <li><strong title="Location">Location:</strong> Tayside</li>
+          <li><strong title="Phone">Phone:</strong> 01382 632107</li>
+          <li><strong title="Phone">Phone:</strong> 01738 473207</li>
+        </ul>
+        <p>
+          Accommodation Details (e.g. self catering, shared facilities): There are 6-8 Single rooms, shared facilities. £9 per night
+          Very competitive so try to book early.
+        </p>
+        <footer>
+          <p>
+            <a class="email-link" title="Email" href="">
+              Email
+            </a>
+          </p>
+        </footer>
+      </div>
+    </article>
+  
+  </main>
+
+<%- include('../partials/footer.ejs')%>
+
+</body>
+
+  <!-- links to bootstrap js and jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="/scripts/accommodationpages.js"></script>
+
+</html>

@@ -6,13 +6,13 @@
 <html lang="en">
 
 <!-- Include the head -->
-<%- include('../partials/head.ejs', { title: 'NHS Tayside | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true }) %>
+<%- include('../../partials/head.ejs', { title: 'NHS Tayside | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true }) %>
 
 
 <body>
 
 <!-- Include the navbar -->
-<%- include('../partials/nav.ejs', { currentPage: 'myaccount'}) %>
+<%- include('../../partials/nav.ejs', { currentPage: 'myaccount'}) %>
 
 
 <main role="main">
@@ -88,7 +88,7 @@
   
   </main>
 
-<%- include('../partials/footer.ejs')%>
+<%- include('../../partials/footer.ejs')%>
 
 </body>
 

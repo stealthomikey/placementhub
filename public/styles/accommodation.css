@@ -39,6 +39,7 @@
     border-right: 3px solid black; 
     border-bottom: 3px solid black;   
     border-top: none;    
+    overflow: auto;
   }
   
   .accommodation-img {

@@ -18,9 +18,8 @@
   
   .home-cards a {
     display: inline-block;
-    padding-top: 10px;
-    color: #0067b8;
-    text-transform: uppercase;
+    padding-top: 5px;
+    color: #3993d8;
     font-weight: bold;
   }
   

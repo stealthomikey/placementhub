@@ -118,6 +118,13 @@ main {
     }
 }
 
+.card:nth-child(odd) main .card {
+    border-top-right-radius: 20px ;
+}
+
+.card:nth-child(even) main .card {
+}
+
 /* Styles for larger screens */
 @media (min-width: 800px) {
     .footer-content {

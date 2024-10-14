@@ -83,8 +83,10 @@ main {
 /* New footer content for email and address alignment */
 .footer-content {
     display: flex;
-    justify-content: space-between; /* Align email and address on opposite sides */
+    justify-content: space-between; /* Align email and address on opposite sides on larger screens */
     align-items: center; /* Align items vertically */
+    border-top: 1px solid #eee; /* Full-width line above the footer content */
+    padding-top: 1rem; /* Add some space above the content */
 }
 
 .footer-content p {
@@ -102,7 +104,30 @@ main {
     line-height: 1.4rem; /* Adjust line height for readability */
 }
 
+/* Mobile styles: stack the email and address vertically */
+@media (max-width: 799px) {
+    .footer-content {
+        flex-direction: column; /* Stack email and address vertically */
+        align-items: flex-start; /* Align content to the left */
+    }
+
+    .footer-content .email-link {
+        margin-right: 0; /* Remove right margin on mobile */
+        margin-bottom: 1rem; /* Add space between email and address */
+    }
+
+    .footer-content .address {
+        text-align: left; /* Align address to the left on mobile */
+    }
+}
+
 /* Styles for larger screens */
+@media (min-width: 800px) {
+    .footer-content {
+        flex-direction: row; /* Keep email and address side-by-side on larger screens */
+    }
+}
+
 @media (min-width: 800px) {
     .card {
         flex-direction: row; /* Maintain row layout for larger screens */

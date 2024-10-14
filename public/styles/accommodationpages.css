@@ -118,25 +118,12 @@ main {
     }
 }
 
-.card:nth-child(odd) {
-    border-top-right-radius: 20px; /* Round top right corner for odd cards */
-    border-bottom-right-radius: 20px;  /* Round top left corner for odd cards */
-}
-
-.card:nth-child(even) {
-    border-top-left-radius: 20px;   /* Round top left corner for even cards */
-    border-bottom-left-radius: 20px;  /* Round top right corner for even cards */
-}
-
-
 /* Styles for larger screens */
 @media (min-width: 800px) {
     .footer-content {
         flex-direction: row; /* Keep email and address side-by-side on larger screens */
     }
-}
 
-@media (min-width: 800px) {
     .card {
         flex-direction: row; /* Maintain row layout for larger screens */
     }
@@ -152,6 +139,16 @@ main {
 
     .card:nth-child(even) figure {
         order: 1;
+    }
+
+    .card:nth-child(odd) {
+        border-top-right-radius: 20px; /* Round top right corner for odd cards */
+        border-bottom-right-radius: 20px;  /* Round top left corner for odd cards */
+    }
+    
+    .card:nth-child(even) {
+        border-top-left-radius: 20px;   /* Round top left corner for even cards */
+        border-bottom-left-radius: 20px;  /* Round top right corner for even cards */
     }
 }
 

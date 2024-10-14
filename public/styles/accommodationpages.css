@@ -81,12 +81,27 @@ html {
     margin-bottom: 0;
   }
 
-  .card footer .address {
-    text-align: center; /* Center the address */
+  .footer-content {
+    display: flex;
+    justify-content: space-between; /* Align email and address on opposite sides */
+    align-items: center; /* Align items vertically */
+  }
+  
+  .footer-content p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer-content .email-link {
+    margin-right: 2rem; /* Add some space between email and address */
+  }
+  
+  .footer-content .address {
+    text-align: right; /* Align address to the right */
     font-size: 0.9rem; /* Slightly smaller font for the address */
-    margin-top: 1rem; /* Add some space above the address */
     line-height: 1.4rem; /* Adjust line height for readability */
   }
+  
   
   /* Styles for larger screens */
   @media (min-width: 800px) {

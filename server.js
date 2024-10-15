@@ -84,7 +84,7 @@ app.get('/accommodation/:location', (req, res) => {
     if (validLocations.includes(location.toLowerCase())) {
         res.render(`pages/accommodation/${location}`, { user: req.session.user });
     } else {
-        res.status(404).render('pages/404'); // Handle invalid routes
+        res.render('pages/index', { user: req.session.user});
     }
 });
 

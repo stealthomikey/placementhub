@@ -75,18 +75,24 @@ app.get('/socials', (req, res) => {
     // Render socials page with user data
     res.render('pages/socials', { user: req.session.user});
 });
+t
+const validLocations = ['nhs-tayside', 'nhs-shetland']; // Use lowercase for validation
+const capitalizedLocations = {
+    'nhs-tayside': 'NHS-tayside',
+    'nhs-shetland': 'NHS-shetland'
+};
 
-const validLocations = ['NHS-tayside', 'NHS-shetland']; // Add more as needed
+app.get('/accommodation/:location', (req, res) => {
+    const location = req.params.location.toLowerCase(); // Normalize to lowercase
 
-app.get('/accommodation/${location}', (req, res) => {
-    const location = req.params.location;
-
-    if (validLocations.includes(location())) {
-        res.render(`pages/accommodation/${location}`, { user: req.session.user });
+    if (validLocations.includes(location)) {
+        res.render(`pages/accommodation/${capitalizedLocations[location]}`, { user: req.session.user });
     } else {
-        console.log("Error")
+        console.log("Error: Invalid location");
+        res.status(404).send("Location not found");
     }
 });
+
 
 
 // Route to handle login form submission

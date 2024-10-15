@@ -76,10 +76,11 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
-const validLocations = ['nhs-tayside', 'nhs-shetland'];
+const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland'];
 const capitalizedLocations = {
     'nhs-tayside': 'NHS-tayside',
-    'nhs-shetland': 'NHS-shetland'
+    'nhs-shetland': 'NHS-shetland',
+    'nhs-highland': 'NHS-highland'
 };
 
 app.get('/accommodation/:location', (req, res) => {

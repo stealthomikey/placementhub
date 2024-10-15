@@ -1,0 +1,168 @@
+<!--
+    Created by Michael Piercey
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../../partials/head.ejs', { title: 'NHS Grampian Moray Region | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true, infolder: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../../partials/nav.ejs', { currentPage: 'NHS-Grampian-Moray-Region', infolder: true }) %>
+
+
+<main role="main">
+
+    <article class="card">
+      <figure>
+        <img src="../img/maidaview-accom.jpg" alt="Maida View">
+      </figure>
+  
+      <div class="flex-content">
+         <u><h2>NHS Grampian Moray Region</h2></u>
+        <h3>
+            Maida View
+        </h3>
+         
+        <ul>
+          <li><strong title="Type">Cost:</strong>Contact</li>
+          <li><strong title="Location">Location:</strong> Elgin</li>
+          <li><strong title="Phone">Phone:</strong> 01343 548267</li>
+        </ul>
+        <p>
+            Accommodation Details: 2 double and 1 single room available.  Facilities include wifi, bathroom with separate shower, use of kitchen with cupboard space, fridge freezer and laundry provision.  Separate sitting room with desk, TV and gym equipment.
+        </p>
+        <p>
+            General comments: House situated within 5 minute walk of town centre, train and bus stations and major supermarkets. Dr Gray’s Hospital 10 to 15 minute walk
+        </p>
+        <footer>
+            <div class="footer-content">
+              <p>
+                <a class="email-link" title="Email" href="">Email</a>
+              </p>
+              <p class="address">
+                25 Academy Street,<br>
+                ELGIN<br>
+                IV30 1LP
+              </p>
+            </div>
+          </footer>
+      </div>
+    </article>
+
+    <article class="card">
+        <figure>
+          <img src="../img/killin-accom.jpg" alt="elgin Hospital">
+        </figure>
+    
+        <div class="flex-content">
+           <u><h2>NHS Grampian Moray Region</h2></u>
+          <h3>
+            Killin
+          </h3>
+           
+          <ul>
+            <li><strong title="Type">Cost:</strong>Contact</li>
+            <li><strong title="Location">Location:</strong> Elgin</li>
+            <li><strong title="Phone">Phone:</strong> 01343 550889</li>
+          </ul>
+          <p>
+            Accommodation Details: 1 self-contained bedsit with double bed, en suite toilet and shower, small kitchen with cooking and fridge facilities, TV and wifi. 
+            1 twin room with shared kitchen including cupboard and fridge space, bathroom with over bath shower, laundry facilities. TV and wifi available.            
+          </p>
+          <p>
+              General comments: House situated in central Elgin within 5 minutes walk of Dr Gray’s Hospital and 15 minutes to major supermarkets, train and bus stations.
+          </p>
+          <footer>
+              <div class="footer-content">
+                <p>
+                  <a class="email-link" title="Email" href="">Email</a>
+                </p>
+                <p class="address">
+                    St Catherine's Place<br>
+                    ELGIN<br>
+                    IV30 1TN
+                    
+                </p>
+              </div>
+            </footer>
+        </div>
+      </article>
+
+      <article class="card">
+        <figure>
+          <img src="../img/ardvorlichguesthouse.jpg" alt="Ardvorlich Guest House">
+        </figure>
+    
+        <div class="flex-content">
+           <u><h2>NHS Grampian Moray Region</h2></u>
+          <h3>
+            Ardvorlich Guest House
+          </h3>
+           
+          <ul>
+            <li><strong title="Type">Cost:</strong> £40 per night</li>
+            <li><strong title="Location">Location:</strong> Elgin</li>
+            <li><strong title="Phone">Phone:</strong> 01343 556064 </li>
+          </ul>
+          <p>
+            Accommodation Details: Rooms with ensuite bathroom and access to seating area. Rooms have access to kitchenette with all basic amenities (Induction hob, toaster, kettle, microwave, fridge). Good wifi throughout guest house. 
+          </p>
+          <p>
+              General comments: Less than 5 minute walk from Dr Gray's Hospital. 10 minute walk from food shops (Tesco, Aldi etc). Less than 15 minute walk from train station and other shops (ASDA, LIDL). Flexible with number of nights needed for stay, can accommodate 5 nights week.
+          </p>
+          <footer>
+              <div class="footer-content">
+                <p>
+                  <a class="email-link" title="Email" href="mailto:bookings@ardvorlich.com">Email</a>
+                </p>
+                <p class="address">
+                    Ardvorlich Guest House,<br>
+                    125 South St,<br> 
+                    Elgin,<br>
+                    IV30 1JB
+                    
+                </p>
+              </div>
+            </footer>
+        </div>
+      </article>
+
+    <article class="card">
+        <figure>
+          <img src="../img/Shetland-ttd.jpg" alt="Shetland things to do"> 
+        </figure>
+        <div class="flex-content">
+          <h2>
+            Things to do while at Shetland!
+          </h2>
+          <p>
+            While on placement why dont you check out one of the local things to do?
+          </p>
+          <ul>
+            <li><strong title="ttd">Historic Sites:</strong> Historic Sites</li>
+            <li><strong title="ttd">Speciality Museums:</strong> Shetland Museum and Archives</li>
+            <li><strong title="ttd">Farms:</strong> The Shetland Pont Experience</li>
+            <li><strong title="ttd">Points of Interest & Landmarks:</strong> Sumburgh Head Lighthouse</li>
+            <li><strong title="ttd">Bodies of Water:</strong> Explore Clickimin Broch</li>
+          </ul>
+        </div>
+      </article>
+  
+  </main>
+
+<%- include('../../partials/footer.ejs')%>
+
+</body>
+
+  <!-- links to bootstrap js and jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="/scripts/accommodationpages.js"></script>
+
+</html>

@@ -1,0 +1,87 @@
+<!--
+    Created by Michael Piercey
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../../partials/head.ejs', { title: 'NHS Grampian | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true, infolder: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../../partials/nav.ejs', { currentPage: 'NHS-Grampian', infolder: true }) %>
+
+
+<main role="main">
+
+    <article class="card">
+      <figure>
+        <img src="../img/NHS-grampian.jpg" alt="Aberdeen Hospital">
+      </figure>
+  
+      <div class="flex-content">
+         <u><h2>NHS Grampian</h2></u>
+        <h3>
+            Josie’s House
+        </h3>
+         
+        <ul>
+          <li><strong title="Type">Cost:</strong> 350£ for 5 weeks all included</li>
+          <li><strong title="Location">Location:</strong> Grampian</li>
+          <li><strong title="Contact">Name:</strong>Via Facebook on Josie’s House Facebook page</li>
+        </ul>
+        <p>
+            self catered and shared with other house mates but very nice with good kitchen facilities.
+        </p>
+        <p>
+            General Comments: from Aberdeen and just next to the hospital! You can book whenever you want but would advise early!
+        </p>
+        <footer>
+            <div class="footer-content">
+              <p>
+                <a class="email-link" title="Email" href="">Email</a>
+              </p>
+              <p class="address">
+              </p>
+            </div>
+          </footer>
+      </div>
+    </article>
+
+    <article class="card">
+        <figure>
+          <img src="../img/Aberdeen-ttd.jpg" alt="Aberdeen things to do"> 
+        </figure>
+        <div class="flex-content">
+          <h2>
+            Things to do while at Grampian!
+          </h2>
+          <p>
+            While on placement why dont you check out one of the local things to do?
+          </p>
+          <ul>
+            <li><strong title="ttd">Parks:</strong> Duthie Park Winter Gardens</li>
+            <li><strong title="ttd">Speciality Museums:</strong> Aberdeen Maritime Museum</li>
+            <li><strong title="ttd">Castles:</strong> Slains Castle</li>
+            <li><strong title="ttd">Science Museums:</strong> Aberdeen Science Centre</li>
+            <li><strong title="ttd">Art Museums:</strong> Aberdeen Art Gallery</li>
+          </ul>
+        </div>
+      </article>
+  
+  </main>
+
+<%- include('../../partials/footer.ejs')%>
+
+</body>
+
+  <!-- links to bootstrap js and jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="/scripts/accommodationpages.js"></script>
+
+</html>

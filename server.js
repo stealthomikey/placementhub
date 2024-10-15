@@ -75,7 +75,7 @@ app.get('/socials', (req, res) => {
     // Render socials page with user data
     res.render('pages/socials', { user: req.session.user});
 });
-t
+
 const validLocations = ['nhs-tayside', 'nhs-shetland']; // Use lowercase for validation
 const capitalizedLocations = {
     'nhs-tayside': 'NHS-tayside',

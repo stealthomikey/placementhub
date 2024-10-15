@@ -78,7 +78,7 @@ app.get('/socials', (req, res) => {
 
 const validLocations = ['NHS-tayside', 'NHS-shetland']; // Add more as needed
 
-app.get('/accommodation/:location', (req, res) => {
+app.get('/accommodation/${location}', (req, res) => {
     const location = req.params.location;
 
     if (validLocations.includes(location())) {

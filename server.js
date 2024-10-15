@@ -76,12 +76,12 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
-const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland', 'nhs-grampianmorray'];
+const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland', 'nhs-grampianmoray'];
 const capitalizedLocations = {
     'nhs-tayside': 'NHS-tayside',
     'nhs-shetland': 'NHS-shetland',
     'nhs-highland': 'NHS-highland',
-    'nhs-grampianmorray': 'NHS-grampianmorray'
+    'nhs-grampianmoray': 'NHS-grampianmoray'
 };
 
 app.get('/accommodation/:location', (req, res) => {

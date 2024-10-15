@@ -76,17 +76,17 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
-const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland', 'NHS-grampiann', 'nhs-grampianmoray'];
+const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland', 'nhs-grampianmoray', 'nhs-grampian'];
 const capitalizedLocations = {
     'nhs-tayside': 'NHS-tayside',
     'nhs-shetland': 'NHS-shetland',
     'nhs-highland': 'NHS-highland',
-    'nhs-grampiann': 'NHS-grampiann',
-    'nhs-grampianmoray': 'NHS-grampianmoray'
+    'nhs-grampianmoray': 'NHS-grampianmoray',
+    'nhs-grampian': 'NHS-grampian' 
 };
 
 app.get('/accommodation/:location', (req, res) => {
-    const location = req.params.location.toLowerCase(); // Normalize to lowercase
+    const location = req.params.location.toLowerCase();
 
     if (validLocations.includes(location)) {
         res.render(`pages/accommodation/${capitalizedLocations[location]}`, { user: req.session.user });
@@ -95,6 +95,7 @@ app.get('/accommodation/:location', (req, res) => {
         res.status(404).send("Location not found");
     }
 });
+
 
 
 

@@ -76,16 +76,16 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
-// Route to render the accommodation.ejs page
-app.get('/accommodation/nhs-tayside', (req, res) => {
-    // Render accommodation page with user data
-    res.render('pages/accommodation/NHS-tayside', { user: req.session.user});
-});
+const validLocations = ['nhs-tayside', 'nhs-shetland']; // Add more as needed
 
-// Route to render the accommodation.ejs page
-app.get('/accommodation/nhs-shetland', (req, res) => {
-    // Render accommodation page with user data
-    res.render('pages/accommodation/NHS-shetland', { user: req.session.user});
+app.get('/accommodation/:location', (req, res) => {
+    const location = req.params.location.replace(/-/g, ' ');
+
+    if (validLocations.includes(location.toLowerCase())) {
+        res.render(`pages/accommodation/${location}`, { user: req.session.user });
+    } else {
+        res.status(404).render('pages/404'); // Handle invalid routes
+    }
 });
 
 

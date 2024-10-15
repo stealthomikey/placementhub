@@ -1,0 +1,126 @@
+<!--
+    Created by Michael Piercey
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../../partials/head.ejs', { title: 'NHS Glasgow & Clyde | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true, infolder: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../../partials/nav.ejs', { currentPage: 'NHS-Glasgow-&-Clyde', infolder: true }) %>
+
+
+<main role="main">
+
+    <article class="card">
+      <figure>
+        <img src="../img/NHS-glasgow-and-clyde.jpg" alt="Glasgow Hospital">
+      </figure>
+  
+      <div class="flex-content">
+         <u><h2>NHS Glasgow & Clyde</h2></u>
+        <h3>
+            Double Room to Share
+        </h3>
+         
+        <ul>
+          <li><strong title="Type">Cost:</strong> £125 per week</li>
+          <li><strong title="Location">Location:</strong> West End of Glasgow</li>
+          <li><strong title="Phone">Phone:</strong>07761097496</li>
+        </ul>
+        <p>
+            Accommodation Details: Double room to share in a 2 bed room 2nd floor flat in West End Glasgow. 
+        </p>
+        <p>
+            General Comments: Close to all hospitals and easy bus service to all areas. Underground 3 minutes away. West End of Glasgow, close to University of Glasgow, easy access to University of Strathclyde, Glasgow Caledonian University and all the hospitals by bus or underground.
+        </p>
+        <footer>
+            <div class="footer-content">
+              <p>
+                <a class="email-link" title="Email" href="">Email</a>
+              </p>
+              <p class="address">
+              </p>
+            </div>
+          </footer>
+      </div>
+    </article>
+
+    <article class="card">
+        <figure>
+          <img src="../img/NHS-glasgow-and-clyde.jpg" alt="Glasgow Hospital">
+        </figure>
+    
+        <div class="flex-content">
+           <u><h2>NHS Glasgow & Clyde</h2></u>
+          <h3>
+              Double Room to Share
+          </h3>
+           
+          <ul>
+            <li><strong title="Type">Cost:</strong> £125 per week</li>
+            <li><strong title="Location">Location:</strong> West End of Glasgow</li>
+            <li><strong title="Phone">Phone:</strong>07761097496</li>
+          </ul>
+          <p>
+              Accommodation Details: Double bedroom to rent in Glasgow's West End G4 9AP, bills included in rent Bathroom and kitchen shared with female owner (OT support worker) Crockery, linen and laundry facilities included 
+          </p>
+          <p>
+              General Comments: Close to all hospitals and easy bus service to all areas. Underground 3 minutes away. West End of Glasgow, close to University of Glasgow, easy access to University of Strathclyde, Glasgow Caledonian University and all the hospitals by bus or underground.
+          </p>
+          <footer>
+              <div class="footer-content">
+                <p>
+                  <a class="email-link" title="Email" href="">Email</a>
+                </p>
+                <p class="address">
+                    16 Havannah Street<br>
+                    Glasgow<br>
+                    G40AS
+                </p>
+              </div>
+            </footer>
+        </div>
+      </article>
+  
+
+    <article class="card">
+        <figure>
+          <img src="../img/Aberdeen-ttd.jpg" alt="Aberdeen things to do"> 
+        </figure>
+        <div class="flex-content">
+          <h2>
+            Things to do while at Glasgow!
+          </h2>
+          <p>
+            While on placement why dont you check out one of the local things to do?
+          </p>
+          <ul>
+            <li><strong title="ttd">Historic Tours:</strong> Glasgow Ghost Tours</li>
+            <li><strong title="ttd">Sporting Events:</strong> Visit Celtics Stadium</li>
+            <li><strong title="ttd">Adventure:</strong> Visit a hidden glen in scotlands woods</li>
+            <li><strong title="ttd">Food & Drinks:</strong> Tennents Brewery Tours</li>
+            <li><strong title="ttd">Science Museums:</strong> Go to the top of the observatory at Glasgow science museum</li>
+          </ul>
+        </div>
+      </article>
+  
+  </main>
+
+<%- include('../../partials/footer.ejs')%>
+
+
+</body>
+
+  <!-- links to bootstrap js and jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="/scripts/accommodationpages.js"></script>
+
+</html>

@@ -76,15 +76,15 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
-const validLocations = ['nhs-tayside', 'nhs-shetland']; // Add more as needed
+const validLocations = ['NHS-tayside', 'NHS-shetland']; // Add more as needed
 
 app.get('/accommodation/:location', (req, res) => {
-    const location = req.params.location.replace(/-/g, ' ');
+    const location = req.params.location;
 
-    if (validLocations.includes(location.toLowerCase())) {
+    if (validLocations.includes(location())) {
         res.render(`pages/accommodation/${location}`, { user: req.session.user });
     } else {
-        res.render('pages/index', { user: req.session.user});
+        console.log("Error")
     }
 });
 

@@ -1,0 +1,93 @@
+<!--
+    Created by Michael Piercey
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Include the head -->
+<%- include('../../partials/head.ejs', { title: 'NHS Borders | PlacementHub', cssFiles: ['/styles/accommodationpages.css', '/styles/nav.css'], bootstrap: true, infolder: true }) %>
+
+
+<body>
+
+<!-- Include the navbar -->
+<%- include('../../partials/nav.ejs', { currentPage: 'NHS-Borders', infolder: true }) %>
+
+
+<main role="main">
+
+    <article class="card">
+      <figure>
+        <img src="../img/NHS-Borders.jpg" alt="Borders Hospital">
+      </figure>
+  
+      <div class="flex-content">
+         <u><h2>NHS Borders</h2></u>
+        <h3>
+            Tara, Woodenmill
+        </h3>
+         
+        <ul>
+          <li>
+            <strong title="Type">Cost:</strong>
+            £25 per night
+          </li>
+          <li><strong title="Location">Location:</strong> Lanark</li>
+          <li><strong title="Contact">Contact:</strong> Air Bnb</li>
+        </ul>
+        <p>
+            Accommodation Details: Self catering single room with ensuite and desk. Ample amount of storage in bedroom. Access to kitchen with cupboard, fridge and freezer storage. Shared living room with big TV. Off street parking in front of house.
+        </p>
+        <p>
+            General Comment:Kelso Community Hospital is a 5 minute drive away. Accommodation is slightly outside of Kelso but you could still reach everything by walking if not a car driver. Bruce is a friendly and accommodating host.
+        </p>
+        <footer>
+            <div class="footer-content">
+              <p>
+                <a class="email-link" title="Email" href="">Email</a>
+              </p>
+              <p class="address">
+              </p>
+            </div>
+          </footer>
+          
+          
+      </div>
+  
+    </article>
+
+    <article class="card">
+        <figure>
+          <img src="../img/Borders-ttd.jpg" alt="Borders things to do"> 
+        </figure>
+        <div class="flex-content">
+          <h2>
+            Things to do while at Borders!
+          </h2>
+          <p>
+            While on placement why dont you check out one of the local things to do?
+          </p>
+          <ul>
+            <li><strong title="ttd">Literary Tour:</strong> Harry Potter's Castle trip</li>
+            <li><strong title="ttd">Heritage Site:</strong> Hadrians wall</li>
+            <li><strong title="ttd">Farm:</strong>meet and feed some highland cows</li>
+            <li><strong title="ttd">Heritage Site:</strong> Alnwick Castle</li>
+            <li><strong title="ttd">Wildlife:</strong> Alpaca Experience</li>
+          </ul>
+        </div>
+      </article>
+  
+  </main>
+
+<%- include('../../partials/footer.ejs')%>
+
+</body>
+
+  <!-- links to bootstrap js and jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <script src="/scripts/accommodationpages.js"></script>
+
+</html>

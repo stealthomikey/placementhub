@@ -18,77 +18,107 @@
 <main class="main">
 
 
-        <div class="main-cards">
-            <div class="card">
-                <!-- Post content (same as before) -->
-                <div class="user-info">
-                  <img src="user-photo.jpg" alt="User Photo" class="user-photo" />
-                  <div class="user-details">
-                    <p class="user-name">John Doe</p>
-                    <p class="user-course">Computer Science</p>
-                  </div>
-                  <p class="post-date">October 16, 2024</p>
-                </div>
-                <div class="divider"></div>
-                <p class="post-title">How to implement a login system in Node.js?</p>
-                <div class="post-actions">
-                  <button class="upvote">Upvote</button>
-                  <button class="downvote">Downvote</button>
-                  <button class="comment">Comment</button>
-                </div>
-              
-                <!-- Reply Section -->
-                <div class="reply-section">
-                  <!-- Comments Header -->
-                  <div class="comments-header">
-                    <p class="comments-count">12 Comments</p>
-                    <div class="comments-filter">
-                      <button>Top Comments</button>
-                      <button>Newest Comments</button>
-                    </div>
-                  </div>
-              
-                  <!-- First Reply -->
-                  <div class="reply-card">
-                    <!-- User Info for reply -->
-                    <div class="user-info">
-                      <img src="reply-user.jpg" alt="User Photo" class="user-photo" />
-                      <div class="user-details">
-                        <p class="user-name">Jane Smith</p>
-                        <p class="user-course">Software Engineering</p>
-                      </div>
-                      <p class="post-date">October 16, 2024</p>
-                    </div>
-                    <div class="divider"></div>
-              
-                    <!-- Comment Content -->
-                    <div class="comment-content">
-                      <p>This is a great question. I found using Passport.js really useful for implementing authentication in Node.js.</p>
-                      <img src="comment-image.jpg" alt="Attached Image" class="comment-image" />
-                    </div>
-              
-                    <!-- Comment Actions -->
-                    <div class="comment-actions">
-                      <button class="upvote">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                          <path d="M8 0L16 10H0L8 0z"></path>
-                        </svg>
-                        Upvote
-                      </button>
-                      <button class="downvote">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                          <path d="M8 10L0 0h16L8 10z"></path>
-                        </svg>
-                        Downvote
-                      </button>
-                      <button class="reply">Reply</button>
-                    </div>
-                  </div>
-              
-                  <!-- Additional replies follow the same structure -->
-                </div>
+    <div class="card">
+        <!-- Post content (same as before) -->
+        <div class="user-info">
+          <img src="user-photo.jpg" alt="User Photo" class="user-photo" />
+          <div class="user-details">
+            <p class="user-name">John Doe</p>
+            <p class="user-course">Computer Science</p>
+          </div>
+          <p class="post-date">October 16, 2024</p>
+        </div>
+        <div class="divider"></div>
+        <p class="post-title">How to implement a login system in Node.js?</p>
+        <div class="post-actions">
+          <button class="upvote">Upvote</button>
+          <button class="downvote">Downvote</button>
+          <button class="comment">Comment</button>
+        </div>
+      
+        <!-- Separator Line for Comments -->
+        <div class="comment-separator">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21c4.97 0 9-3.94 9-9s-4.03-9-9-9-9 4.03-9 9c0 2.53 1.11 4.89 3 6.57V19h12v-1.43c1.89-1.68 3-4.04 3-6.57 0-4.97-4.03-9-9-9s-9 4.03-9 9c0 4.97 4.03 9 9 9z"></path>
+          </svg>
+        </div>
+      
+        <!-- Comments Header (Sorting Buttons) -->
+        <div class="comments-header">
+          <button>Top Comments</button>
+          <button>Newest Comments</button>
+        </div>
+      
+        <!-- First Comment -->
+        <div class="reply-card">
+          <div class="user-info">
+            <img src="reply-user.jpg" alt="User Photo" class="user-photo" />
+            <div class="user-details">
+              <p class="user-name">Jane Smith</p>
+              <p class="user-course">Software Engineering</p>
+            </div>
+            <p class="post-date">October 16, 2024</p>
+          </div>
+          <div class="divider"></div>
+      
+          <div class="reply-content">
+            <p>This is a great question! I found Passport.js to be a really useful tool for implementing authentication in Node.js.</p>
+            <!-- Comment Actions -->
+            <div class="comment-actions">
+              <button class="upvote">Upvote</button>
+              <button class="downvote">Downvote</button>
+              <button class="reply">Reply</button>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Second Comment -->
+        <div class="reply-card">
+          <div class="user-info">
+            <img src="reply-user2.jpg" alt="User Photo" class="user-photo" />
+            <div class="user-details">
+              <p class="user-name">Mike Lee</p>
+              <p class="user-course">Data Science</p>
+            </div>
+            <p class="post-date">October 16, 2024</p>
+          </div>
+          <div class="divider"></div>
+      
+          <div class="reply-content">
+            <p>I second this! Plus, using JWT for tokens works really well.</p>
+            <!-- Comment Actions -->
+            <div class="comment-actions">
+              <button class="upvote">Upvote</button>
+              <button class="downvote">Downvote</button>
+              <button class="reply">Reply</button>
+            </div>
+          </div>
+      
+          <!-- Nested Reply -->
+          <div class="reply-card indented-reply">
+            <div class="user-info">
+              <img src="reply-user3.jpg" alt="User Photo" class="user-photo" />
+              <div class="user-details">
+                <p class="user-name">Anna White</p>
+                <p class="user-course">Cybersecurity</p>
               </div>
-              
+              <p class="post-date">October 16, 2024</p>
+            </div>
+            <div class="divider"></div>
+      
+            <div class="reply-content">
+              <p>Agreed! Passport and JWT work great together for securing APIs.</p>
+              <!-- Comment Actions -->
+              <div class="comment-actions">
+                <button class="upvote">Upvote</button>
+                <button class="downvote">Downvote</button>
+                <button class="reply">Reply</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
         </div>
 
 

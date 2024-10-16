@@ -95,18 +95,3 @@ body {
     height: 200px;
   }
   
-  /* Medium screens breakpoint (768px) */
-  @media only screen and (min-width: 48em) {
-    .main-overview {
-      flex-direction: row;
-    }
-  }
-  
-  /* Large screens breakpoint (1050px) */
-  @media only screen and (min-width: 65.625em) {
-    /* Keep main-header horizontal for large screens */
-    .main-header {
-      flex-direction: column;
-    }
-  }
-  

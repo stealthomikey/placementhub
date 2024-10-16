@@ -77,7 +77,6 @@ body {
     width: 80%; /* Set main cards to 80% width */
     column-count: 1; /* Single column */
     column-gap: 20px;
-    margin-top: 5rem;
   }
   
   .card {
@@ -91,6 +90,7 @@ body {
     padding: 24px;
     box-sizing: border-box;
     margin: 0 auto; /* Center each individual card */
+    margin-top: 5%;
   }
   
   /* Force varying heights to simulate dynamic content */

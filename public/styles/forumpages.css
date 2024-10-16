@@ -16,6 +16,7 @@ body {
     width: 80%; /* Set header width to 80% */
     text-align: center; /* Center align text */
     margin: 0 auto; /* Center the header */
+    margin-top: 20px;
   }
   
   /* Styling for the title */
@@ -24,7 +25,7 @@ body {
     margin-bottom: 20px;
     color: slategray;
     }
-    
+
   .main-cards {
     margin: 20px auto; /* Center the entire card section */
     width: 80%; /* Set main cards to 80% width */

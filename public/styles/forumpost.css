@@ -101,3 +101,7 @@ body {
     margin-right: 8px;
   }
   
+  .comment-image{
+    height: 200px;
+    width: 200px;
+  }

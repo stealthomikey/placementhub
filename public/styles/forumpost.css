@@ -13,7 +13,7 @@ body {
     column-gap: 20px;
   }
   
-/* Forum Post Container - same as before */
+/* Forum Post Container */
 .card {
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* User Info Section - same as before */
+  /* User Info Section */
   .user-info {
     display: flex;
     align-items: center;
@@ -36,6 +36,7 @@ body {
     margin-bottom: 16px;
   }
   
+  /* User Photo */
   .user-photo {
     width: 50px;
     height: 50px;
@@ -44,6 +45,7 @@ body {
     object-fit: cover;
   }
   
+  /* Name and Course */
   .user-details {
     display: flex;
     flex-direction: column;
@@ -59,13 +61,14 @@ body {
     color: gray;
   }
   
+  /* Date of the Post */
   .post-date {
     font-size: 0.8rem;
     color: gray;
     margin-left: auto;
   }
   
-  /* Divider Line - same as before */
+  /* Divider Line (SVG) */
   .divider {
     width: 100%;
     height: 1px;
@@ -73,7 +76,7 @@ body {
     margin: 16px 0;
   }
   
-  /* Post Title - same as before */
+  /* Forum Post Title */
   .post-title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -81,7 +84,7 @@ body {
     margin-bottom: 16px;
   }
   
-  /* Action Buttons (Upvote, Downvote, Comment) - same as before */
+  /* Action Buttons (Upvote, Downvote, Comment) */
   .post-actions {
     display: flex;
     gap: 16px;
@@ -99,77 +102,9 @@ body {
     background-color: #ddd;
   }
   
+  /* Icons in Buttons */
   button svg {
     vertical-align: middle;
     margin-right: 8px;
-  }
-  
-  /* Reply Section */
-  .reply-section {
-    margin-top: 24px;
-    width: 100%;
-  }
-  
-  /* Comments Header with buttons */
-  .comments-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .comments-count {
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  .comments-filter {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .comments-filter button {
-    font-size: 0.9rem;
-  }
-  
-  /* Reply Container */
-  .reply-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-    padding: 16px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* User info for replies - reuse existing user-info, user-photo, user-details */
-  
-  /* Comment Content */
-  .comment-content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .comment-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  /* Comment Actions */
-  .comment-actions {
-    display: flex;
-    gap: 16px;
-    margin-top: 8px;
-  }
-  
-  .comment-actions button {
-    font-size: 0.9rem;
   }
   

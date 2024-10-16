@@ -53,6 +53,11 @@ app.get('/forumpages', (req, res) => {
     res.render('pages/forumpages', { user: req.session.user});
   });
 
+  app.get('/forumpost', (req, res) => {
+    // Render index page with user data if logged in, otherwise render with null user
+    res.render('pages/forumpost', { user: req.session.user});
+  });
+
 // Route to render the myaccount.ejs page
 app.get('/myaccount', (req, res) => {
     // Redirect to login if not logged in

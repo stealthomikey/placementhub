@@ -13,13 +13,13 @@ body {
     column-gap: 20px;
   }
   
-/* Forum Post Container */
+/* Main Post Card */
 .card {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
     background-color: #fff;
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto; /* Centered on the page */
     padding: 24px;
     box-sizing: border-box;
     border-radius: 8px;
@@ -135,7 +135,6 @@ body {
     background-color: #f9f9f9;
     margin-bottom: 20px;
     padding: 16px;
-    border-left: 4px solid #ccc;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
   }
   
@@ -147,8 +146,8 @@ body {
   /* Nested Reply Indentation */
   .indented-reply {
     margin-left: 40px;
-    border-left: 2px solid #ddd;
     padding-left: 16px;
+    border-left: 2px solid #ddd;
   }
   
   /* Comment Actions */

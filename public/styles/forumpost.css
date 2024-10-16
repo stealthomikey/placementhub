@@ -104,72 +104,70 @@ body {
     margin-right: 8px;
   }
   
-  /* Reply Section */
-  .reply-section {
-    margin-top: 24px;
-    width: 100%;
+  /* Separator Line for Comments with SVG */
+  .comment-separator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    position: relative;
   }
   
-  /* Comments Header with buttons */
+  .comment-separator::before,
+  .comment-separator::after {
+    content: '';
+    height: 1px;
+    background-color: #ccc;
+    flex: 1;
+  }
+  
+  .comment-separator svg {
+    margin: 0 16px;
+    fill: gray;
+  }
+  
+  /* Comment Sorting Buttons */
   .comments-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    gap: 10px;
     margin-bottom: 16px;
   }
   
-  .comments-count {
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  .comments-filter {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .comments-filter button {
+  .comments-header button {
     font-size: 0.9rem;
   }
   
-  /* Reply Container */
+  /* Replies Section */
   .reply-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     width: 100%;
     background-color: #f9f9f9;
     margin-bottom: 20px;
     padding: 16px;
     box-sizing: border-box;
     border-radius: 8px;
+    border-left: 4px solid #ccc;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
   }
   
-  /* User info for replies - reuse existing user-info, user-photo, user-details */
-  
-  /* Comment Content */
-  .comment-content {
+  .reply-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
   
-  .comment-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  /* Comment Actions */
   .comment-actions {
     display: flex;
     gap: 16px;
     margin-top: 8px;
   }
   
-  .comment-actions button {
-    font-size: 0.9rem;
+  /* Indented Reply */
+  .indented-reply {
+    margin-left: 40px;
+    border-left: 2px solid #ddd;
+    padding-left: 16px;
   }
   

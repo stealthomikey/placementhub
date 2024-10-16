@@ -6,19 +6,6 @@ body {
     box-sizing: border-box;
   }
   
-  /* Assign grid instructions to our parent grid container, mobile-first */
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 1fr 50px;
-    grid-template-areas:
-      'header'
-      'main'
-      'footer';
-    height: 100vh;
-    justify-items: center; /* Align grid items horizontally center */
-  }
-  
   .main-header {
     display: flex;
     flex-direction: column;
@@ -36,42 +23,8 @@ body {
     font-size: 2.5rem;
     margin-bottom: 20px;
     color: slategray;
-  }
-  
-  .main-overview {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-  }
-  
-  .overviewcard {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #d3d3;
-    flex: 1;
-    text-align: center;
-    cursor: pointer;
-  }
-  
-  .overviewcard:hover {
-    background-color: #c3c3c3;
-  }
-  
-  .overviewcard__info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .active {
-    display: block;
-  }
-  
+    }
+    
   .main-cards {
     margin: 20px auto; /* Center the entire card section */
     width: 80%; /* Set main cards to 80% width */
@@ -90,7 +43,7 @@ body {
     padding: 24px;
     box-sizing: border-box;
     margin: 0 auto; /* Center each individual card */
-    margin-top: 5%;
+    margin-top: 25px;
   }
   
   /* Force varying heights to simulate dynamic content */

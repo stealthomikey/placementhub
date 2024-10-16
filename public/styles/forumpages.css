@@ -16,7 +16,7 @@ body {
       'main'
       'footer';
     height: 100vh;
-    justify-content: center;
+    justify-items: center; /* Align content in the center */
   }
   
   .main-header {
@@ -26,14 +26,14 @@ body {
     padding: 20px;
     background-color: #e3e4e6;
     color: slategray;
+    width: 80%; /* Set header width to 80% */
+    text-align: center; /* Center align text */
   }
   
   /* Styling for the title */
   .main-title {
     font-size: 2.5rem;
-    text-align: center;
     margin-bottom: 20px;
-    width: 100%;
     color: slategray;
   }
   
@@ -73,10 +73,9 @@ body {
   
   .main-cards {
     margin: 20px;
-    width: 75%; /* Restrict width to 60% of the body */
+    width: 80%; /* Set main cards to 80% width */
     column-count: 1; /* Single column */
     column-gap: 20px;
-    align-items: center;
   }
   
   .card {
@@ -95,4 +94,3 @@ body {
   .card {
     height: 200px;
   }
-  

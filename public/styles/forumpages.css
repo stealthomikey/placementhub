@@ -73,9 +73,10 @@ body {
   
   .main-cards {
     margin: 20px;
-    width: 60%; /* Restrict width to 60% of the body */
+    width: 75%; /* Restrict width to 60% of the body */
     column-count: 1; /* Single column */
     column-gap: 20px;
+    align-items: center;
   }
   
   .card {

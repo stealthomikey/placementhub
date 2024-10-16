@@ -16,7 +16,7 @@ body {
       'main'
       'footer';
     height: 100vh;
-    justify-items: center; /* Align content in the center */
+    justify-items: center; /* Align grid items horizontally center */
   }
   
   .main-header {
@@ -28,6 +28,7 @@ body {
     color: slategray;
     width: 80%; /* Set header width to 80% */
     text-align: center; /* Center align text */
+    margin: 0 auto; /* Center the header */
   }
   
   /* Styling for the title */
@@ -72,7 +73,7 @@ body {
   }
   
   .main-cards {
-    margin: 20px;
+    margin: 20px auto; /* Center the entire card section */
     width: 80%; /* Set main cards to 80% width */
     column-count: 1; /* Single column */
     column-gap: 20px;
@@ -88,9 +89,11 @@ body {
     -webkit-column-break-inside: avoid;
     padding: 24px;
     box-sizing: border-box;
+    margin: 0 auto; /* Center each individual card */
   }
   
   /* Force varying heights to simulate dynamic content */
   .card {
     height: 200px;
   }
+  

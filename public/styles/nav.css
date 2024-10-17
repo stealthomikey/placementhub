@@ -60,7 +60,7 @@
 
   .navtitle {
     color: white;
-    margin-right: 25%;
+    align-items: center;
   }
   
   .navbar-logo {

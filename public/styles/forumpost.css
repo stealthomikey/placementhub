@@ -7,13 +7,12 @@ body {
 }
 
 .main-cards {
-  margin: 20px auto; /* Center the entire card section */
-  width: 80%; /* Set main cards to 80% width */
-  column-count: 1; /* Single column */
+  margin: 20px auto;
+  width: 80%;
+  column-count: 1;
   column-gap: 20px;
 }
 
-/* Forum Post Container */
 .card {
   display: flex;
   flex-direction: column;
@@ -27,7 +26,6 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* User Info Section */
 .user-info {
   display: flex;
   align-items: center;
@@ -36,7 +34,6 @@ body {
   margin-bottom: 16px;
 }
 
-/* User Photo */
 .user-photo {
   width: 50px;
   height: 50px;
@@ -45,7 +42,6 @@ body {
   object-fit: cover;
 }
 
-/* Name and Course */
 .user-details {
   display: flex;
   flex-direction: column;
@@ -89,28 +85,10 @@ body {
   gap: 16px;
 }
 
-button {
-  background: none;
-  border: none;
-  color: #888;
-  cursor: pointer;
-}
-
-button svg {
-  margin-right: 8px;
-}
-
-button.upvote svg path {
-  fill: #0f0;
-}
-
-button.downvote svg path {
-  fill: #f00;
-}
-
 /* Comment section styling */
 .reply-section {
-  width: 100%;
+  width: 100%; /* Full width for comments */
+  background-color: #f5f5f5;
   padding: 24px;
   border-radius: 8px;
 }
@@ -129,6 +107,7 @@ button.downvote svg path {
 /* Nested Replies */
 .nested-reply {
   padding-left: 20%;
+  background-color: #f9f9f9;
 }
 
 /* Comment sorting */

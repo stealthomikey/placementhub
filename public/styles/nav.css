@@ -1,23 +1,12 @@
 /*
     Created by Michael Piercey 2206222 -- finalised 08/12/23
 */
-
-:root {
-    --main-colour: #df5441;
-    --text-colour1: #e8e8e8;
-    --text-colour2: #787878;
-    --text-colour3: #363636;
-    --background-colour1: #e87f54;
-    --background-colour2: #f0a967;
-    --background-colour3: #ecc9a8;
-  }
-  
   .custom-row {
     display: flex;
   }
   
   .custom-footer {
-    background-color: var(--background-colour3);
+    background-color: cornflowerblue;
     padding: 45px 0 20px;
     font-size: 15px;
     line-height: 24px;

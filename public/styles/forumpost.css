@@ -110,8 +110,7 @@ button.downvote svg path {
 
 /* Comment section styling */
 .reply-section {
-  width: 100%; /* Full width for comments */
-  background-color: #f5f5f5;
+  width: 100%;
   padding: 24px;
   border-radius: 8px;
 }
@@ -130,7 +129,6 @@ button.downvote svg path {
 /* Nested Replies */
 .nested-reply {
   padding-left: 20%;
-  background-color: #f9f9f9;
 }
 
 /* Comment sorting */

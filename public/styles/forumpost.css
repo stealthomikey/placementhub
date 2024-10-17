@@ -6,12 +6,19 @@ body {
     box-sizing: border-box;
   }
   
+  .main-cards {
+    margin: 20px auto; /* Center the entire card section */
+    width: 80%; /* Set main cards to 80% width */
+    column-count: 1; /* Single column */
+    column-gap: 20px;
+  }
+  
 /* Forum Post Container */
 .card {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 80%;
+    width: 100%;
     background-color: #fff;
     margin-bottom: 20px;
     padding: 24px;

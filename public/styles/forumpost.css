@@ -78,6 +78,25 @@ body {
   margin: 16px 0;
 }
 
+button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+/* Icons in Buttons */
+button svg {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+
 /* Actions */
 .post-actions,
 .comment-actions {

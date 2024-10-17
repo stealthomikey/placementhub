@@ -101,7 +101,6 @@ button svg {
 .post-actions,
 .comment-actions {
   display: flex;
-  gap: 16px;
 }
 
 /* Comment section styling */

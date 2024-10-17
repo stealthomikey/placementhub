@@ -111,3 +111,7 @@ body {
   .comments-filter {
     margin-left: auto;
   }
+
+  .reply-card {
+    width: 100%;
+  }

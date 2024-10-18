@@ -141,7 +141,7 @@ body {
   
 
   .anonymous-switch {
-    margin-left: 0px;
+    margin-left: auto;
     position: relative;
     display: inline-block;
     width: 60px;

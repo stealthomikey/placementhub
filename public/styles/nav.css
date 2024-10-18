@@ -1,23 +1,12 @@
 /*
     Created by Michael Piercey 2206222 -- finalised 08/12/23
 */
-
-:root {
-    --main-colour: #df5441;
-    --text-colour1: #e8e8e8;
-    --text-colour2: #787878;
-    --text-colour3: #363636;
-    --background-colour1: #e87f54;
-    --background-colour2: #f0a967;
-    --background-colour3: #ecc9a8;
-  }
-  
   .custom-row {
     display: flex;
   }
   
   .custom-footer {
-    background-color: var(--background-colour3);
+    background-color: cornflowerblue;
     padding: 45px 0 20px;
     font-size: 15px;
     line-height: 24px;
@@ -65,8 +54,13 @@
   }
   
   .navbar {
-    background-color: var(--background-colour2);
+    background-color: cornflowerblue;
     overflow: hidden;
+  }
+
+  .navtitle {
+    color: white;
+    margin-right: auto;
   }
   
   .navbar-logo {
@@ -77,13 +71,9 @@
   }
   
   .navbar-logo img {
-    height: 70px; /* Adjust the height as needed */
+    height: 70px; 
   }
 
-  .navtitle {
-    align-items: center;
-  }
-  
   .navbar-search {
     float: right;
     display: flex;
@@ -100,30 +90,30 @@
   .account-button {
     margin-left: 10px;
     padding: 8px;
-    background-color: var(--text-colour1);
-    color: var(--background-colour1);
+    background-color: black;
+    color: grey;
     border: none;
     border-radius: 3px;
     cursor: pointer;
   }
   
   .navbar-links {
-    background-color: var(--text-colour2);
+    background-color: black;
     overflow: hidden;
   }
   
   .navbar-links a {
     float: left;
     display: block;
-    color: var(--background-colour2);
+    color: grey;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
   }
   
   .navbar-links a:hover {
-    background-color: var(--text-colour1);
-    color: var(--main-colour);
+    background-color: red;
+    color: forestgreen;
   }
 
   @media screen and (max-width: 768px) {

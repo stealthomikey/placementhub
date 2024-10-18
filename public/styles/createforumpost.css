@@ -154,13 +154,13 @@ body {
     height: 34px;
   }
   
-  .switch input { 
+  .anonymous-switch input { 
     opacity: 0;
     width: 0;
     height: 0;
   }
   
-  .slider {
+  .anonymous-switch {
     position: absolute;
     cursor: pointer;
     top: 0;

@@ -146,7 +146,7 @@ body {
   }
   
 
-.anonymous-switch {
+  .anonymous-switch {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -161,6 +161,17 @@ body {
 
 .anonymous-slider {
     position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.anonymous-slider:before {
+    position: absolute;
     content: "";
     height: 26px;
     width: 26px;
@@ -170,21 +181,15 @@ body {
     transition: .4s;
 }
 
-.anonymous-switch {
-    cursor: pointer;
-    background-color: #ccc;
-    transition: .4s;
-}
-
-input:checked + .anonymous-slider {
+.anonymous-switch input:checked + .anonymous-slider {
     background-color: #2196F3;
 }
 
-input:focus + .anonymous-slider {
+.anonymous-switch input:focus + .anonymous-slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .anonymous-slider:before {
+.anonymous-switch input:checked + .anonymous-slider:before {
     transform: translateX(26px);
 }
 

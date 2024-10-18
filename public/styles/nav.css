@@ -1,6 +1,13 @@
 /*
     Created by Michael Piercey 2206222 -- finalised 08/12/23
 */
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh; /* Ensure full viewport height without setting height */
+}
   .custom-row {
     display: flex;
   }
@@ -12,7 +19,7 @@
     line-height: 24px;
     color: var(--text-colour3);
     padding-left: 5px;
-    margin-bottom: 0px;
+    margin-top: auto;
   }
   
   .custom-footer h6 {

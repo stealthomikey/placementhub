@@ -11,8 +11,8 @@
     font-size: 15px;
     line-height: 24px;
     color: var(--text-colour3);
-    margin-top: auto;
     padding-left: 5px;
+    margin-bottom: 0px;
   }
   
   .custom-footer h6 {

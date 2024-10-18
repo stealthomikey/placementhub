@@ -87,6 +87,12 @@ app.get('/socials', (req, res) => {
     res.render('pages/socials', { user: req.session.user});
 });
 
+// Route to render the createpost.ejs page
+app.get('/createforumpost', (req, res) => {
+    // Render create forum post page with user data
+    res.render('pages/createforumpost', { user: req.session.user});
+});
+
 const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland', 'nhs-grampianmoray', 'nhs-grampian', 'nhs-glasgow-and-clyde', 'nhs-lanarkshire', 'nhs-borders'];
 const capitalizedLocations = {
     'nhs-tayside': 'NHS-tayside',

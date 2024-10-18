@@ -201,3 +201,7 @@ body {
 .anonymous-slider.round:before {
     border-radius: 50%;
 }
+
+.anonymous{
+    margin-left: 10px;
+}

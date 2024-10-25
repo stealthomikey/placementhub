@@ -10,54 +10,56 @@
 <%- include('../partials/nav.ejs', { currentPage: 'CreateForumPost', infolder: false }) %>
 
 <main class="main">
-
     <div class="main-cards">
-
-        <div class="card">
-            <!-- User Info -->
-            <div class="user-info">
-                <!-- User Photo -->
-                <img src="img/user1.jpg" alt="User Photo" class="user-photo" />
-
-                <!-- User Details -->
-                <div class="user-details">
-                    <p class="user-name">Michael Piercey</p>
-                    <p class="user-course">Computer Science</p>
-                </div>
-                <div class="anonymous">
-                    <h3>Post anonymously?</h3>
-                    <label class="anonymous-switch">
-                        <input type="checkbox">
-                        <span class="anonymous-slider round"></span>
-                    </label>                    
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="divider"></div>
-
-            <!-- Forum Post Title -->
-            <p class="post-title">How to create a forum?</p>
-
-        
-            <div class="divider"></div>
-
-            <!-- Reply Section -->
-            <div class="reply-section">
-                <!-- Comments Header -->
-                <div class="comments-header">
-                    <div class="comments-filter">
-                        <button>Post!</button>
-                    </div>
-                </div>
-
-              
-              </div>
-            </div>
+      <div class="card">
+        <!-- User Info -->
+        <div class="user-info">
+          <img src="img/user1.jpg" alt="User Photo" class="user-photo" />
+          <div class="user-details">
+            <p class="user-name">Michael Piercey</p>
+            <p class="user-course">Computer Science</p>
+          </div>
+          
+          <!-- Anonymous Toggle -->
+          <label class="anonymous-toggle">
+            Post Anonymously
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
         </div>
 
+        <!-- Category and Subcategory -->
+        <div class="select-section">
+          <label for="category">Category:</label>
+          <select id="category">
+            <option value="general">General</option>
+            <option value="help">Help</option>
+            <option value="projects">Projects</option>
+            <option value="events">Events</option>
+          </select>
 
-</main>
+          <label for="subcategory">Subcategory:</label>
+          <select id="subcategory">
+            <option value="questions">Questions</option>
+            <option value="feedback">Feedback</option>
+            <option value="ideas">Ideas</option>
+          </select>
+        </div>
+
+        <!-- Post Heading -->
+        <input type="text" placeholder="Enter your post heading/question" class="post-heading" />
+
+        <!-- Post Content -->
+        <textarea placeholder="Add more details to your post" class="post-content"></textarea>
+
+        <!-- Image and Post Buttons -->
+        <div class="action-buttons">
+          <button class="add-image">Add Image</button>
+          <button class="post-button">Post</button>
+        </div>
+      </div>
+    </div>
+  </main>
 
 <%- include('../partials/footer.ejs')%>
 

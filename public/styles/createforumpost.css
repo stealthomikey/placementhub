@@ -102,6 +102,10 @@ body {
   margin-top: -15px;
 }
 
+#customCategory, #customSubcategory{
+  margin-top: 10px;
+}
+
 .select-section {
   display: flex;
   gap: 20px;

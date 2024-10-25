@@ -401,7 +401,6 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     }
 });
 
-// Route to handle adding a new forum post
 app.post('/addpost', (req, res) => {
     // Check if the user is logged in
     if (!req.session.loggedin) {
@@ -411,8 +410,11 @@ app.post('/addpost', (req, res) => {
 
     const userId = req.session.stringUserId;
     const postAnonymous = req.body.anonymousSwitch === 'on'; // Convert checkbox value to boolean
-    const category = req.body.category; 
-    const subcategory = req.body.subcategory;
+
+    // Determine the category and subcategory
+    const category = req.body.category === 'other' ? req.body.customCategory : req.body.category; 
+    const subcategory = req.body.subcategory === 'other' ? req.body.customSubcategory : req.body.subcategory;
+
     const postHeading = req.body.postHeading; // Get post heading from request body
     const postContent = req.body.postContent; // Get post content from request body
 

@@ -1,6 +1,6 @@
-function updateCategoryInput(selectElement) {
+function updateCategoryInput(select) {
     const customInput = document.getElementById('customCategory');
-    if (selectElement.value === 'other') {
+    if (select.value === 'other') {
         customInput.style.display = 'block';
         customInput.value = ''; // Clear the input if "Other" is selected
     } else {
@@ -8,9 +8,9 @@ function updateCategoryInput(selectElement) {
     }
 }
 
-function updateSubcategoryInput(selectElement) {
+function updateSubcategoryInput(select) {
     const customInput = document.getElementById('customSubcategory');
-    if (selectElement.value === 'other') {
+    if (select.value === 'other') {
         customInput.style.display = 'block';
         customInput.value = ''; // Clear the input if "Other" is selected
     } else {

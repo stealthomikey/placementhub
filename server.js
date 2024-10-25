@@ -434,5 +434,6 @@ app.post('/addpost', (req, res) => {
             return res.status(500).send("Error adding post");
         }
         console.log("Post added:", result);
+        res.redirect('/createforumpost');
     });
 });

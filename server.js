@@ -155,7 +155,7 @@ app.post('/adduser', (req, res) => {
         "email": req.body.email,
         "login": {
             "username": req.body.username,
-            "password": req.body.password
+            "password": req.body.password // Storing password as is (not hashed)
         },
         "picture": { // Nested structure for profile picture
             "thumbnail": defaultProfilePic // Using default picture if no thumbnail provided
@@ -168,12 +168,30 @@ app.post('/adduser', (req, res) => {
             res.status(500).send('Error saving to database');
             return;
         }
+        
         console.log('User saved to database');
-        // Set userId in session after user creation
-        req.session.userId = result.insertedId;
-        res.redirect('/myaccount'); // Redirect if signup successful
+        
+        // Now we can assign the unique userId to the user document
+        const userId = result.insertedId; // MongoDB generates a unique ObjectId for each document
+        
+        // Update the inserted document to include the userId
+        db.collection('people').updateOne(
+            { _id: result.insertedId },
+            { $set: { userId: userId.toString() } }, // Store userId as a string
+            (updateErr) => {
+                if (updateErr) {
+                    console.error('Error updating userId in database:', updateErr);
+                    res.status(500).send('Error updating userId in database');
+                    return;
+                }
+
+                // Redirect if signup successful
+                res.redirect('/myaccount'); 
+            }
+        );
     });
 });
+
 
 
 //logout route cause the page to Logout.

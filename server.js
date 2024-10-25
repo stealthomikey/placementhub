@@ -428,7 +428,7 @@ app.post('/addpost', (req, res) => {
     };
 
     // Add new post to the forum collection
-    db.collection('people').insertOne(newPost, (err, result) => {
+    db.collection('forum').insertOne(newPost, (err, result) => {
         if (err) {
             console.error("Error adding post:", err);
             return res.status(500).send("Error adding post");

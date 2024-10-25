@@ -422,8 +422,8 @@ app.post('/addpost', (req, res) => {
     const newPost = {
         userId,
         anonymous: postAnonymous,
-        category,
-        subcategory,
+        category: category || 'Unspecified', // Fallback in case category is not set
+        subcategory: subcategory || 'Unspecified', // Fallback in case subcategory is not set
         heading: postHeading,
         content: postContent,
         dateCreated: new Date()

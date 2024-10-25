@@ -32,28 +32,28 @@
               <div class="select-section">
                 <p>Category:</p>
                 <div class="dropdown-container">
-                    <select id="category" onchange="updateCategoryInput(this)">
+                    <select name="category" id="category" onchange="updateCategoryInput(this)">
                         <option value="general">General</option>
                         <option value="help">Help</option>
                         <option value="projects">Projects</option>
                         <option value="events">Events</option>
                         <option value="other">Other</option>
                     </select>
-                    <input type="text" id="customCategory" placeholder="Enter custom category" style="display: none;" />
+                    <input type="text" name="customCategory" id="customCategory" placeholder="Enter custom category" style="display: none;" />
                 </div>
-            
+        
                 <p>Subcategory:</p>
                 <div class="dropdown-container">
-                    <select id="subcategory" onchange="updateSubcategoryInput(this)">
+                    <select name="subcategory" id="subcategory" onchange="updateSubcategoryInput(this)">
                         <option value="questions">Questions</option>
                         <option value="feedback">Feedback</option>
                         <option value="ideas">Ideas</option>
                         <option value="other">Other</option>
                     </select>
-                    <input type="text" id="customSubcategory" placeholder="Enter custom subcategory" style="display: none;" />
+                    <input type="text" name="customSubcategory" id="customSubcategory" placeholder="Enter custom subcategory" style="display: none;" />
                 </div>
             </div>
-
+            
               <!-- Post Heading -->
               <input type="text" name="postHeading" placeholder="Enter your post heading/question" class="post-heading" required />
 

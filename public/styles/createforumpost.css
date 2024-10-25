@@ -75,7 +75,7 @@ body {
   cursor: pointer;
   transition: background-color 0.4s;
   display: flex;
-  align-items: center; /* Center the circle inside */
+  align-items: center;
 }
 
 .slider:before {

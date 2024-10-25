@@ -11,55 +11,60 @@
 
 <main class="main">
     <div class="main-cards">
-      <div class="card">
-        <!-- User Info -->
-        <div class="user-info">
-          <img src="img/user1.jpg" alt="User Photo" class="user-photo" />
-          <div class="user-details">
-            <p class="user-name">Michael Piercey</p>
-            <p class="user-course">Computer Science</p>
-          </div>
-          
-          <!-- Anonymous Toggle -->
-          <label class="anonymous-toggle">
-            Post Anonymously
-            <input type="checkbox">
-            <span class="slider"></span>
-          </label>
+        <div class="card">
+            <div class="user-info">
+                <img src="img/user1.jpg" alt="User Photo" class="user-photo" />
+                <div class="user-details">
+                    <p class="user-name">Michael Piercey</p>
+                    <p class="user-course">Computer Science</p>
+                </div>
+                
+                <!-- Anonymous Slider -->
+                <div class="anonymous-toggle">
+                    <label class="toggle-label">
+                        Post Anonymously
+                        <input type="checkbox">
+                        <span class="slider">
+                            <span class="circle"></span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Category and Subcategory Selection -->
+            <select class="category-dropdown">
+                <option>Select Category</option>
+                <option>General</option>
+                <option>Programming</option>
+                <option>Cybersecurity</option>
+            </select>
+
+            <select class="subcategory-dropdown">
+                <option>Select Subcategory</option>
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+            </select>
+
+            <!-- Heading and Details Text Fields -->
+            <input type="text" class="post-title-input" placeholder="Enter your heading or question" />
+            <textarea class="post-details-textarea" rows="5" placeholder="Add more details"></textarea>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="add-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <path d="M21 15l-5-5L5 21"></path>
+                    </svg>
+                    Add Image
+                </button>
+                <button class="post-button">Post</button>
+            </div>
         </div>
-
-        <!-- Category and Subcategory -->
-        <div class="select-section">
-          <label for="category">Category:</label>
-          <select id="category">
-            <option value="general">General</option>
-            <option value="help">Help</option>
-            <option value="projects">Projects</option>
-            <option value="events">Events</option>
-          </select>
-
-          <label for="subcategory">Subcategory:</label>
-          <select id="subcategory">
-            <option value="questions">Questions</option>
-            <option value="feedback">Feedback</option>
-            <option value="ideas">Ideas</option>
-          </select>
-        </div>
-
-        <!-- Post Heading -->
-        <input type="text" placeholder="Enter your post heading/question" class="post-heading" />
-
-        <!-- Post Content -->
-        <textarea placeholder="Add more details to your post" class="post-content"></textarea>
-
-        <!-- Image and Post Buttons -->
-        <div class="action-buttons">
-          <button class="add-image">Add Image</button>
-          <button class="post-button">Post</button>
-        </div>
-      </div>
     </div>
-  </main>
+</main>
 
 <%- include('../partials/footer.ejs')%>
 

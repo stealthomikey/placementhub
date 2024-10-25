@@ -67,6 +67,7 @@ body {
 }
 
 .slider {
+  margin-top: -10px;
   position: relative;
   width: 50px;
   height: 25px;

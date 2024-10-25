@@ -98,6 +98,10 @@ body {
   transform: translateX(25px);
 }
 
+#category, #subcategory {
+  margin-top: -15px;
+}
+
 .select-section {
   display: flex;
   gap: 20px;

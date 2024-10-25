@@ -337,35 +337,43 @@ app.post('/change-password', (req, res) => {
     );
 });
 
-// Multer configuration
-const storage = multer.diskStorage({
+// Multer configuration for profile picture
+const profileStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public/img'); // Set the destination folder for uploaded files
+        cb(null, 'public/img'); // Destination folder for profile pictures
     },
     filename: function (req, file, cb) {
-      // Check if username is available in the session
-      if (req.session && req.session.user && req.session.user.login && req.session.user.login.username) {
-        const username = req.session.user.login.username;
-        const fileExtension = path.extname(file.originalname); // Get the file extension
-        const filename = `${username}${fileExtension}`; // Set the filename with username and original file extension
-        cb(null, filename); 
-      } else {
-        cb(new Error('Username not found in session'), null);
-      }
-    }
-  });
-
-// Initialize multer with the defined storage
-const upload = multer({
-    storage: storage,
-    // Overwrite existing files with the same name
-    fileFilter: function (req, file, cb) {
-        cb(null, true);
+        if (req.session && req.session.user && req.session.user.login && req.session.user.login.username) {
+            const username = req.session.user.login.username;
+            const fileExtension = path.extname(file.originalname);
+            const filename = `${username}${fileExtension}`;
+            cb(null, filename); 
+        } else {
+            cb(new Error('Username not found in session'), null);
+        }
     }
 });
 
-// Route to handle file upload
-app.post('/upload', upload.single('photo'), async (req, res) => {
+// Multer configuration for post images
+const postStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/img/postimg'); // Destination folder for post images
+    },
+    filename: function (req, file, cb) {
+        const userId = req.session.stringUserId;
+        const dateCreated = Date.now(); // Use current timestamp for uniqueness
+        const fileExtension = path.extname(file.originalname);
+        const filename = `${userId}${dateCreated}${fileExtension}`; // Name format: useriddatecreated
+        cb(null, filename);
+    }
+});
+
+// Initialize multer with the defined storage for profile picture and post images
+const uploadProfile = multer({ storage: profileStorage });
+const uploadPostImage = multer({ storage: postStorage });
+
+// Route to handle profile picture upload
+app.post('/upload', uploadProfile.single('photo'), async (req, res) => {
     // Check if file is present in the request
     if (!req.file) {
         return res.status(400).send('No file uploaded');
@@ -376,17 +384,14 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
         const username = req.session.user.login.username;
         const email = req.session.user.email;
         const newImageName = "img/" + username + path.extname(req.file.originalname); // Construct the new image path
-        // Update the user's profile picture path in MongoDB
         try {
-            // Update the user's profile picture path in MongoDB
             const result = await db.collection('people').updateOne(
                 { email: email },
                 { $set: { "picture.thumbnail": newImageName } }
             );
-        
+
             if (result.modifiedCount === 1) {
-                // Update the profile picture path in the session user object
-                req.session.user.picture.thumbnail = newImageName;
+                req.session.user.picture.thumbnail = newImageName; // Update session user object
                 res.redirect('/myaccount');
             } else {
                 console.error("Failed to update profile picture path in MongoDB");
@@ -401,7 +406,8 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     }
 });
 
-app.post('/addpost', (req, res) => {
+// Route to handle adding a post with an optional image upload
+app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     // Check if the user is logged in
     if (!req.session.loggedin) {
         res.redirect('/?notloggedin=true'); // Redirect to login 
@@ -418,6 +424,12 @@ app.post('/addpost', (req, res) => {
     const postHeading = req.body.postHeading; // Get post heading from request body
     const postContent = req.body.postContent; // Get post content from request body
 
+    // Prepare to save the image name if it exists
+    let postImageName = null;
+    if (req.file) {
+        postImageName = req.file.filename; // Get the filename of the uploaded image
+    }
+
     // Construct the post object
     const newPost = {
         userId,
@@ -426,7 +438,8 @@ app.post('/addpost', (req, res) => {
         subcategory: subcategory || 'Unspecified', // Fallback in case subcategory is not set
         heading: postHeading,
         content: postContent,
-        dateCreated: new Date()
+        dateCreated: new Date(),
+        image: postImageName // Save the image name in the post object
     };
 
     // Add new post to the forum collection
@@ -439,3 +452,4 @@ app.post('/addpost', (req, res) => {
         res.redirect('/createforumpost');
     });
 });
+

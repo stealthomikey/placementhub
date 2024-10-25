@@ -109,17 +109,32 @@ select {
   gap: 16px;
 }
 
-.add-image,
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-image svg {
+  width: 20px;
+  height: 20px;
+}
+
+.add-image {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
 .post-button {
   background-color: #007bff;
   color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
-.add-image:hover,
-.post-button:hover {
-  background-color: #0056b3;
+button:hover {
+  opacity: 0.9;
 }

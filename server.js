@@ -43,56 +43,48 @@ app.use(favicon(path.join(__dirname, 'public', 'img', 'thumbnail_image.png')));
 
 // Route to render the index.ejs page
 app.get('/', (req, res) => {
-  // Render index page with user data if logged in, otherwise render with null user
-  res.render('pages/index', { user: req.session.loggedin ? req.session.user : null, req: req });
+    res.render('pages/index', { user: req.session.loggedin ? req.session.user : null, req: req });
 });
 
 // Route to render the forumpages.ejs page
 app.get('/forumpages', (req, res) => {
-    // Render index page with user data if logged in, otherwise render with null user
-    res.render('pages/forumpages', { user: req.session.user});
-  });
+    res.render('pages/forumpages', { user: req.session.user });
+});
 
-  app.get('/forumpost', (req, res) => {
-    // Render index page with user data if logged in, otherwise render with null user
-    res.render('pages/forumpost', { user: req.session.user});
-  });
+app.get('/forumpost', (req, res) => {
+    res.render('pages/forumpost', { user: req.session.user });
+});
 
 // Route to render the myaccount.ejs page
 app.get('/myaccount', (req, res) => {
-    // Redirect to login if not logged in
     if (!req.session.loggedin) {
         res.redirect('/?notloggedin=true');
         return;
     }
-    // Render myaccount page with user data
-    res.render('pages/myaccount', { user: req.session.user});
+    res.render('pages/myaccount', { user: req.session.user });
 });
 
 // Route to render the forum.ejs page
 app.get('/forum', (req, res) => {
-    // Render forum page with user data
-    res.render('pages/forum', { user: req.session.user});
+    res.render('pages/forum', { user: req.session.user });
 });
 
 // Route to render the accommodation.ejs page
 app.get('/accommodation', (req, res) => {
-    // Render accommodation page with user data
-    res.render('pages/accommodation', { user: req.session.user});
+    res.render('pages/accommodation', { user: req.session.user });
 });
 
 // Route to render the socials.ejs page
 app.get('/socials', (req, res) => {
-    // Render socials page with user data
-    res.render('pages/socials', { user: req.session.user});
+    res.render('pages/socials', { user: req.session.user });
 });
 
 // Route to render the createpost.ejs page
 app.get('/createforumpost', (req, res) => {
-    // Render create forum post page with user data
-    res.render('pages/createforumpost', { user: req.session.user});
+    res.render('pages/createforumpost', { user: req.session.user });
 });
 
+// Valid locations for accommodation
 const validLocations = ['nhs-tayside', 'nhs-shetland', 'nhs-highland', 'nhs-grampianmoray', 'nhs-grampian', 'nhs-glasgow-and-clyde', 'nhs-lanarkshire', 'nhs-borders'];
 const capitalizedLocations = {
     'nhs-tayside': 'NHS-tayside',
@@ -115,9 +107,6 @@ app.get('/accommodation/:location', (req, res) => {
         res.status(404).send("Location not found");
     }
 });
-
-
-
 
 // Route to handle login form submission
 app.post('/dologin', (req, res) => {
@@ -192,38 +181,29 @@ app.post('/adduser', (req, res) => {
     });
 });
 
-
-
-//logout route cause the page to Logout.
-//it sets our session.loggedin to false and then redirects the user to the login
+// Logout route
 app.post('/logout', function (req, res) {
-  // Set the loggedin session variable to false
-  req.session.loggedin = false;
-  // Destroy the session
-  req.session.destroy(function(err) {
-    if(err) {
-      console.log(err);
-    } else {
-      // Redirect the user to the login page
-      res.redirect('/');
-    }
-  });
+    req.session.loggedin = false;
+    req.session.destroy(function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 // Route to handle changing user's first name
 app.post('/change-first-name', (req, res) => {
     const newFirstName = req.body.newFirstName;
 
-    // Check if new first name is provided
     if (!newFirstName) {
         res.status(400).send('New first name is required.');
         return;
     }
 
-    // Update the user's first name in the session
     req.session.user.name.first = newFirstName;
 
-    // Update the user's first name in the database
     const userEmail = req.session.user.email;
     db.collection('people').updateOne(
         { email: userEmail },
@@ -235,25 +215,22 @@ app.post('/change-first-name', (req, res) => {
                 return;
             }
             console.log("User's first name updated successfully");
-            res.redirect('/myaccount'); // Redirect to the account page
+            res.redirect('/myaccount');
         }
     );
 });
 
-// Route to handle changing user's first name
+// Route to handle changing user's username
 app.post('/change-username', (req, res) => {
     const newUsername = req.body.newUsername;
 
-    // Check if new first name is provided
     if (!newUsername) {
-        res.status(400).send('New first name is required.');
+        res.status(400).send('New username is required.');
         return;
     }
 
-    // Update the user's first name in the session
     req.session.user.login.username = newUsername;
 
-    // Update the user's first name in the database
     const userEmail = req.session.user.email;
     db.collection('people').updateOne(
         { email: userEmail },
@@ -265,7 +242,7 @@ app.post('/change-username', (req, res) => {
                 return;
             }
             console.log("User's username updated successfully");
-            res.redirect('/myaccount'); // Redirect to the account page
+            res.redirect('/myaccount');
         }
     );
 });
@@ -274,134 +251,30 @@ app.post('/change-username', (req, res) => {
 app.post('/change-email', (req, res) => {
     const newEmail = req.body.newEmail;
 
-    // Check if new email is provided
     if (!newEmail) {
-        res.status(400).send('New first name is required.');
+        res.status(400).send('New email is required.');
         return;
     }
 
-    // Update the user's first name in the session
     req.session.user.email = newEmail;
 
-    // Update the user's first name in the database
     const userUsername = req.session.user.login.username;
     db.collection('people').updateOne(
-        { username: userUsername },
+        { "login.username": userUsername },
         { $set: { "email": newEmail } },
         (err, result) => {
             if (err) {
-                console.error("Error updating user's first name:", err);
-                res.status(500).send('Error updating user\'s first name');
+                console.error("Error updating user's email:", err);
+                res.status(500).send('Error updating user\'s email');
                 return;
             }
-            console.log("User's first name updated successfully");
-            res.redirect('/myaccount'); // Redirect to the account page
-        }
-    );
-});
-
-// Route to handle changing user's first name
-app.post('/change-password', (req, res) => {
-    const newPassword = req.body.newPassword;
-    const newPassword2 = req.body.newPassword2;
-
-    // Check if new first name is provided
-    if (!newPassword) {
-        res.status(400).send('New password is required.');
-        return;
-    }
-
-        // Check if new first name is provided
-    if (newPassword != newPassword2) {
-        res.status(400).send('Passwords dont match.');
-        return;
-    }
-
-    // Update the user's first name in the session
-    req.session.user.login.password = newPassword;
-
-    // Update the user's first name in the database
-    const userEmail = req.session.user.email;
-    db.collection('people').updateOne(
-        { email: userEmail },
-        { $set: { "login.password": newPassword } },
-        (err, result) => {
-            if (err) {
-                console.error("Error updating user's password:", err);
-                res.status(500).send('Error updating user\'s password');
-                return;
-            }
-            console.log("User's password updated successfully");
-            res.redirect('/myaccount'); // Redirect to the account page
-        }
-    );
-});
-
-// Multer configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public/img'); // Set the destination folder for uploaded files
-    },
-    filename: function (req, file, cb) {
-      // Check if username is available in the session
-      if (req.session && req.session.user && req.session.user.login && req.session.user.login.username) {
-        const username = req.session.user.login.username;
-        const fileExtension = path.extname(file.originalname); // Get the file extension
-        const filename = `${username}${fileExtension}`; // Set the filename with username and original file extension
-        cb(null, filename); 
-      } else {
-        cb(new Error('Username not found in session'), null);
-      }
-    }
-  });
-
-// Initialize multer with the defined storage
-const upload = multer({
-    storage: storage,
-    // Overwrite existing files with the same name
-    fileFilter: function (req, file, cb) {
-        cb(null, true);
-    }
-});
-
-// Route to handle file upload
-app.post('/upload', upload.single('photo'), async (req, res) => {
-    // Check if file is present in the request
-    if (!req.file) {
-        return res.status(400).send('No file uploaded');
-    }
-
-    // Update the user's profile picture path in MongoDB
-    if (req.session && req.session.user && req.session.user.login && req.session.user.login.username) {
-        const username = req.session.user.login.username;
-        const email = req.session.user.email;
-        const newImageName = "img/" + username + path.extname(req.file.originalname); // Construct the new image path
-        // Update the user's profile picture path in MongoDB
-        try {
-            // Update the user's profile picture path in MongoDB
-            const result = await db.collection('people').updateOne(
-                { email: email },
-                { $set: { "picture.thumbnail": newImageName } }
-            );
-        
-            if (result.modifiedCount === 1) {
-                // Update the profile picture path in the session user object
-                req.session.user.picture.thumbnail = newImageName;
-                res.redirect('/myaccount');
-            } else {
-                console.error("Failed to update profile picture path in MongoDB");
-                res.redirect('/myaccount');
-            }
-        } catch (error) {
-            console.error("Error updating profile picture path in MongoDB:", error);
+            console.log("User's email updated successfully");
             res.redirect('/myaccount');
         }
-    } else {
-        return res.status(500).send('Failed to update profile picture');
-    }
+    );
 });
 
-
+// Route to handle adding a new forum post
 app.post('/addpost', (req, res) => {
     // Check if the user is logged in
     if (!req.session.loggedin) {
@@ -427,7 +300,7 @@ app.post('/addpost', (req, res) => {
         dateCreated: new Date()
     };
 
-    // Add new post to the database (e.g., MongoDB)
+    // Add new post to the forum collection
     db.collection('forum').insertOne(newPost, (err, result) => {
         if (err) {
             console.error("Error adding post:", err);
@@ -436,4 +309,17 @@ app.post('/addpost', (req, res) => {
         console.log("Post added:", result);
         res.redirect('/createforumpost');
     });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+// Exit handler
+process.on('SIGINT', async () => {
+    await client.close();
+    console.log('MongoDB connection closed');
+    process.exit(0);
 });

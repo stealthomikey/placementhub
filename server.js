@@ -132,13 +132,13 @@ app.post('/dologin', (req, res) => {
             return;
         }
 
-        if (result.login.password == pword) {
+        if (result.login.password === pword) {
             req.session.loggedin = true;
             req.session.currentuser = uname;
-            req.session.userId = result._id; // Set userId in session
+            req.session.userId = result._id; // Set ObjectId in session
+            req.session.stringUserId = result.userId; // Set string userId in session
             req.session.user = result; // Store user data in session
-            res.redirect('/myaccount'); // Redirect to myaccount if login successful
-
+            res.redirect('/myaccount'); // Redirect to myaccount if login is successful
         } else {
             res.redirect('/?notloggedin=true');
         }
@@ -168,16 +168,16 @@ app.post('/adduser', (req, res) => {
             res.status(500).send('Error saving to database');
             return;
         }
-        
+
         console.log('User saved to database');
-        
-        // Now we can assign the unique userId to the user document
-        const userId = result.insertedId; // MongoDB generates a unique ObjectId for each document
-        
+
+        // Generate the userId as a string representation of the inserted ObjectId
+        const userId = result.insertedId.toString(); // Convert ObjectId to string
+
         // Update the inserted document to include the userId
         db.collection('people').updateOne(
             { _id: result.insertedId },
-            { $set: { userId: userId.toString() } }, // Store userId as a string
+            { $set: { userId: userId } }, // Store userId as a string
             (updateErr) => {
                 if (updateErr) {
                     console.error('Error updating userId in database:', updateErr);
@@ -185,8 +185,8 @@ app.post('/adduser', (req, res) => {
                     return;
                 }
 
-                // Redirect if signup successful
-                res.redirect('/myaccount'); 
+                // Redirect if signup is successful
+                res.redirect('/myaccount');
             }
         );
     });
@@ -399,4 +399,40 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     } else {
         return res.status(500).send('Failed to update profile picture');
     }
+});
+
+
+app.post('/addpost', (req, res) => {
+    // Check if the user is logged in
+    if (!req.session.loggedin) {
+        res.redirect('/?notloggedin=true'); // Redirect to login 
+        return;
+    }
+
+    const userId = req.session.stringUserId;
+    const postAnonymous = req.body.anonymousSwitch === 'on'; // Convert checkbox value to boolean
+    const category = req.body.category; 
+    const subcategory = req.body.subcategory;
+    const postHeading = req.body.postHeading; // Get post heading from request body
+    const postContent = req.body.postContent; // Get post content from request body
+
+    // Construct the post object
+    const newPost = {
+        userId,
+        anonymous: postAnonymous,
+        category,
+        subcategory,
+        heading: postHeading,
+        content: postContent,
+        dateCreated: new Date()
+    };
+
+    // Add new post to the database (e.g., MongoDB)
+    db.collection('forum').insertOne(newPost, (err, result) => {
+        if (err) {
+            console.error("Error adding post:", err);
+            return res.status(500).send("Error adding post");
+        }
+        console.log("Post added:", result);
+    });
 });

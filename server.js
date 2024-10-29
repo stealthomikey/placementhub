@@ -449,12 +449,29 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         const forumId = result.insertedId.toString(); // Convert ObjectId to string
         newPost.forumId = forumId; // Assign the forumId to the newPost object
 
-        console.log("Post added:", newPost);
-        console.log("New forum post ID:", forumId); // Log the forumId if needed
+        
+        // Update the inserted document to include the userId
+        db.collection('forum').updateOne(
+            { _id: result.insertedId },
+            { $set: { forumId: forumId } }, // Store userId as a string
+            (updateErr) => {
+                if (updateErr) {
+                    console.error('Error updating userId in database:', updateErr);
+                    res.status(500).send('Error updating userId in database');
+                    return;
+                }
 
-        res.redirect('/createforumpost');
+                console.log("Post added:", newPost);
+                console.log("New forum post ID:", forumId); // Log the forumId if needed
+        
+                res.redirect('/createforumpost');
+        });
+            }
+        );
     });
-});
+
+
+
 
 
 // Route to handle GET request for fetching group watchlist data

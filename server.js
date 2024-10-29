@@ -410,8 +410,7 @@ app.post('/upload', uploadProfile.single('photo'), async (req, res) => {
 app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     // Check if the user is logged in
     if (!req.session.loggedin) {
-        res.redirect('/?notloggedin=true'); // Redirect to login 
-        return;
+        return res.redirect('/?notloggedin=true'); // Redirect to login
     }
 
     const userId = req.session.stringUserId;
@@ -421,25 +420,22 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     const category = req.body.category === 'other' ? req.body.customCategory : req.body.category; 
     const subcategory = req.body.subcategory === 'other' ? req.body.customSubcategory : req.body.subcategory;
 
-    const postHeading = req.body.postHeading; // Get post heading from request body
-    const postContent = req.body.postContent; // Get post content from request body
+    const postHeading = req.body.postHeading; 
+    const postContent = req.body.postContent; 
 
     // Prepare to save the image name if it exists
-    let postImageName = null;
-    if (req.file) {
-        postImageName = req.file.filename; // Get the filename of the uploaded image
-    }
+    let postImageName = req.file ? req.file.filename : null;
 
     // Construct the post object
     const newPost = {
         userId,
         anonymous: postAnonymous,
-        category: category || 'Unspecified', // Fallback in case category is not set
-        subcategory: subcategory || 'Unspecified', // Fallback in case subcategory is not set
+        category: category || 'Unspecified', 
+        subcategory: subcategory || 'Unspecified', 
         heading: postHeading,
         content: postContent,
         dateCreated: new Date(),
-        image: postImageName // Save the image name in the post object
+        image: postImageName 
     };
 
     // Add new post to the forum collection
@@ -448,8 +444,45 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
             console.error("Error adding post:", err);
             return res.status(500).send("Error adding post");
         }
-        console.log("Post added:", result);
+
+        // Add the forumId to the newPost object after insertion
+        const forumId = result.insertedId.toString(); // Convert ObjectId to string
+        newPost.forumId = forumId; // Assign the forumId to the newPost object
+
+        console.log("Post added:", newPost);
+        console.log("New forum post ID:", forumId); // Log the forumId if needed
+
         res.redirect('/createforumpost');
     });
 });
 
+
+// Route to handle GET request for fetching group watchlist data
+app.get('/getForumPosts', async (req, res) => {
+    const groupCode = req.query.groupCode;
+
+    try {
+        const client = await MongoClient.connect(url);
+
+        const db = client.db('profiles'); 
+
+        // Find the group by groupCode
+        const groupsCollection = db.collection('groups');
+        const group = await groupsCollection.findOne({ groupCode: parseInt(groupCode) });
+
+        if (group) {
+            // If group found, send back the group watchlist data
+            res.json({ groupWatchlist: group.groupWatchlist });
+        } else {
+            // If forums not found, send 404 error
+            res.status(404).json({ error: 'not found' });
+        }
+
+        // Close the connection
+        await client.close();
+    } catch (error) {
+        // If an error occurs, send 500 error
+        console.error('Error fetching forum posts:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});

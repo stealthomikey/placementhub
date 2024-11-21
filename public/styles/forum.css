@@ -20,8 +20,8 @@
   flex-direction: column;
   margin: 20px;
   padding: 20px;
-  background-color: #f7f8fa;
-  color: #333;
+  background-color: #f0f4f8;
+  color: #1a1a1a;
 }
 
 /* Styling for the title */
@@ -30,7 +30,7 @@
   text-align: center; /* Center the text */
   margin-bottom: 20px; /* Add space between title and overview cards */
   width: 100%; /* Ensure title spans the full width */
-  color: #333; /* Matching color for title */
+  color: #1a1a1a; /* Dark color for title */
 }
 
 .main-overview {
@@ -45,14 +45,18 @@
   align-items: center;
   justify-content: center; /* Center content horizontally */
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   flex: 1;
   text-align: center;
   cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .overviewcard:hover {
-  background-color: #e0e0e0;
+  background-color: #f3f4f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .overviewcard__info {
@@ -84,8 +88,9 @@
   -webkit-column-break-inside: avoid;
   padding: 24px;
   box-sizing: border-box;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 12px; /* Rounded corners */
+  border: 1px solid #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -97,21 +102,21 @@
 /* Hover effect for forum cards */
 .card:hover {
   transform: scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* More pronounced shadow on hover */
 }
 
 /* Title styling inside forum cards */
 .card .card-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333; /* Dark color for better contrast */
+  color: #1a1a1a; /* Dark color for better contrast */
   margin-bottom: 10px;
 }
 
 /* Body styling inside forum cards */
 .card .card-body {
   font-size: 1rem;
-  color: #666; /* Dark gray color for readability */
+  color: #4b5563; /* Dark gray color for readability */
 }
 
 /* Medium screens breakpoint (768px) */
@@ -139,8 +144,8 @@
   flex-direction: column;
   margin: 20px;
   padding: 20px;
-  background-color: #f7f8fa;
-  color: #333;
+  background-color: #f0f4f8;
+  color: #1a1a1a;
   font-size: 2.5rem; 
   text-align: center; /* Center the text */
   margin-bottom: 20px; 

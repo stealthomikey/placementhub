@@ -17,10 +17,9 @@
     <div class="main-header">
         <h1 class="main-title">Explore Our Forums</h1>
         <div class="main-overview">
-            <div class="overviewcard" data-forum="NHSRegions">
+            <div class="overviewcard" data-forum="nhsregions">
                 <div class="overviewcard__info">NHS Regions</div>
             </div>
-            
             <div class="overviewcard" data-forum="degree">
                 <div class="overviewcard__info">Degree</div>
             </div>
@@ -36,7 +35,6 @@
     <% if (typeof categories === 'undefined') { %>
         <p>Error: Categories data not passed to the template.</p>
     <% } else { %>
-        <pre><%= JSON.stringify(categories, null, 2) %></pre> <!-- Show categories data in template -->
         <% Object.keys(categories).forEach(category => { %>
             <div class="forum-section <%= category.toLowerCase().replace(/\s+/g, '-') %>-forums">
                 <div class="forum-title">
@@ -58,7 +56,6 @@
             </div>
         <% }) %>
     <% } %>
-    
 </main>
 
 <%- include('../partials/footer.ejs')%>

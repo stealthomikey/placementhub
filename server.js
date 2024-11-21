@@ -536,19 +536,27 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
             // Get user details for each post, handling cases where userId might be null
             const filledPosts = await Promise.all(posts.map(async (post) => {
                 if (post.userId) {
-                    const user = await db.collection('people').findOne({ _id: ObjectId(post.userId) });
-                    if (user) {
-                        return {
-                            ...post,
-                            userName: user.name.first,
-                            userCourse: user.course || 'N/A',
-                            userPhoto: user.picture ? user.picture.thumbnail : 'default.jpg', // Fallback to default if no picture
-                            postDate: post.dateCreated.toDateString(),
-                            title: post.heading,
-                            upVotes: post.upVotes || 0,
-                            downVotes: post.downVotes || 0,
-                            comments: post.comments || 0
-                        };
+                    try {
+                        const userId = new ObjectId(post.userId);
+                        const user = await db.collection('people').findOne({ _id: userId });
+    
+                        if (user) {
+                            return {
+                                ...post,
+                                userName: user.name.first,
+                                userCourse: user.course || 'N/A',
+                                userPhoto: user.picture ? user.picture.thumbnail : 'default.jpg', // Fallback to default if no picture
+                                postDate: post.dateCreated.toDateString(),
+                                title: post.heading,
+                                upVotes: post.upVotes || 0,
+                                downVotes: post.downVotes || 0,
+                                comments: post.comments || 0
+                            };
+                        } else {
+                            console.log(`User not found for userId: ${post.userId}`);
+                        }
+                    } catch (err) {
+                        console.error(`Error converting userId: ${post.userId} to ObjectId`, err);
                     }
                 }
     

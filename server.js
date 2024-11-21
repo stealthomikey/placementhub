@@ -502,7 +502,6 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         );
     });
 
-
     app.get('/:category/:subcategory?', async (req, res) => {
         try {
             const { category, subcategory } = req.params;
@@ -512,8 +511,14 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
                 query.subcategory = subcategory;
             }
     
+            // Log the query to verify
+            console.log('Query:', query);
+    
             // Fetch all posts that match the given category and subcategory (if provided)
             const posts = await db.collection('forum').find(query).toArray();
+            
+            // Log the result to check if posts are fetched
+            console.log('Fetched Posts:', posts);
     
             // Get user details for each post
             const filledPosts = await Promise.all(posts.map(async (post) => {
@@ -531,7 +536,7 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
                 };
             }));
     
-            // Log the data to the console
+            // Log the filled posts data
             console.log('Filled Posts Data:', filledPosts);
     
             // Render the forumpost page with the fetched posts
@@ -547,3 +552,4 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
             res.status(500).send('Error fetching forum posts');
         }
     });
+    

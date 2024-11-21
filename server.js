@@ -69,10 +69,32 @@ app.get('/myaccount', (req, res) => {
     res.render('pages/myaccount', { user: req.session.user});
 });
 
-// Route to render the forum.ejs page
 app.get('/forum', (req, res) => {
-    // Render forum page with user data
-    res.render('pages/forum', { user: req.session.user});
+    // Hardcoded categories for testing
+    const categories = {
+        'NHS Regions': {
+            'Scotland': [],
+            'Wales': []
+        },
+        'Degree': {
+            'Medical Degrees': [],
+            'Advanced Degrees': [],
+            'Other Educational Resources': []
+        },
+        'Accommodation': {
+            'On-Campus': [],
+            'Off-Campus': []
+        },
+        'Other': {
+            'General Discussion': []
+        }
+    };
+
+    // Render the forum page with the categories object
+    res.render('pages/forum', {
+        user: req.session.user,
+        categories: categories
+    });
 });
 
 // Route to render the accommodation.ejs page

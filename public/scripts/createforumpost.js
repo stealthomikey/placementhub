@@ -24,9 +24,6 @@ function updateSubcategoryOptions() {
             options = ['Questions', 'Reviews', 'Other'];
             break;
         case 'Other':
-            customSubcategory.style.display = 'block';
-            break;
-        default:
             options = ['Questions', 'Feedback', 'Ideas', 'How to find placement', 'Other'];
             break;
     }

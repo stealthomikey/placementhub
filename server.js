@@ -503,45 +503,47 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     });
 
 
-// Dynamic route to handle all forum pages (categories and subcategories)
-app.get('/:category/:subcategory?', async (req, res) => {
-    try {
-        const { category, subcategory } = req.params;
-        const query = { category: category };
-
-        if (subcategory) {
-            query.subcategory = subcategory;
+    app.get('/:category/:subcategory?', async (req, res) => {
+        try {
+            const { category, subcategory } = req.params;
+            const query = { category: category };
+    
+            if (subcategory) {
+                query.subcategory = subcategory;
+            }
+    
+            // Fetch all posts that match the given category and subcategory (if provided)
+            const posts = await db.collection('forum').find(query).toArray();
+    
+            // Get user details for each post
+            const filledPosts = await Promise.all(posts.map(async (post) => {
+                const user = await db.collection('people').findOne({ _id: ObjectId(post.userId) });
+                return {
+                    ...post,
+                    userName: user.name.first,
+                    userCourse: user.course || 'N/A',
+                    userPhoto: user.picture.thumbnail,
+                    postDate: post.dateCreated.toDateString(),
+                    title: post.heading,
+                    upVotes: post.upVotes || 0,
+                    downVotes: post.downVotes || 0,
+                    comments: post.comments || 0
+                };
+            }));
+    
+            // Log the data to the console
+            console.log('Filled Posts Data:', filledPosts);
+    
+            // Render the forumpost page with the fetched posts
+            res.render('pages/forumpost', {
+                user: req.session.user,
+                posts: filledPosts,
+                category: category,
+                subcategory: subcategory || null
+            });
+    
+        } catch (err) {
+            console.error('Error fetching forum posts:', err);
+            res.status(500).send('Error fetching forum posts');
         }
-
-        // Fetch all posts that match the given category and subcategory (if provided)
-        const posts = await db.collection('forum').find(query).toArray();
-
-        // Get user details for each post
-        const filledPosts = await Promise.all(posts.map(async (post) => {
-            const user = await db.collection('people').findOne({ _id: ObjectId(post.userId) });
-            return {
-                ...post,
-                userName: user.name.first,
-                userCourse: user.course || 'N/A',
-                userPhoto: user.picture.thumbnail,
-                postDate: post.dateCreated.toDateString(),
-                title: post.heading,
-                upVotes: post.upVotes || 0,
-                downVotes: post.downVotes || 0,
-                comments: post.comments || 0
-            };
-        }));
-
-        // Render the forumpost page with the fetched posts
-        res.render('pages/forumpost', {
-            user: req.session.user,
-            posts: filledPosts,
-            category: category,
-            subcategory: subcategory || null
-        });
-
-    } catch (err) {
-        console.error('Error fetching forum posts:', err);
-        res.status(500).send('Error fetching forum posts');
-    }
-});
+    });

@@ -472,7 +472,7 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
 
     app.get('/forum', async (req, res) => {
         try {
-            // For testing, we'll hardcode categories with subcategories.
+            // Define categories with subcategories for rendering
             const categories = {
                 'NHS Regions': {
                     'Scotland': [],
@@ -492,7 +492,7 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
                 }
             };
     
-            // Render the forum page with categories data
+            // Render the forum page with the categories object
             res.render('pages/forum', { 
                 user: req.session.user,
                 categories: categories

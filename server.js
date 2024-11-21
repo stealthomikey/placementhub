@@ -470,29 +470,36 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         );
     });
 
-    app.get('/forum', (req, res) => {
-        const categories = {
-            'Degree': {
-                'Medical Degrees': [],
-                'Advanced Degrees': [],
-                'Other Educational Resources': []
-            },
-            'Accommodation': {
-                'On-Campus': [],
-                'Off-Campus': []
-            },
-            'NHS Regions': {
-                'NHS Scotland': [],
-                'NHS Wales': []
-            },
-            'Other': {
-                'General Discussion': []
-            }
-        };
+    app.get('/forum-info', async (req, res) => {
+        try {
+            // For testing, we'll hardcode categories with subcategories.
+            const categories = {
+                'NHS Regions': {
+                    'Scotland': [],
+                    'Wales': []
+                },
+                'Degree': {
+                    'Medical Degrees': [],
+                    'Advanced Degrees': [],
+                    'Other Educational Resources': []
+                },
+                'Accommodation': {
+                    'On-Campus': [],
+                    'Off-Campus': []
+                },
+                'Other': {
+                    'General Discussion': []
+                }
+            };
     
-        res.render('pages/forum', { 
-            user: req.session.user,
-            categories: categories
-        });
+            // Render the forum page with categories data
+            res.render('pages/forum', { 
+                user: req.session.user,
+                categories: categories
+            });
+        } catch (err) {
+            console.error('Error fetching forum posts:', err);
+            res.status(500).send('Error fetching forum posts');
+        }
     });
     

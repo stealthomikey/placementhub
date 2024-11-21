@@ -531,23 +531,25 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     });
     
 
-    // Dynamic route to handle category and subcategory pages
-app.get('/forum/:category/:subcategory', async (req, res) => {
+// Dynamic route to handle all forum pages (categories and subcategories)
+app.get('/:category/:subcategory?', async (req, res) => {
     try {
         const { category, subcategory } = req.params;
-        // Fetch all posts that match the given category and subcategory
-        const posts = await db.collection('forum').find({ category, subcategory }).toArray();
+        const query = { category: category };
 
-        if (!posts.length) {
-            return res.status(404).send('No posts found for this category and subcategory');
+        if (subcategory) {
+            query.subcategory = subcategory;
         }
+
+        // Fetch all posts that match the given category and subcategory (if provided)
+        const posts = await db.collection('forum').find(query).toArray();
 
         // Render the forumpost page with the fetched posts
         res.render('pages/forumpost', {
             user: req.session.user,
             posts: posts,
             category: category,
-            subcategory: subcategory
+            subcategory: subcategory || null
         });
 
     } catch (err) {
@@ -555,7 +557,6 @@ app.get('/forum/:category/:subcategory', async (req, res) => {
         res.status(500).send('Error fetching forum posts');
     }
 });
-
 // Route to render the create forum post page
 app.get('/createforumpost', (req, res) => {
     res.render('pages/createforumpost', { user: req.session.user });

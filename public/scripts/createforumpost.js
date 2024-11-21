@@ -8,9 +8,19 @@
       const subcategorySelect = document.getElementById('subcategory');
       const customSubcategoryInput = document.getElementById('customSubcategory');
 
-      // If "Other" is selected, replace the value of the subcategory select
-      if (subcategorySelect.value === 'Other') {
-        subcategorySelect.value = customSubcategoryInput.value;
+      // If "Other" is selected, replace the value of the subcategory with custom input
+      if (subcategorySelect.value === 'Other' && customSubcategoryInput.value.trim() !== '') {
+        // Create a new hidden input with the name 'subcategory' to override the select value
+        const newSubcategoryInput = document.createElement('input');
+        newSubcategoryInput.type = 'hidden';
+        newSubcategoryInput.name = 'subcategory';
+        newSubcategoryInput.value = customSubcategoryInput.value.trim();
+
+        // Append the new input to the form so that it is submitted
+        form.appendChild(newSubcategoryInput);
+        
+        // Disable the original subcategory select so it doesn't get submitted
+        subcategorySelect.disabled = true;
       }
     });
   });

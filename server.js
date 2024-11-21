@@ -505,10 +505,14 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     app.get('/:category/:subcategory?', async (req, res) => {
         try {
             const { category, subcategory } = req.params;
-            const query = { category: category };
+            const query = {};
+    
+            if (category) {
+                query.category = new RegExp(`^${category}$`, 'i'); // Case-insensitive match
+            }
     
             if (subcategory) {
-                query.subcategory = subcategory;
+                query.subcategory = new RegExp(`^${subcategory}$`, 'i'); // Case-insensitive match
             }
     
             // Log the query to verify

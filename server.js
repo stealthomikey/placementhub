@@ -470,36 +470,31 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         );
     });
 
-    app.get('/forum', async (req, res) => {
-        try {
-            // Define categories with subcategories for rendering
-            const categories = {
-                'NHS Regions': {
-                    'Scotland': [],
-                    'Wales': []
-                },
-                'Degree': {
-                    'Medical Degrees': [],
-                    'Advanced Degrees': [],
-                    'Other Educational Resources': []
-                },
-                'Accommodation': {
-                    'On-Campus': [],
-                    'Off-Campus': []
-                },
-                'Other': {
-                    'General Discussion': []
-                }
-            };
+    app.get('/forum', (req, res) => {
+        // For testing purposes, we provide a hardcoded categories object
+        const categories = {
+            'NHS Regions': {
+                'Scotland': [],
+                'Wales': []
+            },
+            'Degree': {
+                'Medical Degrees': [],
+                'Advanced Degrees': [],
+                'Other Educational Resources': []
+            },
+            'Accommodation': {
+                'On-Campus': [],
+                'Off-Campus': []
+            },
+            'Other': {
+                'General Discussion': []
+            }
+        };
     
-            // Render the forum page with the categories object
-            res.render('pages/forum', { 
-                user: req.session.user,
-                categories: categories
-            });
-        } catch (err) {
-            console.error('Error fetching forum posts:', err);
-            res.status(500).send('Error fetching forum posts');
-        }
+        // Pass the categories object to the forum.ejs template
+        res.render('pages/forum', {
+            user: req.session.user,
+            categories: categories
+        });
     });
     

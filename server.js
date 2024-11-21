@@ -506,16 +506,20 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         try {
             const { category, subcategory } = req.params;
     
+            // Normalize the category and subcategory values to ensure consistency
+            const normalizedCategory = category.replace(/-/g, ' ').toLowerCase();
+            const normalizedSubcategory = subcategory ? subcategory.replace(/-/g, ' ').toLowerCase() : null;
+    
             // Log incoming parameters
-            console.log('Category:', category);
-            console.log('Subcategory:', subcategory);
+            console.log('Category:', normalizedCategory);
+            console.log('Subcategory:', normalizedSubcategory);
     
             const query = {
-                category: new RegExp(`^${category}$`, 'i') // Case-insensitive match for category
+                category: new RegExp(`^${normalizedCategory}$`, 'i') // Case-insensitive match for category
             };
     
-            if (subcategory) {
-                query.subcategory = new RegExp(`^${subcategory}$`, 'i'); // Case-insensitive match for subcategory
+            if (normalizedSubcategory) {
+                query.subcategory = new RegExp(`^${normalizedSubcategory}$`, 'i'); // Case-insensitive match for subcategory
             }
     
             // Log the query to verify

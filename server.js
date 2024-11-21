@@ -471,35 +471,38 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     });
 
 
-
-
-
-// Route to handle GET request for fetching group watchlist data
-app.get('/getForumPosts', async (req, res) => {
-    const groupCode = req.query.groupCode;
-
+// Add a GET route to fetch and display forum posts
+app.get('/forum', async (req, res) => {
     try {
-        const client = await MongoClient.connect(url);
+        const forumPosts = await db.collection('forum').find({}).toArray();
 
-        const db = client.db('profiles'); 
+        // Organize posts into categories and subcategories
+        const categories = {
+            'NHS Regions': {},
+            'Degree': {},
+            'Accommodation': {},
+            'Other': {}
+        };
 
-        // Find the group by groupCode
-        const groupsCollection = db.collection('groups');
-        const group = await groupsCollection.findOne({ groupCode: parseInt(groupCode) });
+        forumPosts.forEach(post => {
+            const category = post.category;
+            const subcategory = post.subcategory;
 
-        if (group) {
-            // If group found, send back the group watchlist data
-            res.json({ groupWatchlist: group.groupWatchlist });
-        } else {
-            // If forums not found, send 404 error
-            res.status(404).json({ error: 'not found' });
-        }
+            if (!categories[category]) {
+                categories[category] = {};
+            }
+            if (!categories[category][subcategory]) {
+                categories[category][subcategory] = [];
+            }
+            categories[category][subcategory].push(post);
+        });
 
-        // Close the connection
-        await client.close();
-    } catch (error) {
-        // If an error occurs, send 500 error
-        console.error('Error fetching forum posts:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.render('pages/forum', { 
+            user: req.session.user,
+            categories: categories
+        });
+    } catch (err) {
+        console.error('Error fetching forum posts:', err);
+        res.status(500).send('Error fetching forum posts');
     }
 });

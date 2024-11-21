@@ -39,6 +39,16 @@
             <h3>Explore The NHS regions Forums</h3>
         </div>
         <div class="main-cards">
+            <% Object.keys(categories).forEach(category => { %>
+                <div class="category">
+                    <h2><%= category %></h2>
+                    <% Object.keys(categories[category]).forEach(subcategory => { %>
+                        <div class="card <%= category.toLowerCase().replace(/\s+/g, '-') %>">
+                            <a href="/<%= category.toLowerCase() %>/<%= subcategory.replace(/\s+/g, '-') %>"><h4><%= subcategory %></h4></a>
+                        </div>
+                    <% }) %>
+                </div>
+            <% }) %>
         </div>
     </div>
 
@@ -49,7 +59,7 @@
         </div>
         <div class="main-cards">
             <div class="card degree">
-                <h4>Medical Degrees</h4>
+                <a href="/degrees/Medical-Degrees"><h4>Medical Degrees</h4></a>
             </div>
             <div class="card degree">
                 <h4>Advanced Degrees</h4>

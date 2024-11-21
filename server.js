@@ -502,34 +502,6 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         );
     });
 
-    app.get('/forum', (req, res) => {
-        // For testing purposes, we provide a hardcoded categories object
-        const categories = {
-            'NHS Regions': {
-                'Scotland': [],
-                'Wales': []
-            },
-            'Degree': {
-                'Medical Degrees': [],
-                'Advanced Degrees': [],
-                'Other Educational Resources': []
-            },
-            'Accommodation': {
-                'On-Campus': [],
-                'Off-Campus': []
-            },
-            'Other': {
-                'General Discussion': []
-            }
-        };
-    
-        // Pass the categories object to the forum.ejs template
-        res.render('pages/forum', {
-            user: req.session.user,
-            categories: categories
-        });
-    });
-    
 
 // Dynamic route to handle all forum pages (categories and subcategories)
 app.get('/:category/:subcategory?', async (req, res) => {
@@ -544,10 +516,26 @@ app.get('/:category/:subcategory?', async (req, res) => {
         // Fetch all posts that match the given category and subcategory (if provided)
         const posts = await db.collection('forum').find(query).toArray();
 
+        // Get user details for each post
+        const filledPosts = await Promise.all(posts.map(async (post) => {
+            const user = await db.collection('people').findOne({ _id: ObjectId(post.userId) });
+            return {
+                ...post,
+                userName: user.name.first,
+                userCourse: user.course || 'N/A',
+                userPhoto: user.picture.thumbnail,
+                postDate: post.dateCreated.toDateString(),
+                title: post.heading,
+                upVotes: post.upVotes || 0,
+                downVotes: post.downVotes || 0,
+                comments: post.comments || 0
+            };
+        }));
+
         // Render the forumpost page with the fetched posts
         res.render('pages/forumpost', {
             user: req.session.user,
-            posts: posts,
+            posts: filledPosts,
             category: category,
             subcategory: subcategory || null
         });
@@ -556,8 +544,4 @@ app.get('/:category/:subcategory?', async (req, res) => {
         console.error('Error fetching forum posts:', err);
         res.status(500).send('Error fetching forum posts');
     }
-});
-// Route to render the create forum post page
-app.get('/createforumpost', (req, res) => {
-    res.render('pages/createforumpost', { user: req.session.user });
 });

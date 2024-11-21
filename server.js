@@ -90,12 +90,15 @@ app.get('/forum', (req, res) => {
         }
     };
 
+    console.log('Rendering /forum with categories:', categories);
+
     // Render the forum page with the categories object
     res.render('pages/forum', {
         user: req.session.user,
         categories: categories
     });
 });
+
 
 // Route to render the accommodation.ejs page
 app.get('/accommodation', (req, res) => {

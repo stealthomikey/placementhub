@@ -32,22 +32,30 @@
         </div>
     </div>
 
-    <% Object.keys(categories).forEach(category => { %>
-        <div class="forum-section <%= category.toLowerCase().replace(/\s+/g, '-') %>-forums">
-            <div class="forum-title">
-                <h3>Explore <%= category %> Forums</h3>
+    <% if (typeof categories === 'undefined') { %>
+        <p>Error: Categories data not passed to the template.</p>
+    <% } else { %>
+        <% Object.keys(categories).forEach(category => { %>
+            <div class="forum-section <%= category.toLowerCase().replace(/\s+/g, '-') %>-forums">
+                <div class="forum-title">
+                    <h3>Explore <%= category %> Forums</h3>
+                </div>
+                <div class="main-cards">
+                    <% if (typeof categories[category] === 'undefined') { %>
+                        <p>Error: Subcategories data not available for <%= category %>.</p>
+                    <% } else { %>
+                        <% Object.keys(categories[category]).forEach(subcategory => { %>
+                            <div class="card <%= category.toLowerCase().replace(/\s+/g, '-') %>">
+                                <a href="/<%= category.toLowerCase() %>/<%= subcategory.replace(/\s+/g, '-') %>">
+                                    <h4><%= subcategory %></h4>
+                                </a>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                </div>
             </div>
-            <div class="main-cards">
-                <% Object.keys(categories[category]).forEach(subcategory => { %>
-                    <div class="card <%= category.toLowerCase().replace(/\s+/g, '-') %>">
-                        <a href="/<%= category.toLowerCase() %>/<%= subcategory.replace(/\s+/g, '-') %>">
-                            <h4><%= subcategory %></h4>
-                        </a>
-                    </div>
-                <% }) %>
-            </div>
-        </div>
-    <% }) %>
+        <% }) %>
+    <% } %>
 </main>
 
 <%- include('../partials/footer.ejs')%>
@@ -58,9 +66,5 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="/scripts/forum.js"></script>
-<script>
-    console.log(categories);
-
-</script>
 
 </html>

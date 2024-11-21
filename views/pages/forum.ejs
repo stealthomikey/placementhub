@@ -36,6 +36,7 @@
     <% if (typeof categories === 'undefined') { %>
         <p>Error: Categories data not passed to the template.</p>
     <% } else { %>
+        <pre><%= JSON.stringify(categories, null, 2) %></pre> <!-- Show categories data in template -->
         <% Object.keys(categories).forEach(category => { %>
             <div class="forum-section <%= category.toLowerCase().replace(/\s+/g, '-') %>-forums">
                 <div class="forum-title">
@@ -57,6 +58,7 @@
             </div>
         <% }) %>
     <% } %>
+    
 </main>
 
 <%- include('../partials/footer.ejs')%>

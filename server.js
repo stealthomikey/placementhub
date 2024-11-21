@@ -505,14 +505,17 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     app.get('/:category/:subcategory?', async (req, res) => {
         try {
             const { category, subcategory } = req.params;
-            const query = {};
     
-            if (category) {
-                query.category = new RegExp(`^${category}$`, 'i'); // Case-insensitive match
-            }
+            // Log incoming parameters
+            console.log('Category:', category);
+            console.log('Subcategory:', subcategory);
+    
+            const query = {
+                category: new RegExp(`^${category}$`, 'i') // Case-insensitive match for category
+            };
     
             if (subcategory) {
-                query.subcategory = new RegExp(`^${subcategory}$`, 'i'); // Case-insensitive match
+                query.subcategory = new RegExp(`^${subcategory}$`, 'i'); // Case-insensitive match for subcategory
             }
     
             // Log the query to verify
@@ -520,7 +523,7 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     
             // Fetch all posts that match the given category and subcategory (if provided)
             const posts = await db.collection('forum').find(query).toArray();
-            
+    
             // Log the fetched posts to check if posts are retrieved
             console.log('Fetched Posts:', posts);
     

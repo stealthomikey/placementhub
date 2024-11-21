@@ -546,7 +546,7 @@ app.get('/:category/:subcategory?', async (req, res) => {
                         return {
                             ...post,
                             userName: user.name.first,
-                            userCourse: user.course,
+                            userCourse: user.course, // No default value for userCourse
                             userPhoto: user.picture.thumbnail, // No fallback, use the user's picture
                             postDate: post.dateCreated.toDateString(),
                             title: post.heading,

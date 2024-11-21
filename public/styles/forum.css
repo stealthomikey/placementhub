@@ -82,6 +82,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center content vertically */
   width: 100%;
   background: linear-gradient(135deg, #f0f4ff, #dce6f5);
   margin-bottom: 20px;
@@ -96,7 +97,7 @@
 
 /* Force varying heights to simulate dynamic content */
 .card {
-  height: 150px; /* Reduce height to better fit smaller content */
+  height: 130px; /* Slightly reduce height to better fit smaller content */
 }
 
 /* Hover effect for forum cards */

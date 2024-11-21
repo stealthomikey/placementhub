@@ -517,17 +517,34 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
             // Fetch all posts that match the given category and subcategory (if provided)
             const posts = await db.collection('forum').find(query).toArray();
             
-            // Log the result to check if posts are fetched
+            // Log the fetched posts to check if posts are retrieved
             console.log('Fetched Posts:', posts);
     
-            // Get user details for each post
+            // Get user details for each post, handling cases where userId might be null
             const filledPosts = await Promise.all(posts.map(async (post) => {
-                const user = await db.collection('people').findOne({ _id: ObjectId(post.userId) });
+                if (post.userId) {
+                    const user = await db.collection('people').findOne({ _id: ObjectId(post.userId) });
+                    if (user) {
+                        return {
+                            ...post,
+                            userName: user.name.first,
+                            userCourse: user.course || 'N/A',
+                            userPhoto: user.picture ? user.picture.thumbnail : 'default.jpg', // Fallback to default if no picture
+                            postDate: post.dateCreated.toDateString(),
+                            title: post.heading,
+                            upVotes: post.upVotes || 0,
+                            downVotes: post.downVotes || 0,
+                            comments: post.comments || 0
+                        };
+                    }
+                }
+    
+                // If userId is null or user not found, use default values
                 return {
                     ...post,
-                    userName: user.name.first,
-                    userCourse: user.course || 'N/A',
-                    userPhoto: user.picture.thumbnail,
+                    userName: 'Anonymous',
+                    userCourse: 'N/A',
+                    userPhoto: 'default.jpg',
                     postDate: post.dateCreated.toDateString(),
                     title: post.heading,
                     upVotes: post.upVotes || 0,

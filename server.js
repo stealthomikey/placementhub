@@ -504,90 +504,89 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         );
     });
 
-    app.get('/:category/:subcategory?', async (req, res) => {
-        try {
-            const { category, subcategory } = req.params;
-    
-            // Normalize the category and subcategory values to ensure consistency
-            const normalizedCategory = category.replace(/-/g, ' ').toLowerCase();
-            const normalizedSubcategory = subcategory ? subcategory.replace(/-/g, ' ').toLowerCase() : null;
-    
-            // Log incoming parameters
-            console.log('Category:', normalizedCategory);
-            console.log('Subcategory:', normalizedSubcategory);
-    
-            const query = {
-                category: new RegExp(`^${normalizedCategory}$`, 'i') // Case-insensitive match for category
-            };
-    
-            if (normalizedSubcategory) {
-                query.subcategory = new RegExp(`^${normalizedSubcategory}$`, 'i'); // Case-insensitive match for subcategory
-            }
-    
-            // Log the query to verify
-            console.log('Query:', query);
-    
-            // Fetch all posts that match the given category and subcategory (if provided)
-            const posts = await db.collection('forum').find(query).toArray();
-    
-            // Log the fetched posts to check if posts are retrieved
-            console.log('Fetched Posts:', posts);
-    
-            // Get user details for each post, handling cases where userId might be null
-            const filledPosts = await Promise.all(posts.map(async (post) => {
-                if (post.userId) {
-                    try {
-                        const userId = new ObjectId(post.userId);
-                        const user = await db.collection('people').findOne({ _id: userId });
-    
-                        if (user) {
-                            return {
-                                ...post,
-                                userName: user.name.first,
-                                userCourse: user.course || 'N/A',
-                                userPhoto: user.picture ? user.picture.thumbnail : 'default.jpg', // Fallback to default if no picture
-                                postDate: post.dateCreated.toDateString(),
-                                title: post.heading,
-                                upVotes: post.upVotes || 0,
-                                downVotes: post.downVotes || 0,
-                                comments: post.comments || 0
-                            };
-                        } else {
-                            console.log(`User not found for userId: ${post.userId}`);
-                        }
-                    } catch (err) {
-                        console.error(`Error converting userId: ${post.userId} to ObjectId`, err);
-                    }
-                }
-    
-                // If userId is null or user not found, use default values
-                return {
-                    ...post,
-                    userName: 'Anonymous',
-                    userCourse: 'N/A',
-                    userPhoto: 'default.jpg',
-                    postDate: post.dateCreated.toDateString(),
-                    title: post.heading,
-                    upVotes: post.upVotes || 0,
-                    downVotes: post.downVotes || 0,
-                    comments: post.comments || 0
-                };
-            }));
-    
-            // Log the filled posts data
-            console.log('Filled Posts Data:', filledPosts);
-    
-            // Render the forumpost page with the fetched posts
-            res.render('pages/forumpost', {
-                user: req.session.user,
-                posts: filledPosts,
-                category: category,
-                subcategory: subcategory || null
-            });
-    
-        } catch (err) {
-            console.error('Error fetching forum posts:', err);
-            res.status(500).send('Error fetching forum posts');
+// Dynamic route to handle all forum pages (categories and subcategories)
+app.get('/:category/:subcategory?', async (req, res) => {
+    try {
+        const { category, subcategory } = req.params;
+
+        // Normalize the category and subcategory values to ensure consistency
+        const normalizedCategory = category.replace(/-/g, ' ').toLowerCase();
+        const normalizedSubcategory = subcategory ? subcategory.replace(/-/g, ' ').toLowerCase() : null;
+
+        // Log incoming parameters
+        console.log('Category:', normalizedCategory);
+        console.log('Subcategory:', normalizedSubcategory);
+
+        const query = {
+            category: new RegExp(`^${normalizedCategory}$`, 'i') // Case-insensitive match for category
+        };
+
+        if (normalizedSubcategory) {
+            query.subcategory = new RegExp(`^${normalizedSubcategory}$`, 'i'); // Case-insensitive match for subcategory
         }
-    });
-    
+
+        // Log the query to verify
+        console.log('Query:', query);
+
+        // Fetch all posts that match the given category and subcategory (if provided)
+        const posts = await db.collection('forum').find(query).toArray();
+
+        // Log the fetched posts to check if posts are retrieved
+        console.log('Fetched Posts:', posts);
+
+        // Get user details for each post, handling cases where userId might be null
+        const filledPosts = await Promise.all(posts.map(async (post) => {
+            if (post.userId) {
+                try {
+                    const userId = new ObjectId(post.userId);
+                    const user = await db.collection('people').findOne({ _id: userId });
+
+                    if (user) {
+                        console.log(`User found for userId ${post.userId}:`, user);
+                        return {
+                            ...post,
+                            userName: user.name.first,
+                            userCourse: user.course,
+                            userPhoto: user.picture.thumbnail, // No fallback, use the user's picture
+                            postDate: post.dateCreated.toDateString(),
+                            title: post.heading,
+                            upVotes: post.upVotes || 0,
+                            downVotes: post.downVotes || 0,
+                            comments: post.comments || 0
+                        };
+                    } else {
+                        console.log(`User not found for userId: ${post.userId}`);
+                    }
+                } catch (err) {
+                    console.error(`Error converting userId: ${post.userId} to ObjectId`, err);
+                }
+            }
+
+            // If userId is null or user not found, use default values
+            return {
+                ...post,
+                userName: 'Anonymous',
+                postDate: post.dateCreated.toDateString(),
+                title: post.heading,
+                upVotes: post.upVotes || 0,
+                downVotes: post.downVotes || 0,
+                comments: post.comments || 0
+            };
+        }));
+
+        // Log the filled posts data
+        console.log('Filled Posts Data:', filledPosts);
+
+        // Render the forumpost page with the fetched posts
+        res.render('pages/forumpost', {
+            user: req.session.user,
+            posts: filledPosts,
+            category: category,
+            subcategory: subcategory || null
+        });
+
+    } catch (err) {
+        console.error('Error fetching forum posts:', err);
+        res.status(500).send('Error fetching forum posts');
+    }
+});

@@ -471,38 +471,38 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     });
 
 
-// Add a GET route to fetch and display forum posts
-app.get('/forum', async (req, res) => {
-    try {
-        const forumPosts = await db.collection('forum').find({}).toArray();
-
-        // Organize posts into categories and subcategories
-        const categories = {
-            'NHS Regions': {},
-            'Degree': {},
-            'Accommodation': {},
-            'Other': {}
-        };
-
-        forumPosts.forEach(post => {
-            const category = post.category;
-            const subcategory = post.subcategory;
-
-            if (!categories[category]) {
-                categories[category] = {};
-            }
-            if (!categories[category][subcategory]) {
-                categories[category][subcategory] = [];
-            }
-            categories[category][subcategory].push(post);
-        });
-
-        res.render('pages/forum', { 
-            user: req.session.user,
-            categories: categories
-        });
-    } catch (err) {
-        console.error('Error fetching forum posts:', err);
-        res.status(500).send('Error fetching forum posts');
-    }
-});
+    app.get('/forum', async (req, res) => {
+        try {
+            const forumPosts = await db.collection('forum').find({}).toArray();
+    
+            // Organize posts into categories and subcategories
+            const categories = {
+                'NHS Regions': {},
+                'Degree': {},
+                'Accommodation': {},
+                'Other': {}
+            };
+    
+            forumPosts.forEach(post => {
+                const category = post.category;
+                const subcategory = post.subcategory;
+    
+                if (!categories[category]) {
+                    categories[category] = {};
+                }
+                if (!categories[category][subcategory]) {
+                    categories[category][subcategory] = [];
+                }
+                categories[category][subcategory].push(post);
+            });
+    
+            res.render('pages/forum', { 
+                user: req.session.user,
+                categories: categories
+            });
+        } catch (err) {
+            console.error('Error fetching forum posts:', err);
+            res.status(500).send('Error fetching forum posts');
+        }
+    });
+    

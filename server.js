@@ -470,7 +470,7 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         );
     });
 
-    app.get('/forum-info', async (req, res) => {
+    app.get('/forum', async (req, res) => {
         try {
             // For testing, we'll hardcode categories with subcategories.
             const categories = {

@@ -39,7 +39,7 @@
         <% Object.keys(categories).forEach(category => { %>
             <div class="forum-section <%= category.toLowerCase().replace(/\s+/g, '-') %>-forums <%= category.toLowerCase() === activeCategory ? 'active' : '' %>">
                 <div class="forum-title">
-                    <h3>Explore <%= category %> Forums</h3>
+                    <h3>Explore <%= category === 'NHSRegions' ? 'NHS Regions' : category %> Forums</h3>
                 </div>
                 <div class="main-cards">
                     <% if (typeof categories[category] === 'undefined') { %>

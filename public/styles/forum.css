@@ -20,8 +20,8 @@
   flex-direction: column;
   margin: 20px;
   padding: 20px;
-  background-color: #e3e4e6;
-  color: slategray;
+  background-color: #f7f8fa;
+  color: #333;
 }
 
 /* Styling for the title */
@@ -30,7 +30,7 @@
   text-align: center; /* Center the text */
   margin-bottom: 20px; /* Add space between title and overview cards */
   width: 100%; /* Ensure title spans the full width */
-  color: slategray; /* Matching color for title */
+  color: #333; /* Matching color for title */
 }
 
 .main-overview {
@@ -45,14 +45,14 @@
   align-items: center;
   justify-content: center; /* Center content horizontally */
   padding: 20px;
-  background-color: #d3d3;
+  background-color: #f0f0f0;
   flex: 1;
   text-align: center;
   cursor: pointer;
 }
 
 .overviewcard:hover {
-  background-color: #c3c3c3;
+  background-color: #e0e0e0;
 }
 
 .overviewcard__info {
@@ -79,13 +79,13 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  background: linear-gradient(135deg, #82bef6, #68a1d9);
+  background: #ffffff;
   margin-bottom: 20px;
   -webkit-column-break-inside: avoid;
   padding: 24px;
   box-sizing: border-box;
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -97,21 +97,21 @@
 /* Hover effect for forum cards */
 .card:hover {
   transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
 }
 
 /* Title styling inside forum cards */
 .card .card-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffffff; /* White color for better contrast */
+  color: #333; /* Dark color for better contrast */
   margin-bottom: 10px;
 }
 
 /* Body styling inside forum cards */
 .card .card-body {
   font-size: 1rem;
-  color: #f0f0f0; /* Light color to ensure readability against the gradient background */
+  color: #666; /* Dark gray color for readability */
 }
 
 /* Medium screens breakpoint (768px) */
@@ -139,8 +139,8 @@
   flex-direction: column;
   margin: 20px;
   padding: 20px;
-  background-color: #e3e4e6;
-  color: slategray;
+  background-color: #f7f8fa;
+  color: #333;
   font-size: 2.5rem; 
   text-align: center; /* Center the text */
   margin-bottom: 20px; 

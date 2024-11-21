@@ -69,34 +69,41 @@ app.get('/myaccount', (req, res) => {
     res.render('pages/myaccount', { user: req.session.user});
 });
 
-app.get('/forum', (req, res) => {
-    // Hardcoded categories for testing
-    const categories = {
-        'NHS Regions': {
-            'Scotland': [],
-            'Wales': []
-        },
-        'Degree': {
-            'Medical Degrees': [],
-            'Advanced Degrees': [],
-            'Other Educational Resources': []
-        },
-        'Accommodation': {
-            'On-Campus': [],
-            'Off-Campus': []
-        },
-        'Other': {
-            'General Discussion': []
-        }
-    };
+app.get('/forum', async (req, res) => {
+    try {
+        // Fetch all forum posts from the database
+        const forumPosts = await db.collection('forum').find({}).toArray();
 
-    console.log('Rendering /forum with categories:', categories);
+        // Organize posts into categories and subcategories
+        const categories = {};
 
-    // Render the forum page with the categories object
-    res.render('pages/forum', {
-        user: req.session.user,
-        categories: categories
-    });
+        forumPosts.forEach(post => {
+            const { category, subcategory } = post;
+
+            // Initialize category if it doesn't exist
+            if (!categories[category]) {
+                categories[category] = {};
+            }
+
+            // Initialize subcategory if it doesn't exist
+            if (!categories[category][subcategory]) {
+                categories[category][subcategory] = [];
+            }
+
+            // Add the post to the subcategory list
+            categories[category][subcategory].push(post);
+        });
+
+        // Render the forum page with the categories object
+        res.render('pages/forum', {
+            user: req.session.user,
+            categories: categories
+        });
+
+    } catch (err) {
+        console.error('Error fetching forum posts:', err);
+        res.status(500).send('Error fetching forum posts');
+    }
 });
 
 

@@ -81,12 +81,13 @@
 .card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
+  max-width: 300px; /* Limit card width */
   background: linear-gradient(135deg, #f0f4ff, #dce6f5);
   margin-bottom: 20px;
   -webkit-column-break-inside: avoid;
-  padding: 24px;
+  padding: 16px; /* Reduce padding */
   box-sizing: border-box;
   border-radius: 12px; /* Rounded corners */
   border: 1px solid #b0c4de;
@@ -96,7 +97,7 @@
 
 /* Force varying heights to simulate dynamic content */
 .card {
-  height: 200px;
+  height: auto;
 }
 
 /* Hover effect for forum cards */
@@ -106,17 +107,12 @@
 }
 
 /* Title styling inside forum cards */
-.card .card-title {
+.card h4 {
   font-size: 1.5rem;
   font-weight: bold;
   color: #0d1a26; /* Dark color for better contrast */
+  text-align: center; /* Center the text */
   margin-bottom: 10px;
-}
-
-/* Body styling inside forum cards */
-.card .card-body {
-  font-size: 1rem;
-  color: #5a6674; /* Dark gray color for readability */
 }
 
 /* Medium screens breakpoint (768px) */

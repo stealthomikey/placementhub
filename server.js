@@ -560,7 +560,3 @@ app.get('/forum/:category/:subcategory', async (req, res) => {
 app.get('/createforumpost', (req, res) => {
     res.render('pages/createforumpost', { user: req.session.user });
 });
-
-// Remaining code for other routes...
-
-module.exports = app;

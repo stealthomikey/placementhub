@@ -180,29 +180,30 @@ app.post('/dologin', (req, res) => {
 });
 
 // Route to handle user registration
-app.post('/register', async (req, res) => {
+app.post('/adduser', async (req, res) => {
     try {
-        const { firstName, lastName, email, password, course } = req.body;
+        const { first, username, email, password, school, course } = req.body;
 
         // Check if all required fields are provided
-        if (!firstName || !lastName || !email || !password || !course) {
+        if (!first || !username || !email || !password || !school || !course) {
             return res.status(400).send('All fields are required');
         }
 
         // Create a new user object
         const newUser = {
             name: {
-                first: firstName,
-                last: lastName
+                first: first,
+                username: username
             },
             email: email,
             login: {
-                username: email,
-                password: password // You should hash the password before saving it
+                username: username,
+                password: password // In production, you should hash the password before saving it
             },
+            school: school,
             course: course,
             picture: {
-                thumbnail: 'img/default_user.png' // Default picture until user uploads one
+                thumbnail: 'img/default_user.png' // Assign a default picture initially
             }
         };
 
@@ -213,7 +214,7 @@ app.post('/register', async (req, res) => {
         req.session.loggedin = true;
         req.session.user = {
             id: result.insertedId,
-            name: `${firstName} ${lastName}`,
+            name: `${first}`,
             email: email,
             course: course
         };
@@ -225,6 +226,7 @@ app.post('/register', async (req, res) => {
         res.status(500).send('Error registering user');
     }
 });
+
 
 
 

@@ -602,7 +602,7 @@ app.post('/addvote', async (req, res) => {
     }
 
     const { postId, voteType } = req.body;
-    const userId = req.session.stringUserId;
+    const userId = req.session.stringUserId; // Use userId from session
 
     if (!postId || !voteType || (voteType !== 'upvote' && voteType !== 'downvote')) {
         return res.status(400).json({ success: false, message: "Invalid request data" });
@@ -622,33 +622,41 @@ app.post('/addvote', async (req, res) => {
         const existingVote = voters.find(voter => voter.userId === userId);
 
         if (existingVote) {
-            // If the vote type matches the current vote, reject it
             if (existingVote.voteType === voteType) {
-                return res.status(400).json({ success: false, message: "You have already voted this way on this post" });
+                // Remove the user's vote if they click the same button
+                await db.collection('forum').updateOne(
+                    { forumId: postId },
+                    {
+                        $pull: { voters: { userId } }, // Remove the voter from the array
+                        $inc: { upVotes: voteType === 'upvote' ? -1 : 0, downVotes: voteType === 'downvote' ? -1 : 0 }
+                    }
+                );
+                return res.json({ success: true, message: "Vote removed" });
+            } else {
+                // Update the user's vote if they change their vote type
+                await db.collection('forum').updateOne(
+                    { forumId: postId, "voters.userId": userId },
+                    {
+                        $set: { "voters.$.voteType": voteType },
+                        $inc: {
+                            upVotes: voteType === 'upvote' ? 1 : -1,
+                            downVotes: voteType === 'downvote' ? 1 : -1
+                        }
+                    }
+                );
+                return res.json({ success: true, message: "Vote updated" });
             }
-
-            // Update the existing vote
+        } else {
+            // Add a new vote if the user hasn't voted yet
             await db.collection('forum').updateOne(
-                { forumId: postId, "voters.userId": userId },
+                { forumId: postId },
                 {
-                    $set: { "voters.$.voteType": voteType },
-                    $inc: { upVotes: voteType === 'upvote' ? 1 : -1, downVotes: voteType === 'downvote' ? 1 : -1 }
+                    $push: { voters: { userId, voteType } },
+                    $inc: { upVotes: voteType === 'upvote' ? 1 : 0, downVotes: voteType === 'downvote' ? 1 : 0 }
                 }
             );
-
-            return res.json({ success: true, message: "Vote updated successfully" });
+            return res.json({ success: true, message: "Vote added" });
         }
-
-        // If no existing vote, add the user's vote
-        await db.collection('forum').updateOne(
-            { forumId: postId },
-            {
-                $push: { voters: { userId, voteType } },
-                $inc: { upVotes: voteType === 'upvote' ? 1 : 0, downVotes: voteType === 'downvote' ? 1 : 0 }
-            }
-        );
-
-        res.json({ success: true, message: "Vote added successfully" });
     } catch (error) {
         console.error("Error handling vote:", error);
         res.status(500).json({ success: false, message: "Error handling vote" });

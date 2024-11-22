@@ -106,9 +106,9 @@ document.querySelectorAll('.upvote').forEach(button => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                button.querySelector('b').textContent = data.upVotes;
+                button.querySelector('b').textContent++; // Increment the displayed upvote count
             } else {
-                console.error(data.message);
+                alert(data.message);
             }
         });
     });
@@ -125,9 +125,9 @@ document.querySelectorAll('.downvote').forEach(button => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                button.querySelector('b').textContent = data.downVotes;
+                button.querySelector('b').textContent++; // Increment the displayed downvote count
             } else {
-                console.error(data.message);
+                alert(data.message);
             }
         });
     });

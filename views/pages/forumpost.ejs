@@ -51,21 +51,23 @@
                     
                     <!-- Action Buttons -->
                     <div class="post-actions">
-                        <!-- Upvote Button -->
-                        <button class="upvote" data-id="<%= post.forumId %>">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                <path d="M8 0L16 10H0L8 0z"></path>
-                            </svg>
-                            Upvote <b><span class="upvote-count"><%= post.upVotes %></span></b>
-                        </button>
-
-                        <!-- Downvote Button -->
-                        <button class="downvote" data-id="<%= post.forumId %>">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                <path d="M8 10L0 0h16L8 10z"></path>
-                            </svg>
-                            Downvote <b><span class="downvote-count"><%= post.downVotes %></span></b>
-                        </button>
+                            <!-- Upvote Button -->
+                            <button class="upvote" data-id="<%= post.forumId %>">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 0L16 10H0L8 0z"></path>
+                                </svg>
+                                Upvote <b><span class="upvote-count"><%= post.upVotes %></span></b>
+                            </button>
+                        
+                            <!-- Downvote Button -->
+                            <button class="downvote" data-id="<%= post.forumId %>">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 10L0 0h16L8 10z"></path>
+                                </svg>
+                                Downvote <b><span class="downvote-count"><%= post.downVotes %></span></b>
+                            </button>
+                        </div>
+                        
                     
                         <!-- Comment Button -->
                         <button class="comment">

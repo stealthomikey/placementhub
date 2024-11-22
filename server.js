@@ -179,51 +179,51 @@ app.post('/dologin', (req, res) => {
     });
 });
 
-// Route to handle adding a new user
-app.post('/adduser', (req, res) => {
-    const defaultProfilePic = 'img/user1.jpg';
-    const datatostore = {
-        "name": {
-            "first": req.body.first
-        },
-        "email": req.body.email,
-        "login": {
-            "username": req.body.username,
-            "password": req.body.password // Storing password as is (not hashed)
-        },
-        "picture": { // Nested structure for profile picture
-            "thumbnail": defaultProfilePic // Using default picture if no thumbnail provided
-        }
-    };
+// Route to handle user registration
+app.post('/register', async (req, res) => {
+    try {
+        const { firstName, lastName, email, password, course } = req.body;
 
-    db.collection('people').insertOne(datatostore, (err, result) => {
-        if (err) {
-            console.error('Error saving to database:', err);
-            res.status(500).send('Error saving to database');
-            return;
+        // Check if all required fields are provided
+        if (!firstName || !lastName || !email || !password || !course) {
+            return res.status(400).send('All fields are required');
         }
 
-        console.log('User saved to database');
-
-        // Generate the userId as a string representation of the inserted ObjectId
-        const userId = result.insertedId.toString(); // Convert ObjectId to string
-
-        // Update the inserted document to include the userId
-        db.collection('people').updateOne(
-            { _id: result.insertedId },
-            { $set: { userId: userId } }, // Store userId as a string
-            (updateErr) => {
-                if (updateErr) {
-                    console.error('Error updating userId in database:', updateErr);
-                    res.status(500).send('Error updating userId in database');
-                    return;
-                }
-
-                // Redirect if signup is successful
-                res.redirect('/myaccount');
+        // Create a new user object
+        const newUser = {
+            name: {
+                first: firstName,
+                last: lastName
+            },
+            email: email,
+            login: {
+                username: email,
+                password: password // You should hash the password before saving it
+            },
+            course: course,
+            picture: {
+                thumbnail: 'img/default_user.png' // Default picture until user uploads one
             }
-        );
-    });
+        };
+
+        // Insert the new user into the 'people' collection
+        const result = await db.collection('people').insertOne(newUser);
+
+        // Set the session and redirect to the home page
+        req.session.loggedin = true;
+        req.session.user = {
+            id: result.insertedId,
+            name: `${firstName} ${lastName}`,
+            email: email,
+            course: course
+        };
+
+        res.redirect('/');
+
+    } catch (err) {
+        console.error('Error registering user:', err);
+        res.status(500).send('Error registering user');
+    }
 });
 
 

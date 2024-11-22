@@ -15,12 +15,12 @@
       <div class="card">
           <!-- User Info -->
           <div class="user-info">
-              <img src="img/user1.jpg" alt="User Photo" class="user-photo" />
-              <div class="user-details">
-                  <p class="user-name">Michael Piercey</p>
-                  <p class="user-course">Computer Science</p>
-              </div>
-              
+            <img src="<%= user.picture.thumbnail %>" alt="User Photo" class="user-photo" />
+            <div class="user-details">
+                <p class="user-name"><%= user.name.first %></p>
+                <p class="user-course"><%= user.course %></p>
+            </div>
+            
               <!-- Anonymous Toggle -->
               <div class="anonymous-toggle">
                   <p class="anonymous-text">Post Anonymously</p>

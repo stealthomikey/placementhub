@@ -144,3 +144,12 @@ button svg {
 .comments-filter button:hover {
   background-color: #0056b3;
 }
+
+/* Post Image */
+.post-image {
+  width: 100%;
+  max-height: 400px; /* Adjust the height as per your requirement */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 16px;
+}

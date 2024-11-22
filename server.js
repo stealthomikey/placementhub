@@ -558,7 +558,8 @@ app.get('/:category/:subcategory?', async (req, res) => {
                             title: post.heading,
                             upVotes: post.upVotes || 0,
                             downVotes: post.downVotes || 0,
-                            comments: post.comments || 0
+                            comments: post.comments || 0,
+                            image: post.image || null
                         };
                     } else {
                         console.log(`User not found for userId: ${post.userId}`);
@@ -568,7 +569,7 @@ app.get('/:category/:subcategory?', async (req, res) => {
                 }
             }
 
-            return { ...post, postDate: post.dateCreated.toDateString(), title: post.heading, upVotes: post.upVotes || 0, downVotes: post.downVotes || 0, comments: post.comments || 0 };
+            return { ...post, postDate: post.dateCreated.toDateString(), title: post.heading, upVotes: post.upVotes || 0, downVotes: post.downVotes || 0, comments: post.comments || 0, image: post.image || null };
         }));
 
         // Log the filled posts data
@@ -586,4 +587,9 @@ app.get('/:category/:subcategory?', async (req, res) => {
         console.error('Error fetching forum posts:', err);
         res.status(500).send('Error fetching forum posts');
     }
+});
+
+// Route to render the create forum post page
+app.get('/createforumpost', (req, res) => {
+    res.render('pages/createforumpost', { user: req.session.user });
 });

@@ -37,12 +37,17 @@
                         <p class="post-date"><%= post.postDate %></p>
                     </div>
                     
+                    
                     <!-- Divider -->
                     <div class="divider"></div>
                     
                     <!-- Forum Post Title -->
                     <p class="post-title"><%= post.title %></p>
                     <p class="post-content"><%= post.content %></p>
+
+                    <% if (post.image) { %>
+                        <img src="../<%= post.image %>" alt="Post Image" class="post-image" />
+                    <% } %>
                     
                     <!-- Action Buttons -->
                     <div class="post-actions">

@@ -475,6 +475,8 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         heading: postHeading,
         content: postContent,
         dateCreated: new Date(),
+        upVotes: 0,
+        downVotes: 0,
         image: postImageName 
     };
 

@@ -95,45 +95,44 @@
 <script src="/scripts/forumpages.js"></script>
 
 <script>
-    // Handle Upvote
-    document.querySelectorAll('.upvote').forEach(button => {
-        button.addEventListener('click', () => {
-            const forumId = button.getAttribute('data-id');
-            fetch('/add-vote', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ forumId, voteType: 'upvote' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    button.querySelector('.upvote-count').innerText = data.newUpvotes;
-                } else {
-                    alert(data.message);
-                }
-            });
+document.querySelectorAll('.upvote').forEach(button => {
+    button.addEventListener('click', () => {
+        const postId = button.getAttribute('data-id');
+        fetch('/addvote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, voteType: 'upvote' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                button.querySelector('b').textContent = data.upVotes;
+            } else {
+                console.error(data.message);
+            }
         });
     });
+});
 
-    // Handle Downvote
-    document.querySelectorAll('.downvote').forEach(button => {
-        button.addEventListener('click', () => {
-            const forumId = button.getAttribute('data-id');
-            fetch('/add-vote', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ forumId, voteType: 'downvote' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    button.querySelector('.downvote-count').innerText = data.newDownvotes;
-                } else {
-                    alert(data.message);
-                }
-            });
+document.querySelectorAll('.downvote').forEach(button => {
+    button.addEventListener('click', () => {
+        const postId = button.getAttribute('data-id');
+        fetch('/addvote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, voteType: 'downvote' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                button.querySelector('b').textContent = data.downVotes;
+            } else {
+                console.error(data.message);
+            }
         });
     });
+});
+
 </script>
 
 </html>

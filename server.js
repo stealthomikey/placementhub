@@ -123,7 +123,12 @@ app.get('/socials', (req, res) => {
 
 // Route to render the createpost.ejs page
 app.get('/createforumpost', (req, res) => {
-    // Render create forum post page with user data
+    // Redirect to login if not logged in
+    if (!req.session.loggedin) {
+        res.redirect('/?notloggedin=true');
+        return;
+    }
+    // Render myaccount page with user data
     res.render('pages/createforumpost', { user: req.session.user});
 });
 

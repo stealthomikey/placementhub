@@ -546,9 +546,9 @@ app.get('/:category/:subcategory?', async (req, res) => {
                         console.log(`User found for userId ${post.userId}:`, user);
                         return {
                             ...post,
-                            userName: post.anonymous ? null : user.name.first,
+                            userName: post.anonymous ? 'Anonymous' : user.name.first,
                             userCourse: post.anonymous ? null : user.course,
-                            userPhoto: post.anonymous ? null : user.picture.thumbnail, // Hide user info if anonymous
+                            userPhoto: post.anonymous ? 'img/user1.jpg' : user.picture.thumbnail, // Show default photo if anonymous
                             postDate: post.dateCreated.toDateString(),
                             title: post.heading,
                             upVotes: post.upVotes || 0,

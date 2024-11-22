@@ -106,9 +106,9 @@ document.querySelectorAll('.upvote').forEach(button => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                button.querySelector('b').textContent++; // Increment the displayed upvote count
+                updateVoteDisplay(postId, 'upvote', data.message);
             } else {
-                alert(data.message);
+                console.error(data.message);
             }
         });
     });
@@ -125,13 +125,43 @@ document.querySelectorAll('.downvote').forEach(button => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                button.querySelector('b').textContent++; // Increment the displayed downvote count
+                updateVoteDisplay(postId, 'downvote', data.message);
             } else {
-                alert(data.message);
+                console.error(data.message);
             }
         });
     });
 });
+
+// Helper function to update the vote display
+function updateVoteDisplay(postId, voteType, actionMessage) {
+    const postElement = document.querySelector(`[data-id="${postId}"]`).closest('.post');
+    const upvoteCounter = postElement.querySelector('.upvote b');
+    const downvoteCounter = postElement.querySelector('.downvote b');
+
+    if (actionMessage === "Vote added") {
+        if (voteType === 'upvote') {
+            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) + 1;
+        } else {
+            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) + 1;
+        }
+    } else if (actionMessage === "Vote removed") {
+        if (voteType === 'upvote') {
+            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) - 1;
+        } else {
+            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) - 1;
+        }
+    } else if (actionMessage === "Vote updated") {
+        if (voteType === 'upvote') {
+            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) + 1;
+            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) - 1;
+        } else {
+            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) + 1;
+            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) - 1;
+        }
+    }
+}
+
 
 </script>
 

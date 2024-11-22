@@ -51,23 +51,21 @@
                     
                     <!-- Action Buttons -->
                     <div class="post-actions">
-                            <!-- Upvote Button -->
-                            <button class="upvote" data-id="<%= post.forumId %>">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M8 0L16 10H0L8 0z"></path>
-                                </svg>
-                                Upvote <b><span class="upvote-count"><%= post.upVotes %></span></b>
-                            </button>
-                        
-                            <!-- Downvote Button -->
-                            <button class="downvote" data-id="<%= post.forumId %>">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M8 10L0 0h16L8 10z"></path>
-                                </svg>
-                                Downvote <b><span class="downvote-count"><%= post.downVotes %></span></b>
-                            </button>
-                        </div>
-                        
+                        <!-- Upvote Button -->
+                        <button class="upvote" data-id="<%= post.forumId %>">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 0L16 10H0L8 0z"></path>
+                            </svg>
+                            Upvote <b><span class="upvote-count"><%= post.upVotes %></span></b>
+                        </button>
+
+                        <!-- Downvote Button -->
+                        <button class="downvote" data-id="<%= post.forumId %>">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 10L0 0h16L8 10z"></path>
+                            </svg>
+                            Downvote <b><span class="downvote-count"><%= post.downVotes %></span></b>
+                        </button>
                     
                         <!-- Comment Button -->
                         <button class="comment">
@@ -146,18 +144,29 @@ function handleVote(postId, voteType) {
 
 // Function to update the vote display dynamically
 function updateVoteDisplay(postId, voteType, actionMessage) {
-    // Find the parent post element using the postId
     const postElement = document.querySelector(`[data-id="${postId}"]`).closest('.post');
 
-    // Find the upvote and downvote counters
-    const upvoteCounter = postElement.querySelector('.upvote b');
-    const downvoteCounter = postElement.querySelector('.downvote b');
+    if (!postElement) {
+        console.error(`Post element with ID ${postId} not found.`);
+        return;
+    }
 
-    // Parse current vote counts
+    // Find the counters
+    const upvoteCounter = postElement.querySelector('.upvote-count');
+    const downvoteCounter = postElement.querySelector('.downvote-count');
+
+    if (!upvoteCounter || !downvoteCounter) {
+        console.error("Upvote or downvote counter not found in post element.");
+        return;
+    }
+
+    // Parse current counts with fallbacks
     let upvotes = parseInt(upvoteCounter.textContent, 10) || 0;
     let downvotes = parseInt(downvoteCounter.textContent, 10) || 0;
 
-    // Update the counters based on the server response
+    console.log(`Before update - Upvotes: ${upvotes}, Downvotes: ${downvotes}`);
+
+    // Adjust counts based on the server response
     if (actionMessage === "Vote added") {
         if (voteType === 'upvote') {
             upvotes++;
@@ -180,12 +189,13 @@ function updateVoteDisplay(postId, voteType, actionMessage) {
         }
     }
 
+    console.log(`After update - Upvotes: ${upvotes}, Downvotes: ${downvotes}`);
+
     // Update the DOM with the new counts
     upvoteCounter.textContent = upvotes;
     downvoteCounter.textContent = downvotes;
-
-    console.log(`Updated votes: Upvotes=${upvotes}, Downvotes=${downvotes}`);
 }
+
 
 
 </script>

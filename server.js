@@ -596,42 +596,59 @@ app.get('/createforumpost', (req, res) => {
     res.render('pages/createforumpost', { user: req.session.user });
 });
 
-app.post('/addvote', (req, res) => {
-    const { postId, voteType } = req.body;
+app.post('/addvote', async (req, res) => {
+    // Ensure the user is logged in
+    if (!req.session.loggedin) {
+        return res.status(401).json({ success: false, message: "User must be logged in to vote" });
+    }
 
-    if (!postId || !voteType) {
+    const { postId, voteType } = req.body;
+    const userId = req.session.stringUserId; // Use userId from session
+
+    if (!postId || !voteType || (voteType !== 'upvote' && voteType !== 'downvote')) {
         return res.status(400).json({ success: false, message: "Invalid request data" });
     }
 
-    // Determine the field to update based on vote type
-    const updateField = voteType === 'upvote' ? { $inc: { upVotes: 1 } } : { $inc: { downVotes: 1 } };
-
-    db.collection('forum').updateOne(
-        { forumId: postId }, // Ensure you're querying by the correct field
-        updateField,
-        (err, result) => {
-            if (err) {
-                console.error("Error updating votes:", err);
-                return res.status(500).json({ success: false, message: "Error updating votes" });
-            }
-
-            if (result.matchedCount === 0) {
-                return res.status(404).json({ success: false, message: "Post not found" });
-            }
-
-            // Fetch updated vote counts
-            db.collection('forum').findOne({ forumId: postId }, (findErr, post) => {
-                if (findErr || !post) {
-                    console.error("Error fetching updated post:", findErr);
-                    return res.status(500).json({ success: false, message: "Error fetching updated post" });
-                }
-
-                res.json({
-                    success: true,
-                    upVotes: post.upVotes,
-                    downVotes: post.downVotes
-                });
-            });
+    try {
+        // Find the post
+        const post = await db.collection('forum').findOne({ forumId: postId });
+        if (!post) {
+            return res.status(404).json({ success: false, message: "Post not found" });
         }
-    );
+
+        // Check if the user has already voted
+        const existingVote = post.voters.find(voter => voter.userId === userId);
+
+        if (existingVote) {
+            // If the vote type matches the current vote, reject it
+            if (existingVote.voteType === voteType) {
+                return res.status(400).json({ success: false, message: "You have already voted this way on this post" });
+            }
+
+            // If the vote type is different, update the vote
+            await db.collection('forum').updateOne(
+                { forumId: postId, "voters.userId": userId },
+                {
+                    $set: { "voters.$.voteType": voteType },
+                    $inc: { upVotes: voteType === 'upvote' ? 1 : -1, downVotes: voteType === 'downvote' ? 1 : -1 }
+                }
+            );
+
+            return res.json({ success: true, message: "Vote updated successfully" });
+        }
+
+        // If no existing vote, add the user's vote
+        await db.collection('forum').updateOne(
+            { forumId: postId },
+            {
+                $push: { voters: { userId, voteType } },
+                $inc: { upVotes: voteType === 'upvote' ? 1 : 0, downVotes: voteType === 'downvote' ? 1 : 0 }
+            }
+        );
+
+        res.json({ success: true, message: "Vote added successfully" });
+    } catch (error) {
+        console.error("Error handling vote:", error);
+        res.status(500).json({ success: false, message: "Error handling vote" });
+    }
 });

@@ -95,71 +95,94 @@
 <script src="/scripts/forumpages.js"></script>
 
 <script>
-document.querySelectorAll('.upvote').forEach(button => {
-    button.addEventListener('click', () => {
-        const postId = button.getAttribute('data-id');
-        fetch('/addvote', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, voteType: 'upvote' })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateVoteDisplay(postId, 'upvote', data.message);
-            } else {
-                console.error(data.message);
-            }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Select all upvote buttons
+    const upvoteButtons = document.querySelectorAll('.upvote');
+    const downvoteButtons = document.querySelectorAll('.downvote');
+
+    if (upvoteButtons.length === 0 && downvoteButtons.length === 0) {
+        console.warn("No vote buttons found.");
+        return;
+    }
+
+    // Add event listeners for upvote buttons
+    upvoteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-id');
+            handleVote(postId, 'upvote');
+        });
+    });
+
+    // Add event listeners for downvote buttons
+    downvoteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-id');
+            handleVote(postId, 'downvote');
         });
     });
 });
 
-document.querySelectorAll('.downvote').forEach(button => {
-    button.addEventListener('click', () => {
-        const postId = button.getAttribute('data-id');
-        fetch('/addvote', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, voteType: 'downvote' })
-        })
+// Function to handle the voting process
+function handleVote(postId, voteType) {
+    fetch('/addvote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId, voteType })
+    })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                updateVoteDisplay(postId, 'downvote', data.message);
+                console.log(`Vote processed successfully: ${data.message}`);
+                updateVoteDisplay(postId, voteType, data.message);
             } else {
-                console.error(data.message);
+                console.error(`Error processing vote: ${data.message}`);
             }
-        });
-    });
-});
+        })
+        .catch(err => console.error("Error communicating with the server:", err));
+}
 
-// Helper function to update the vote display
+// Function to update the vote display dynamically
 function updateVoteDisplay(postId, voteType, actionMessage) {
+    // Find the parent post element using the postId
     const postElement = document.querySelector(`[data-id="${postId}"]`).closest('.post');
+
+    // Find the upvote and downvote counters
     const upvoteCounter = postElement.querySelector('.upvote b');
     const downvoteCounter = postElement.querySelector('.downvote b');
 
+    // Parse current vote counts
+    let upvotes = parseInt(upvoteCounter.textContent, 10) || 0;
+    let downvotes = parseInt(downvoteCounter.textContent, 10) || 0;
+
+    // Update the counters based on the server response
     if (actionMessage === "Vote added") {
         if (voteType === 'upvote') {
-            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) + 1;
+            upvotes++;
         } else {
-            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) + 1;
+            downvotes++;
         }
     } else if (actionMessage === "Vote removed") {
         if (voteType === 'upvote') {
-            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) - 1;
+            upvotes--;
         } else {
-            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) - 1;
+            downvotes--;
         }
     } else if (actionMessage === "Vote updated") {
         if (voteType === 'upvote') {
-            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) + 1;
-            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) - 1;
+            upvotes++;
+            downvotes--;
         } else {
-            downvoteCounter.textContent = parseInt(downvoteCounter.textContent) + 1;
-            upvoteCounter.textContent = parseInt(upvoteCounter.textContent) - 1;
+            downvotes++;
+            upvotes--;
         }
     }
+
+    // Update the DOM with the new counts
+    upvoteCounter.textContent = upvotes;
+    downvoteCounter.textContent = downvotes;
+
+    console.log(`Updated votes: Upvotes=${upvotes}, Downvotes=${downvotes}`);
 }
 
 

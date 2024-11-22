@@ -596,13 +596,12 @@ app.get('/createforumpost', (req, res) => {
 });
 
 app.post('/addvote', async (req, res) => {
-    // Ensure the user is logged in
     if (!req.session.loggedin) {
         return res.status(401).json({ success: false, message: "User must be logged in to vote" });
     }
 
     const { postId, voteType } = req.body;
-    const userId = req.session.stringUserId; // Use userId from session
+    const userId = req.session.stringUserId;
 
     if (!postId || !voteType || (voteType !== 'upvote' && voteType !== 'downvote')) {
         return res.status(400).json({ success: false, message: "Invalid request data" });
@@ -615,25 +614,25 @@ app.post('/addvote', async (req, res) => {
             return res.status(404).json({ success: false, message: "Post not found" });
         }
 
-        // Ensure voters is an array
         const voters = post.voters || [];
-
-        // Check if the user has already voted
         const existingVote = voters.find(voter => voter.userId === userId);
 
         if (existingVote) {
             if (existingVote.voteType === voteType) {
-                // Remove the user's vote if they click the same button
+                // User clicked the same vote type, remove the vote
                 await db.collection('forum').updateOne(
                     { forumId: postId },
                     {
-                        $pull: { voters: { userId } }, // Remove the voter from the array
-                        $inc: { upVotes: voteType === 'upvote' ? -1 : 0, downVotes: voteType === 'downvote' ? -1 : 0 }
+                        $pull: { voters: { userId } },
+                        $inc: {
+                            upVotes: voteType === 'upvote' ? -1 : 0,
+                            downVotes: voteType === 'downvote' ? -1 : 0
+                        }
                     }
                 );
                 return res.json({ success: true, message: "Vote removed" });
             } else {
-                // Update the user's vote if they change their vote type
+                // User switched vote type
                 await db.collection('forum').updateOne(
                     { forumId: postId, "voters.userId": userId },
                     {
@@ -647,7 +646,7 @@ app.post('/addvote', async (req, res) => {
                 return res.json({ success: true, message: "Vote updated" });
             }
         } else {
-            // Add a new vote if the user hasn't voted yet
+            // User hasn't voted yet, add the vote
             await db.collection('forum').updateOne(
                 { forumId: postId },
                 {

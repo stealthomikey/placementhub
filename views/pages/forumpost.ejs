@@ -95,7 +95,6 @@
 <script src="/scripts/forumpages.js"></script>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
     // Select all upvote buttons
     const upvoteButtons = document.querySelectorAll('.upvote');
@@ -135,65 +134,12 @@ function handleVote(postId, voteType) {
             if (data.success) {
                 console.log(`Vote processed successfully: ${data.message}`);
                 updateVoteDisplay(postId, voteType, data.message);
+                location.reload(); // Refresh the page after the vote is processed
             } else {
                 console.error(`Error processing vote: ${data.message}`);
             }
         })
         .catch(err => console.error("Error communicating with the server:", err));
-}
-
-// Function to update the vote display dynamically
-function updateVoteDisplay(postId, voteType, actionMessage) {
-    const postElement = document.querySelector(`[data-id="${postId}"]`).closest('.post');
-
-    if (!postElement) {
-        console.error(`Post element with ID ${postId} not found.`);
-        return;
-    }
-
-    // Find the counters
-    const upvoteCounter = postElement.querySelector('.upvote-count');
-    const downvoteCounter = postElement.querySelector('.downvote-count');
-
-    if (!upvoteCounter || !downvoteCounter) {
-        console.error("Upvote or downvote counter not found in post element.");
-        return;
-    }
-
-    // Parse current counts with fallbacks
-    let upvotes = parseInt(upvoteCounter.textContent, 10) || 0;
-    let downvotes = parseInt(downvoteCounter.textContent, 10) || 0;
-
-    console.log(`Before update - Upvotes: ${upvotes}, Downvotes: ${downvotes}`);
-
-    // Adjust counts based on the server response
-    if (actionMessage === "Vote added") {
-        if (voteType === 'upvote') {
-            upvotes++;
-        } else {
-            downvotes++;
-        }
-    } else if (actionMessage === "Vote removed") {
-        if (voteType === 'upvote') {
-            upvotes--;
-        } else {
-            downvotes--;
-        }
-    } else if (actionMessage === "Vote updated") {
-        if (voteType === 'upvote') {
-            upvotes++;
-            downvotes--;
-        } else {
-            downvotes++;
-            upvotes--;
-        }
-    }
-
-    console.log(`After update - Upvotes: ${upvotes}, Downvotes: ${downvotes}`);
-
-    // Update the DOM with the new counts
-    upvoteCounter.textContent = upvotes;
-    downvoteCounter.textContent = downvotes;
 }
 
 

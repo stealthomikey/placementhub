@@ -52,19 +52,19 @@
                     <!-- Action Buttons -->
                     <div class="post-actions">
                         <!-- Upvote Button -->
-                        <button class="upvote">
+                        <button class="upvote" data-id="<%= post.forumId %>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 0L16 10H0L8 0z"></path>
                             </svg>
-                            Upvote <b><%= post.upVotes %></b>
+                            Upvote <b><span class="upvote-count"><%= post.upVotes %></span></b>
                         </button>
-                    
+
                         <!-- Downvote Button -->
-                        <button class="downvote">
+                        <button class="downvote" data-id="<%= post.forumId %>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 10L0 0h16L8 10z"></path>
                             </svg>
-                            Downvote <b><%= post.downVotes %></b>
+                            Downvote <b><span class="downvote-count"><%= post.downVotes %></span></b>
                         </button>
                     
                         <!-- Comment Button -->
@@ -93,5 +93,47 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="/scripts/forumpages.js"></script>
+
+<script>
+    // Handle Upvote
+    document.querySelectorAll('.upvote').forEach(button => {
+        button.addEventListener('click', () => {
+            const forumId = button.getAttribute('data-id');
+            fetch('/add-vote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ forumId, voteType: 'upvote' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    button.querySelector('.upvote-count').innerText = data.newUpvotes;
+                } else {
+                    alert(data.message);
+                }
+            });
+        });
+    });
+
+    // Handle Downvote
+    document.querySelectorAll('.downvote').forEach(button => {
+        button.addEventListener('click', () => {
+            const forumId = button.getAttribute('data-id');
+            fetch('/add-vote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ forumId, voteType: 'downvote' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    button.querySelector('.downvote-count').innerText = data.newDownvotes;
+                } else {
+                    alert(data.message);
+                }
+            });
+        });
+    });
+</script>
 
 </html>

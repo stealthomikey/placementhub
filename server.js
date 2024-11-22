@@ -595,3 +595,39 @@ app.get('/:category/:subcategory?', async (req, res) => {
 app.get('/createforumpost', (req, res) => {
     res.render('pages/createforumpost', { user: req.session.user });
 });
+
+app.post('/add-vote', (req, res) => {
+    // Ensure the user is logged in
+    if (!req.session.loggedin) {
+        return res.status(401).json({ success: false, message: 'Not logged in' });
+    }
+
+    const { forumId, voteType } = req.body;
+    if (!forumId || !voteType) {
+        return res.status(400).json({ success: false, message: 'Invalid data' });
+    }
+
+    // Determine the field to update based on vote type
+    const updateField = voteType === 'upvote' ? 'upVotes' : 'downVotes';
+    const incrementValue = 1;
+
+    // Update the post in the database
+    db.collection('forum').findOneAndUpdate(
+        { forumId },
+        { $inc: { [updateField]: incrementValue } }, // Increment the upVotes or downVotes field
+        { returnDocument: 'after' }, // Return the updated document
+        (err, result) => {
+            if (err || !result.value) {
+                console.error('Error updating votes:', err);
+                return res.status(500).json({ success: false, message: 'Error updating votes' });
+            }
+
+            // Respond with the updated vote count
+            res.json({
+                success: true,
+                newUpvotes: result.value.upVotes,
+                newDownvotes: result.value.downVotes,
+            });
+        }
+    );
+});

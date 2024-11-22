@@ -446,7 +446,6 @@ app.post('/upload', uploadProfile.single('photo'), async (req, res) => {
     }
 });
 
-// Route to handle adding a post with an optional image upload
 app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
     // Check if the user is logged in
     if (!req.session.loggedin) {
@@ -477,7 +476,8 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         dateCreated: new Date(),
         upVotes: 0,
         downVotes: 0,
-        image: postImageName 
+        image: postImageName,
+        voters: [] // Initialize the voters array
     };
 
     // Add new post to the forum collection
@@ -491,26 +491,25 @@ app.post('/addpost', uploadPostImage.single('postImage'), (req, res) => {
         const forumId = result.insertedId.toString(); // Convert ObjectId to string
         newPost.forumId = forumId; // Assign the forumId to the newPost object
 
-        
-        // Update the inserted document to include the userId
+        // Update the inserted document to include the forumId
         db.collection('forum').updateOne(
             { _id: result.insertedId },
-            { $set: { forumId: forumId } }, // Store userId as a string
+            { $set: { forumId: forumId } },
             (updateErr) => {
                 if (updateErr) {
-                    console.error('Error updating userId in database:', updateErr);
-                    res.status(500).send('Error updating userId in database');
-                    return;
+                    console.error('Error updating forumId in database:', updateErr);
+                    return res.status(500).send('Error updating forumId in database');
                 }
 
                 console.log("Post added:", newPost);
                 console.log("New forum post ID:", forumId); // Log the forumId if needed
-        
+
                 res.redirect('/createforumpost');
-        });
             }
         );
     });
+});
+
 
 // Dynamic route to handle all forum pages (categories and subcategories)
 app.get('/:category/:subcategory?', async (req, res) => {
@@ -603,7 +602,7 @@ app.post('/addvote', async (req, res) => {
     }
 
     const { postId, voteType } = req.body;
-    const userId = req.session.stringUserId; // Use userId from session
+    const userId = req.session.stringUserId;
 
     if (!postId || !voteType || (voteType !== 'upvote' && voteType !== 'downvote')) {
         return res.status(400).json({ success: false, message: "Invalid request data" });
@@ -616,8 +615,11 @@ app.post('/addvote', async (req, res) => {
             return res.status(404).json({ success: false, message: "Post not found" });
         }
 
+        // Ensure voters is an array
+        const voters = post.voters || [];
+
         // Check if the user has already voted
-        const existingVote = post.voters.find(voter => voter.userId === userId);
+        const existingVote = voters.find(voter => voter.userId === userId);
 
         if (existingVote) {
             // If the vote type matches the current vote, reject it
@@ -625,7 +627,7 @@ app.post('/addvote', async (req, res) => {
                 return res.status(400).json({ success: false, message: "You have already voted this way on this post" });
             }
 
-            // If the vote type is different, update the vote
+            // Update the existing vote
             await db.collection('forum').updateOne(
                 { forumId: postId, "voters.userId": userId },
                 {

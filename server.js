@@ -191,7 +191,6 @@ app.post('/adduser', (req, res) => {
             "username": req.body.username,
             "password": req.body.password // Storing password as is (not hashed)
         },
-        school: school,
         course: course,
         "picture": { // Nested structure for profile picture
             "thumbnail": defaultProfilePic // Using default picture if no thumbnail provided

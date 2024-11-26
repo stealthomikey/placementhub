@@ -82,35 +82,29 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Select all posts
-        const posts = document.querySelectorAll('.post');
+        // Set up click event listeners for all vote buttons once the page is loaded.
+        document.querySelectorAll('.vote-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const postId = button.getAttribute('data-id');
+                const voteType = button.getAttribute('data-vote-type');
+                handleVote(postId, voteType);
+            });
+        });
 
-        posts.forEach(post => {
+        // Highlight user's current vote on page load
+        document.querySelectorAll('.post').forEach(post => {
             const postId = post.getAttribute('data-post-id');
-            const voteStatusElement = document.getElementById(`vote-status-${postId}`);
+            const userVote = document.getElementById(`vote-status-${postId}`).value;
 
-            // Get current user vote from the backend
-            const userVote = voteStatusElement.value;
-
-            // Highlight the correct button based on user's previous vote
             if (userVote === 'upvote') {
                 document.getElementById(`upvote-button-${postId}`).classList.add('active');
             } else if (userVote === 'downvote') {
                 document.getElementById(`downvote-button-${postId}`).classList.add('active');
             }
-
-            // Add event listeners to upvote and downvote buttons
-            document.getElementById(`upvote-button-${postId}`).addEventListener('click', () => {
-                handleVote(postId, 'upvote');
-            });
-
-            document.getElementById(`downvote-button-${postId}`).addEventListener('click', () => {
-                handleVote(postId, 'downvote');
-            });
         });
     });
 
-    // Function to handle the voting process
+    // Function to handle voting logic
     function handleVote(postId, voteType) {
         const upvoteButton = document.getElementById(`upvote-button-${postId}`);
         const downvoteButton = document.getElementById(`downvote-button-${postId}`);
@@ -118,77 +112,87 @@
         const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
         const voteStatusElement = document.getElementById(`vote-status-${postId}`);
 
-        // Get the current vote status of the user
-        let currentVote = voteStatusElement.value;
+        const currentVote = voteStatusElement.value;
 
-        // Set action type for the server request
-        let action = 'add'; // Default action is to add a vote
+        let action;
         if (currentVote === voteType) {
-            action = 'remove'; // If clicking the same type, remove the vote
-        } else if (currentVote !== '') {
-            action = 'switch'; // If switching from one type to the other
+            // Remove vote if the user clicks the same button
+            action = 'remove';
+        } else if (currentVote === '') {
+            // Add new vote if the user has not voted yet
+            action = 'add';
+        } else {
+            // Switch vote if the user clicks the opposite button
+            action = 'switch';
         }
 
-        // Send the vote action to the server
+        // Update the database with the vote
         sendVoteToServer(postId, voteType, action)
             .then(response => {
                 if (response.success) {
-                    // Update UI only if the server confirmed the vote change
                     updateVoteUI(postId, voteType, action, upvoteButton, downvoteButton, upvoteCountElement, downvoteCountElement, voteStatusElement);
                 } else {
-                    alert("There was an issue processing your vote. Please try again.");
+                    console.error("Error processing vote:", response.message);
                 }
             })
             .catch(err => {
                 console.error("Error communicating with the server:", err);
-                alert("Unable to reach the server. Please try again later.");
             });
     }
 
-    // Function to send voting information to the server
+    // Function to send vote to the server
     function sendVoteToServer(postId, voteType, action) {
         return fetch('/addvote', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ postId, voteType, action })
-        })
-        .then(response => response.json());
+        }).then(response => response.json());
     }
 
-    // Function to update the UI to reflect the vote state
+    // Function to update the UI
     function updateVoteUI(postId, voteType, action, upvoteButton, downvoteButton, upvoteCountElement, downvoteCountElement, voteStatusElement) {
-        // Reset the button colors
+        // Remove active state from both buttons
         upvoteButton.classList.remove('active');
         downvoteButton.classList.remove('active');
 
-        // Update the vote counts and button colors based on action and voteType
         if (action === 'remove') {
+            // Remove vote
             if (voteType === 'upvote') {
                 upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-                voteStatusElement.value = ''; // Reset vote status
             } else if (voteType === 'downvote') {
                 downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-                voteStatusElement.value = ''; // Reset vote status
             }
-        } else if (action === 'add' || action === 'switch') {
+            voteStatusElement.value = ''; // Clear vote status
+        } else if (action === 'add') {
+            // Add new vote
             if (voteType === 'upvote') {
                 upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
                 voteStatusElement.value = 'upvote';
-                upvoteButton.classList.add('active'); // Highlight upvote button
-                if (action === 'switch') {
-                    downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote if switching
-                }
+                upvoteButton.classList.add('active');
             } else if (voteType === 'downvote') {
                 downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
                 voteStatusElement.value = 'downvote';
-                downvoteButton.classList.add('active'); // Highlight downvote button
-                if (action === 'switch') {
-                    upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote if switching
-                }
+                downvoteButton.classList.add('active');
+            }
+        } else if (action === 'switch') {
+            // Switch vote
+            if (voteType === 'upvote') {
+                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
+                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
+                voteStatusElement.value = 'upvote';
+                upvoteButton.classList.add('active');
+            } else if (voteType === 'downvote') {
+                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
+                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
+                voteStatusElement.value = 'downvote';
+                downvoteButton.classList.add('active');
             }
         }
     }
 </script>
+
 
 </body>
 </html>

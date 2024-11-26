@@ -76,11 +76,25 @@ app.get('/forum', async (req, res) => {
         // Fetch all forum posts from the database
         const forumPosts = await db.collection('forum').find({}).toArray();
 
+        const userId = req.session.user ? req.session.user.id : null;
+
         // Organize posts into categories and subcategories
         const categories = {};
 
         forumPosts.forEach(post => {
-            const { category, subcategory } = post;
+            const { category, subcategory, voters } = post;
+
+            // Check if the user has voted on the current post
+            let userVote = null;
+            if (userId) {
+                const voter = voters.find(v => v.userId === userId);
+                if (voter) {
+                    userVote = voter.voteType; // either 'upvote' or 'downvote'
+                }
+            }
+
+            // Add the user's voting status to the post object
+            post.userVote = userVote;
 
             // Initialize category if it doesn't exist
             if (!categories[category]) {
@@ -107,6 +121,7 @@ app.get('/forum', async (req, res) => {
         res.status(500).send('Error fetching forum posts');
     }
 });
+
 
 
 // Route to render the accommodation.ejs page

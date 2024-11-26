@@ -81,11 +81,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all upvote and downvote buttons
+    // Select all upvote buttons
     const upvoteButtons = document.querySelectorAll('.upvote');
     const downvoteButtons = document.querySelectorAll('.downvote');
 
-    // Attach event listeners to buttons
     upvoteButtons.forEach(button => {
         button.addEventListener('click', () => {
             const postId = button.getAttribute('data-id');
@@ -116,7 +115,7 @@ function handleVote(postId, voteType) {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        upvoteButton.classList.remove('upvoted'); // Revert to original state
+        upvoteButton.style.backgroundColor = ''; // Reset to default
         return;
     }
 
@@ -124,29 +123,29 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        downvoteButton.classList.remove('downvoted'); // Revert to original state
+        downvoteButton.style.backgroundColor = ''; // Reset to default
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
-        downvoteButton.classList.remove('downvoted'); // Remove red background
+        downvoteButton.style.backgroundColor = ''; // Reset downvote button
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
-        upvoteButton.classList.remove('upvoted'); // Remove green background
+        upvoteButton.style.backgroundColor = ''; // Reset upvote button
     }
 
     // Add the selected vote
     if (voteType === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'upvote'; // Set the vote status
-        upvoteButton.classList.add('upvoted'); // Set the green background
+        upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
     } else if (voteType === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'downvote'; // Set the vote status
-        downvoteButton.classList.add('downvoted'); // Set the red background
+        downvoteButton.style.backgroundColor = '#F44336'; // Set red background
     }
 
     // Send the vote to the server (database update)
@@ -165,6 +164,7 @@ function handleVote(postId, voteType) {
             console.error("Error communicating with the server:", err);
         });
 }
+
 
 </script>
 

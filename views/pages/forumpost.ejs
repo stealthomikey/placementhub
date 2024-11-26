@@ -79,9 +79,8 @@
 
 <%- include('../partials/footer.ejs') %>
 
-<script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Add event listeners for upvote buttons
+    // Select all upvote buttons
     const upvoteButtons = document.querySelectorAll('.upvote');
     const downvoteButtons = document.querySelectorAll('.downvote');
 
@@ -102,17 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to handle the voting process
 function handleVote(postId, voteType) {
+    const upvoteButton = document.getElementById(`upvote-button-${postId}`);
+    const downvoteButton = document.getElementById(`downvote-button-${postId}`);
     const upvoteCountElement = document.getElementById(`upvote-count-${postId}`);
     const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
     const voteStatusElement = document.getElementById(`vote-status-${postId}`);
 
     let currentVote = voteStatusElement.value; // Get current vote status of the user
 
-    // If the user clicked the same button again, remove their vote
+    // If the user clicked the same button again, remove their vote (toggle behavior)
     if (voteType === 'upvote' && currentVote === 'upvote') {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
+        upvoteButton.classList.remove('upvoted');
         return;
     }
 
@@ -120,24 +122,29 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
+        downvoteButton.classList.remove('downvoted');
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
+        downvoteButton.classList.remove('downvoted'); // Remove the red background
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
+        upvoteButton.classList.remove('upvoted'); // Remove the green background
     }
 
     // Add the selected vote
     if (voteType === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'upvote'; // Set the vote status
+        upvoteButton.classList.add('upvoted'); // Set the green background
     } else if (voteType === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'downvote'; // Set the vote status
+        downvoteButton.classList.add('downvoted'); // Set the red background
     }
 
     // Send the vote to the server (database update)
@@ -156,7 +163,7 @@ function handleVote(postId, voteType) {
             console.error("Error communicating with the server:", err);
         });
 }
-</script>
+
 
 </body>
 </html>

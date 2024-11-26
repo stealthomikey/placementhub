@@ -78,16 +78,27 @@ body {
   margin: 16px 0;
 }
 
+/* Button Styling */
 button {
   background-color: #f1f1f1;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #ddd;
+}
+
+/* Button active states */
+button.upvoted {
+  background-color: #4CAF50; /* Green for upvoted */
+}
+
+button.downvoted {
+  background-color: #F44336; /* Red for downvoted */
 }
 
 /* Icons in Buttons */
@@ -95,7 +106,6 @@ button svg {
   vertical-align: middle;
   margin-right: 8px;
 }
-
 
 /* Actions */
 .post-actions,

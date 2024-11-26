@@ -4,7 +4,7 @@
 <html lang="en">
 
 <!-- Include the head -->
-<%- include('../partials/head.ejs', { title: 'Forum | PlacementHub', cssFiles: ['/styles/forumpages.css', '/styles/nav.css'], bootstrap: true, infolder: true  }) %>
+<%- include('../partials/head.ejs', { title: 'Forum | PlacementHub', cssFiles: ['/styles/forumpages.css', '/styles/nav.css'], bootstrap: true, infolder: true }) %>
 
 <body>
 
@@ -26,21 +26,21 @@
                     <div class="user-info">
                         <!-- User Photo -->
                         <img src="../<%= post.userPhoto %>" alt="User Photo" class="user-photo" />
-                    
+
                         <!-- User Details -->
                         <div class="user-details">
                             <p class="user-name"><%= post.userName %></p>
                             <p class="user-course"><%= post.userCourse %></p>
                         </div>
-                    
+
                         <!-- Post Date -->
                         <p class="post-date"><%= post.postDate %></p>
                     </div>
-                    
-                    
+
+
                     <!-- Divider -->
                     <div class="divider"></div>
-                    
+
                     <!-- Forum Post Title -->
                     <p class="post-title"><%= post.title %></p>
                     <p class="post-content"><%= post.content %></p>
@@ -48,7 +48,7 @@
                     <% if (post.image) { %>
                         <img src="../img/postimg/<%= post.image %>" alt="Post Image" class="post-image" id="post-image" />
                     <% } %>
-                    
+
                     <!-- Action Buttons -->
                     <div class="post-actions">
                         <!-- Upvote Button -->
@@ -66,7 +66,7 @@
                             </svg>
                             Downvote <b><span class="downvote-count" id="downvote-count-<%= post.forumId %>"><%= post.downVotes %></span></b>
                         </button>
-                    
+
                         <!-- Comment Button -->
                         <button class="comment">
                             <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
@@ -133,7 +133,7 @@ function handleVote(postId, voteType) {
         .then(data => {
             if (data.success) {
                 // Update the vote counts on the page
-                updateVoteCounts(postId, voteType, data.updatedVotes);
+                updateVoteCounts(postId, data.updatedVotes);
             } else {
                 console.error(`Error processing vote: ${data.message}`);
             }
@@ -142,15 +142,12 @@ function handleVote(postId, voteType) {
 }
 
 // Function to update the vote counts on the page dynamically
-function updateVoteCounts(postId, voteType, updatedVotes) {
+function updateVoteCounts(postId, updatedVotes) {
     const upvoteCountElement = document.getElementById(`upvote-count-${postId}`);
     const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
 
-    if (voteType === 'upvote') {
-        upvoteCountElement.innerText = updatedVotes.upVotes;
-    } else if (voteType === 'downvote') {
-        downvoteCountElement.innerText = updatedVotes.downVotes;
-    }
+    upvoteCountElement.innerText = updatedVotes.upVotes;
+    downvoteCountElement.innerText = updatedVotes.downVotes;
 }
 </script>
 

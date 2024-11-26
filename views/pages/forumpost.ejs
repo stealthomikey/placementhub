@@ -116,70 +116,70 @@
         // Get the current vote status of the user
         let currentVote = voteStatusElement.value;
 
-        // If the user clicked the same button again, remove their vote (toggle behavior)
-        if (voteType === 'upvote' && currentVote === 'upvote') {
-            // Remove the upvote
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-            voteStatusElement.value = ''; // Reset the vote status
-            upvoteButton.style.backgroundColor = ''; // Reset to default
-            sendVoteToServer(postId, 'remove');
-            return;
-        }
-
-        if (voteType === 'downvote' && currentVote === 'downvote') {
-            // Remove the downvote
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-            voteStatusElement.value = ''; // Reset the vote status
-            downvoteButton.style.backgroundColor = ''; // Reset to default
-            sendVoteToServer(postId, 'remove');
-            return;
-        }
-
-        // Handle switching votes: if the user is switching, adjust the opposite vote count
-        if (voteType === 'upvote' && currentVote === 'downvote') {
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
-            downvoteButton.style.backgroundColor = ''; // Reset downvote button
-        }
-        if (voteType === 'downvote' && currentVote === 'upvote') {
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
-            upvoteButton.style.backgroundColor = ''; // Reset upvote button
-        }
-
-        // Add the selected vote
-        if (voteType === 'upvote') {
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
-            voteStatusElement.value = 'upvote'; // Set the vote status
-            upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
-        } else if (voteType === 'downvote') {
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
-            voteStatusElement.value = 'downvote'; // Set the vote status
-            downvoteButton.style.backgroundColor = '#F44336'; // Set red background
+        // Set the action type for the server
+        let action = 'add'; // Default action to add a vote
+        if ((voteType === 'upvote' && currentVote === 'upvote') || (voteType === 'downvote' && currentVote === 'downvote')) {
+            action = 'remove'; // Remove the vote if the user clicks the same vote button
         }
 
         // Send the vote to the server (database update)
-        sendVoteToServer(postId, voteType);
+        sendVoteToServer(postId, voteType, action)
+            .then(response => {
+                if (response.success) {
+                    // Update UI only if the server confirmed the vote change
+                    updateVoteUI(postId, voteType, action, upvoteButton, downvoteButton, upvoteCountElement, downvoteCountElement, voteStatusElement);
+                } else {
+                    alert("There was an issue processing your vote. Please try again.");
+                }
+            })
+            .catch(err => {
+                console.error("Error communicating with the server:", err);
+                alert("Unable to reach the server. Please try again later.");
+            });
     }
 
     // Function to send the voting information to the server
-    function sendVoteToServer(postId, voteType) {
-        fetch('/addvote', {
+    function sendVoteToServer(postId, voteType, action) {
+        return fetch('/addvote', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, voteType })
+            body: JSON.stringify({ postId, voteType, action })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                console.error("Error processing vote:", data.message);
-                alert("There was an issue processing your vote. Please try again.");
-                // Ideally, revert the UI changes if the server fails
+        .then(response => response.json());
+    }
+
+    // Function to update the UI to reflect the vote state
+    function updateVoteUI(postId, voteType, action, upvoteButton, downvoteButton, upvoteCountElement, downvoteCountElement, voteStatusElement) {
+        // Reset the button colors
+        upvoteButton.style.backgroundColor = '';
+        downvoteButton.style.backgroundColor = '';
+
+        // Update the vote counts and button colors based on action and voteType
+        if (action === 'remove') {
+            if (voteType === 'upvote') {
+                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
+                voteStatusElement.value = ''; // Reset vote status
+            } else if (voteType === 'downvote') {
+                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
+                voteStatusElement.value = ''; // Reset vote status
             }
-        })
-        .catch(err => {
-            console.error("Error communicating with the server:", err);
-            alert("Unable to reach the server. Please try again later.");
-            // Ideally, revert the UI changes if there's an error
-        });
+        } else if (action === 'add') {
+            if (voteType === 'upvote') {
+                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
+                voteStatusElement.value = 'upvote';
+                upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
+                if (voteStatusElement.value === 'downvote') {
+                    downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote if switching
+                }
+            } else if (voteType === 'downvote') {
+                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
+                voteStatusElement.value = 'downvote';
+                downvoteButton.style.backgroundColor = '#F44336'; // Set red background
+                if (voteStatusElement.value === 'upvote') {
+                    upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote if switching
+                }
+            }
+        }
     }
 </script>
 

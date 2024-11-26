@@ -73,12 +73,10 @@ app.get('/myaccount', (req, res) => {
 
 app.get('/forum', async (req, res) => {
     try {
-        const userId = req.session.stringUserId; // Get the userId from the session
-
         // Fetch all forum posts from the database
         const forumPosts = await db.collection('forum').find({}).toArray();
 
-        // Organize posts into categories and subcategories, and add user vote status
+        // Organize posts into categories and subcategories
         const categories = {};
 
         forumPosts.forEach(post => {
@@ -94,15 +92,11 @@ app.get('/forum', async (req, res) => {
                 categories[category][subcategory] = [];
             }
 
-            // Add user-specific voting information for each post
-            const userVote = post.voters.find(voter => voter.userId === userId);
-            post.userVote = userVote ? userVote.voteType : null; // 'upvote', 'downvote', or null
-
             // Add the post to the subcategory list
             categories[category][subcategory].push(post);
         });
 
-        // Render the forum page with the categories object and user vote status
+        // Render the forum page with the categories object
         res.render('pages/forum', {
             user: req.session.user,
             categories: categories
@@ -113,7 +107,6 @@ app.get('/forum', async (req, res) => {
         res.status(500).send('Error fetching forum posts');
     }
 });
-
 
 
 // Route to render the accommodation.ejs page

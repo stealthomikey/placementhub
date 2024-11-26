@@ -24,24 +24,16 @@
                 <div class="card">
                     <!-- User Info -->
                     <div class="user-info">
-                        <!-- User Photo -->
                         <img src="../<%= post.userPhoto %>" alt="User Photo" class="user-photo" />
-
-                        <!-- User Details -->
                         <div class="user-details">
                             <p class="user-name"><%= post.userName %></p>
                             <p class="user-course"><%= post.userCourse %></p>
                         </div>
-
-                        <!-- Post Date -->
                         <p class="post-date"><%= post.postDate %></p>
                     </div>
 
-
-                    <!-- Divider -->
                     <div class="divider"></div>
 
-                    <!-- Forum Post Title -->
                     <p class="post-title"><%= post.title %></p>
                     <p class="post-content"><%= post.content %></p>
 
@@ -51,23 +43,20 @@
 
                     <!-- Action Buttons -->
                     <div class="post-actions">
-                        <!-- Upvote Button -->
-                        <button class="upvote" data-id="<%= post.forumId %>">
+                        <button class="upvote" data-id="<%= post.forumId %>" id="upvote-button-<%= post.forumId %>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 0L16 10H0L8 0z"></path>
                             </svg>
-                            Upvote <b><span class="upvote-count" id="upvote-count-<%= post.forumId %>"><%= post.upVotes %></span></b>
+                            Upvote <b><span id="upvote-count-<%= post.forumId %>"><%= post.upVotes %></span></b>
                         </button>
 
-                        <!-- Downvote Button -->
-                        <button class="downvote" data-id="<%= post.forumId %>">
+                        <button class="downvote" data-id="<%= post.forumId %>" id="downvote-button-<%= post.forumId %>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 10L0 0h16L8 10z"></path>
                             </svg>
-                            Downvote <b><span class="downvote-count" id="downvote-count-<%= post.forumId %>"><%= post.downVotes %></span></b>
+                            Downvote <b><span id="downvote-count-<%= post.forumId %>"><%= post.downVotes %></span></b>
                         </button>
 
-                        <!-- Comment Button -->
                         <button class="comment">
                             <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
                                 <path style="fill:#010002;" d="M27.184,1.605H2.156C0.967,1.605,0,2.572,0,3.76v17.572c0,1.188,0.967,2.155,2.156,2.155h13.543
@@ -79,6 +68,9 @@
                             Comment <b><%= post.comments %></b>
                         </button>
                     </div>
+
+                    <!-- Hidden input to store the user's current vote status -->
+                    <input type="hidden" id="vote-status-<%= post.forumId %>" value="<%= post.userVoteStatus %>" />
                 </div>
             <% }); %>
         <% } %>
@@ -87,138 +79,84 @@
 
 <%- include('../partials/footer.ejs') %>
 
-</body>
-
-<!-- links to bootstrap js and jquery -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="/scripts/forumpages.js"></script>
-
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Select all upvote buttons
-        const upvoteButtons = document.querySelectorAll('.upvote');
-        const downvoteButtons = document.querySelectorAll('.downvote');
-    
-        if (upvoteButtons.length === 0 && downvoteButtons.length === 0) {
-            console.warn("No vote buttons found.");
-            return;
-        }
-    
-        // Add event listeners for upvote buttons
-        upvoteButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const postId = button.getAttribute('data-id');
-                handleVote(postId, 'upvote');
-            });
-        });
-    
-        // Add event listeners for downvote buttons
-        downvoteButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const postId = button.getAttribute('data-id');
-                handleVote(postId, 'downvote');
-            });
+document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners for upvote buttons
+    const upvoteButtons = document.querySelectorAll('.upvote');
+    const downvoteButtons = document.querySelectorAll('.downvote');
+
+    upvoteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-id');
+            handleVote(postId, 'upvote');
         });
     });
-    
-    // Function to handle the voting process
-    function handleVote(postId, voteType) {
-        const upvoteCountElement = document.getElementById(`upvote-count-${postId}`);
-        const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
-    
-        // Get current vote status (from a hidden field or session storage if needed)
-        const currentVote = getCurrentVoteStatus(postId);
-    
-        // If the user clicks the same vote type again, remove their vote (toggle behavior)
-        if (voteType === 'upvote') {
-            if (currentVote === 'upvote') {
-                // Remove upvote
-                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-                setVoteStatus(postId, null); // Remove vote status
-                return; // Exit function to prevent further actions
-            }
-    
-            // If user was downvoting, remove downvote first
-            if (currentVote === 'downvote') {
-                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-            }
-    
-            // Add upvote
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
-            setVoteStatus(postId, 'upvote'); // Update the user's vote status
-        } 
-        else if (voteType === 'downvote') {
-            if (currentVote === 'downvote') {
-                // Remove downvote
-                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-                setVoteStatus(postId, null); // Remove vote status
-                return; // Exit function to prevent further actions
-            }
-    
-            // If user was upvoting, remove upvote first
-            if (currentVote === 'upvote') {
-                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-            }
-    
-            // Add downvote
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
-            setVoteStatus(postId, 'downvote'); // Update the user's vote status
-        }
-    
-        // Send the vote to the server (database update)
-        fetch('/addvote', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, voteType })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.success) {
-                    console.error("Error processing vote:", data.message);
-                    revertVote(postId, voteType, currentVote); // Revert if there's an error
-                }
-            })
-            .catch(err => {
-                console.error("Error communicating with the server:", err);
-                revertVote(postId, voteType, currentVote); // Revert if there's an error
-            });
-    }
-    
-    // Get the current vote status of the user (upvoted, downvoted, or null)
-    function getCurrentVoteStatus(postId) {
-        const voteStatus = document.getElementById(`vote-status-${postId}`);
-        return voteStatus ? voteStatus.value : null; // Assuming we store the vote status here
-    }
-    
-    // Set the vote status (upvoted, downvoted, or null)
-    function setVoteStatus(postId, status) {
-        const voteStatus = document.getElementById(`vote-status-${postId}`);
-        if (voteStatus) {
-            voteStatus.value = status;
-        }
-    }
-    
-    // Revert the vote counts if there's an error
-    function revertVote(postId, voteType, currentVote) {
-        const upvoteCountElement = document.getElementById(`upvote-count-${postId}`);
-        const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
-    
-        if (voteType === 'upvote') {
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-            if (currentVote === 'downvote') {
-                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
-            }
-        } else if (voteType === 'downvote') {
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-            if (currentVote === 'upvote') {
-                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
-            }
-        }
-    }
-    </script>
-    
-    
-    
 
+    downvoteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-id');
+            handleVote(postId, 'downvote');
+        });
+    });
+});
+
+// Function to handle the voting process
+function handleVote(postId, voteType) {
+    const upvoteCountElement = document.getElementById(`upvote-count-${postId}`);
+    const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
+    const voteStatusElement = document.getElementById(`vote-status-${postId}`);
+
+    let currentVote = voteStatusElement.value; // Get current vote status of the user
+
+    // If the user clicked the same button again, remove their vote
+    if (voteType === 'upvote' && currentVote === 'upvote') {
+        // Remove the upvote
+        upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
+        voteStatusElement.value = ''; // Reset the vote status
+        return;
+    }
+
+    if (voteType === 'downvote' && currentVote === 'downvote') {
+        // Remove the downvote
+        downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
+        voteStatusElement.value = ''; // Reset the vote status
+        return;
+    }
+
+    // Handle switching votes: if user is switching, adjust the opposite vote count
+    if (voteType === 'upvote' && currentVote === 'downvote') {
+        downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
+    }
+    if (voteType === 'downvote' && currentVote === 'upvote') {
+        upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
+    }
+
+    // Add the selected vote
+    if (voteType === 'upvote') {
+        upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
+        voteStatusElement.value = 'upvote'; // Set the vote status
+    } else if (voteType === 'downvote') {
+        downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
+        voteStatusElement.value = 'downvote'; // Set the vote status
+    }
+
+    // Send the vote to the server (database update)
+    fetch('/addvote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId, voteType })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                console.error("Error processing vote:", data.message);
+            }
+        })
+        .catch(err => {
+            console.error("Error communicating with the server:", err);
+        });
+}
+</script>
+
+</body>
 </html>

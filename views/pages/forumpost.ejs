@@ -43,25 +43,19 @@
 
                     <!-- Action Buttons -->
                     <div class="post-actions">
-                        <button 
-                        class="upvote <%= post.userVote === 'upvote' ? 'active' : '' %>" 
-                        data-id="<%= post.forumId %>" 
-                        id="upvote-button-<%= post.forumId %>">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L16 10H0L8 0z"></path>
-                        </svg>
-                        Upvote <b><span id="upvote-count-<%= post.forumId %>"><%= post.upVotes %></span></b>
-                    </button>
-                    
-                    <button 
-                        class="downvote <%= post.userVote === 'downvote' ? 'active' : '' %>" 
-                        data-id="<%= post.forumId %>" 
-                        id="downvote-button-<%= post.forumId %>">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 10L0 0h16L8 10z"></path>
-                        </svg>
-                        Downvote <b><span id="downvote-count-<%= post.forumId %>"><%= post.downVotes %></span></b>
-                    </button>
+                        <button class="upvote" data-id="<%= post.forumId %>" id="upvote-button-<%= post.forumId %>">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 0L16 10H0L8 0z"></path>
+                            </svg>
+                            Upvote <b><span id="upvote-count-<%= post.forumId %>"><%= post.upVotes %></span></b>
+                        </button>
+
+                        <button class="downvote" data-id="<%= post.forumId %>" id="downvote-button-<%= post.forumId %>">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 10L0 0h16L8 10z"></path>
+                            </svg>
+                            Downvote <b><span id="downvote-count-<%= post.forumId %>"><%= post.downVotes %></span></b>
+                        </button>
 
                         <button class="comment">
                             <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
@@ -76,7 +70,7 @@
                     </div>
 
                     <!-- Hidden input to store the user's current vote status -->
-                    <input type="hidden" id="vote-status-<%= post.forumId %>" value="<%= post.userVote %>" />
+                    <input type="hidden" id="vote-status-<%= post.forumId %>" value="<%= post.userVoteStatus %>" />
                 </div>
             <% }); %>
         <% } %>
@@ -87,11 +81,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all upvote and downvote buttons
+    // Select all upvote buttons
     const upvoteButtons = document.querySelectorAll('.upvote');
     const downvoteButtons = document.querySelectorAll('.downvote');
 
-    // Add event listeners to handle the voting actions
     upvoteButtons.forEach(button => {
         button.addEventListener('click', () => {
             const postId = button.getAttribute('data-id');
@@ -122,6 +115,7 @@ function handleVote(postId, voteType) {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
+        upvoteButton.style.backgroundColor = ''; // Reset to default
         return;
     }
 
@@ -129,24 +123,29 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
+        downvoteButton.style.backgroundColor = ''; // Reset to default
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
+        downvoteButton.style.backgroundColor = ''; // Reset downvote button
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
+        upvoteButton.style.backgroundColor = ''; // Reset upvote button
     }
 
     // Add the selected vote
     if (voteType === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'upvote'; // Set the vote status
+        upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
     } else if (voteType === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'downvote'; // Set the vote status
+        downvoteButton.style.backgroundColor = '#F44336'; // Set red background
     }
 
     // Send the vote to the server (database update)
@@ -155,16 +154,18 @@ function handleVote(postId, voteType) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ postId, voteType })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (!data.success) {
-            console.error("Error processing vote:", data.message);
-        }
-    })
-    .catch(err => {
-        console.error("Error communicating with the server:", err);
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                console.error("Error processing vote:", data.message);
+            }
+        })
+        .catch(err => {
+            console.error("Error communicating with the server:", err);
+        });
 }
+
+
 </script>
 
 </body>

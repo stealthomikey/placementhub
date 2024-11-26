@@ -78,9 +78,9 @@ body {
   margin: 16px 0;
 }
 
-/* Default button styles */
+/* Button Styling */
 button {
-  background-color: #f1f1f1;  /* Default color */
+  background-color: #f1f1f1;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -89,19 +89,19 @@ button {
 }
 
 button:hover {
-  background-color: #ddd;  /* Hover effect */
+  background-color: #ddd;
 }
 
-/* Active states for voting buttons */
+/* Button active states */
 button.upvoted {
-  background-color: #4CAF50;  /* Green for upvoted */
+  background-color: #4CAF50; /* Green for upvoted */
 }
 
 button.downvoted {
-  background-color: #F44336;  /* Red for downvoted */
+  background-color: #F44336; /* Red for downvoted */
 }
 
-/* SVG inside buttons */
+/* Icons in Buttons */
 button svg {
   vertical-align: middle;
   margin-right: 8px;

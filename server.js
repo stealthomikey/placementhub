@@ -55,10 +55,40 @@ app.get('/forumpages', (req, res) => {
     res.render('pages/forumpages', { user: req.session.user});
   });
 
-  app.get('/forumpost', (req, res) => {
-    // Render index page with user data if logged in, otherwise render with null user
-    res.render('pages/forumpost', { user: req.session.user});
-  });
+  app.get('/forumpost/:id', async (req, res) => {
+    try {
+        const userId = req.session?.user?.userId || null;
+        const postId = req.params.id;
+
+        // Fetch the specific forum post by postId
+        const post = await db.collection('forum').findOne({ forumId: postId });
+
+        if (!post) {
+            return res.status(404).send('Post not found');
+        }
+
+        // Determine if the current user has voted
+        let userVote = null;
+        if (userId && post.voters) {
+            const userVoteData = post.voters.find(v => v.userId === userId);
+            if (userVoteData) {
+                userVote = userVoteData.voteType;
+            }
+        }
+
+        // Render the individual forum post with the user and voting details
+        res.render('pages/forumpost', {
+            user: req.session.user,
+            post: post,
+            userVote: userVote
+        });
+
+    } catch (err) {
+        console.error('Error fetching forum post:', err);
+        res.status(500).send('Error fetching forum post');
+    }
+});
+
 
 // Route to render the myaccount.ejs page
 app.get('/myaccount', (req, res) => {

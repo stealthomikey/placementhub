@@ -49,9 +49,8 @@ app.get('/', (req, res) => {
   res.render('pages/index', { user: req.session.loggedin ? req.session.user : null, req: req });
 });
 
-// Route to render the forumpages.ejs page
 app.get('/forumpost', async (req, res) => {
-    const postId = req.query.postId; // Assuming the postId is passed as a query parameter
+    const postId = req.query.postId; // Assuming the postId is being passed as a query parameter
     const userId = req.session.loggedin ? req.session.userId : null; // Get userId if logged in
 
     // Fetch the post from the database

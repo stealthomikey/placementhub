@@ -55,10 +55,27 @@ app.get('/forumpages', (req, res) => {
     res.render('pages/forumpages', { user: req.session.user});
   });
 
-  app.get('/forumpost', (req, res) => {
-    // Render index page with user data if logged in, otherwise render with null user
-    res.render('pages/forumpost', { user: req.session.user});
-  });
+  app.get('/forumpost', async (req, res) => {
+    if (!req.session.loggedin) {
+        return res.redirect('/login');
+    }
+
+    const postId = req.query.postId; // Assuming you are passing postId as a query parameter
+    const userId = req.session.userId; // The logged-in user's ID
+
+    // Fetch the post from the database
+    const post = await db.collection('forum').findOne({ _id: ObjectId(postId) });
+
+    // Check if the user has voted on this post
+    const userVote = post.voters.find(vote => vote.userId === userId);
+
+    res.render('pages/forumpost', {
+        user: req.session.user,
+        post: post,
+        userVote: userVote ? userVote.voteType : null, // Pass voteType to the template
+    });
+});
+
 
 // Route to render the myaccount.ejs page
 app.get('/myaccount', (req, res) => {

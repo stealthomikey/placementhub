@@ -41,16 +41,17 @@
                         <img src="../img/postimg/<%= post.image %>" alt="Post Image" class="post-image" id="post-image" />
                     <% } %>
 
-                    <!-- Action Buttons -->
                     <div class="post-actions">
-                        <button class="upvote" data-id="<%= post.forumId %>" id="upvote-button-<%= post.forumId %>">
+                        <!-- Upvote Button -->
+                        <button class="upvote <%= userVote === 'upvote' ? 'voted' : '' %>" data-id="<%= post.forumId %>" id="upvote-button-<%= post.forumId %>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 0L16 10H0L8 0z"></path>
                             </svg>
                             Upvote <b><span id="upvote-count-<%= post.forumId %>"><%= post.upVotes %></span></b>
                         </button>
-
-                        <button class="downvote" data-id="<%= post.forumId %>" id="downvote-button-<%= post.forumId %>">
+                    
+                        <!-- Downvote Button -->
+                        <button class="downvote <%= userVote === 'downvote' ? 'voted' : '' %>" data-id="<%= post.forumId %>" id="downvote-button-<%= post.forumId %>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M8 10L0 0h16L8 10z"></path>
                             </svg>

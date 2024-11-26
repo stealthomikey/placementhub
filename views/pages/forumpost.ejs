@@ -88,26 +88,8 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all upvote buttons
+    // Select all upvote buttons and set their colors if active
     const upvoteButtons = document.querySelectorAll('.upvote');
-    const downvoteButtons = document.querySelectorAll('.downvote');
-
-    upvoteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const postId = button.getAttribute('data-id');
-            handleVote(postId, 'upvote');
-        });
-    });
-
-    downvoteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const postId = button.getAttribute('data-id');
-            handleVote(postId, 'downvote');
-        });
-    });
-});
-
-const upvoteButtons = document.querySelectorAll('.upvote');
     const downvoteButtons = document.querySelectorAll('.downvote');
 
     upvoteButtons.forEach(button => {
@@ -124,6 +106,22 @@ const upvoteButtons = document.querySelectorAll('.upvote');
         }
     });
 
+    // Add event listeners to handle the voting actions
+    upvoteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-id');
+            handleVote(postId, 'upvote');
+        });
+    });
+
+    downvoteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-id');
+            handleVote(postId, 'downvote');
+        });
+    });
+});
+
 // Function to handle the voting process
 function handleVote(postId, voteType) {
     const upvoteButton = document.getElementById(`upvote-button-${postId}`);
@@ -139,7 +137,8 @@ function handleVote(postId, voteType) {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        upvoteButton.style.backgroundColor = ''; // Reset to default
+        upvoteButton.style.color = ''; // Reset to default
+        upvoteButton.querySelector('svg').style.fill = ''; // Reset SVG to default
         return;
     }
 
@@ -147,29 +146,34 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        downvoteButton.style.backgroundColor = ''; // Reset to default
+        downvoteButton.style.color = ''; // Reset to default
+        downvoteButton.querySelector('svg').style.fill = ''; // Reset SVG to default
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
-        downvoteButton.style.backgroundColor = ''; // Reset downvote button
+        downvoteButton.style.color = ''; // Reset downvote button
+        downvoteButton.querySelector('svg').style.fill = ''; // Reset SVG color
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
-        upvoteButton.style.backgroundColor = ''; // Reset upvote button
+        upvoteButton.style.color = ''; // Reset upvote button
+        upvoteButton.querySelector('svg').style.fill = ''; // Reset SVG color
     }
 
     // Add the selected vote
     if (voteType === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'upvote'; // Set the vote status
-        upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
+        upvoteButton.style.color = 'green'; // Set green color for active upvote
+        upvoteButton.querySelector('svg').style.fill = 'green'; // Set SVG color for upvote
     } else if (voteType === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'downvote'; // Set the vote status
-        downvoteButton.style.backgroundColor = '#F44336'; // Set red background
+        downvoteButton.style.color = 'red'; // Set red color for active downvote
+        downvoteButton.querySelector('svg').style.fill = 'red'; // Set SVG color for downvote
     }
 
     // Send the vote to the server (database update)
@@ -178,15 +182,15 @@ function handleVote(postId, voteType) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ postId, voteType })
     })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                console.error("Error processing vote:", data.message);
-            }
-        })
-        .catch(err => {
-            console.error("Error communicating with the server:", err);
-        });
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            console.error("Error processing vote:", data.message);
+        }
+    })
+    .catch(err => {
+        console.error("Error communicating with the server:", err);
+    });
 }
 
 

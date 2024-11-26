@@ -76,7 +76,7 @@
                     </div>
 
                     <!-- Hidden input to store the user's current vote status -->
-                    <input type="hidden" id="vote-status-<%= post.forumId %>" value="<%= post.userVoteStatus %>" />
+                    <input type="hidden" id="vote-status-<%= post.forumId %>" value="<%= post.userVote %>" />
                 </div>
             <% }); %>
         <% } %>
@@ -86,7 +86,6 @@
 <%- include('../partials/footer.ejs') %>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
     // Select all upvote buttons and set their colors if active
     const upvoteButtons = document.querySelectorAll('.upvote');
@@ -94,15 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     upvoteButtons.forEach(button => {
         if (button.classList.contains('active')) {
-            button.style.color = 'green'; // Change the color to indicate an active upvote
-            button.querySelector('svg').style.fill = 'green'; // Update SVG color as well
+            button.classList.add('upvoted');
         }
     });
 
     downvoteButtons.forEach(button => {
         if (button.classList.contains('active')) {
-            button.style.color = 'red'; // Change the color to indicate an active downvote
-            button.querySelector('svg').style.fill = 'red'; // Update SVG color as well
+            button.classList.add('downvoted');
         }
     });
 
@@ -137,8 +134,7 @@ function handleVote(postId, voteType) {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        upvoteButton.style.color = ''; // Reset to default
-        upvoteButton.querySelector('svg').style.fill = ''; // Reset SVG to default
+        upvoteButton.classList.remove('upvoted'); // Remove upvoted class
         return;
     }
 
@@ -146,34 +142,29 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        downvoteButton.style.color = ''; // Reset to default
-        downvoteButton.querySelector('svg').style.fill = ''; // Reset SVG to default
+        downvoteButton.classList.remove('downvoted'); // Remove downvoted class
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
-        downvoteButton.style.color = ''; // Reset downvote button
-        downvoteButton.querySelector('svg').style.fill = ''; // Reset SVG color
+        downvoteButton.classList.remove('downvoted'); // Reset downvote button
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
-        upvoteButton.style.color = ''; // Reset upvote button
-        upvoteButton.querySelector('svg').style.fill = ''; // Reset SVG color
+        upvoteButton.classList.remove('upvoted'); // Reset upvote button
     }
 
     // Add the selected vote
     if (voteType === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'upvote'; // Set the vote status
-        upvoteButton.style.color = 'green'; // Set green color for active upvote
-        upvoteButton.querySelector('svg').style.fill = 'green'; // Set SVG color for upvote
+        upvoteButton.classList.add('upvoted'); // Add upvoted class
     } else if (voteType === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'downvote'; // Set the vote status
-        downvoteButton.style.color = 'red'; // Set red color for active downvote
-        downvoteButton.querySelector('svg').style.fill = 'red'; // Set SVG color for downvote
+        downvoteButton.classList.add('downvoted'); // Add downvoted class
     }
 
     // Send the vote to the server (database update)
@@ -192,8 +183,6 @@ function handleVote(postId, voteType) {
         console.error("Error communicating with the server:", err);
     });
 }
-
-
 </script>
 
 </body>

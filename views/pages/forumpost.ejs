@@ -80,9 +80,26 @@
 <%- include('../partials/footer.ejs') %>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all upvote buttons
+    // Select all hidden vote status inputs
+    const voteStatusElements = document.querySelectorAll('[id^="vote-status-"]');
+
+    // Apply styles based on user vote status
+    voteStatusElements.forEach(voteStatusElement => {
+        const postId = voteStatusElement.id.split('-')[2]; // Extract post ID from element ID
+        const currentVote = voteStatusElement.value;
+
+        const upvoteButton = document.getElementById(`upvote-button-${postId}`);
+        const downvoteButton = document.getElementById(`downvote-button-${postId}`);
+
+        if (currentVote === 'upvote') {
+            upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background for upvote
+        } else if (currentVote === 'downvote') {
+            downvoteButton.style.backgroundColor = '#F44336'; // Set red background for downvote
+        }
+    });
+
+    // Add event listeners for voting buttons
     const upvoteButtons = document.querySelectorAll('.upvote');
     const downvoteButtons = document.querySelectorAll('.downvote');
 
@@ -101,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Function to handle the voting process
+// Function to handle the voting process (unchanged from previous example)
 function handleVote(postId, voteType) {
     const upvoteButton = document.getElementById(`upvote-button-${postId}`);
     const downvoteButton = document.getElementById(`downvote-button-${postId}`);
@@ -165,43 +182,6 @@ function handleVote(postId, voteType) {
             // Revert UI changes if there was an error
             revertVoteChange(voteType, currentVote, upvoteCountElement, downvoteCountElement, upvoteButton, downvoteButton, voteStatusElement);
         });
-}
-
-// Function to revert UI changes in case of an error
-function revertVoteChange(voteType, originalVote, upvoteCountElement, downvoteCountElement, upvoteButton, downvoteButton, voteStatusElement) {
-    if (voteType === 'upvote') {
-        if (originalVote === 'upvote') {
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
-            voteStatusElement.value = 'upvote';
-            upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
-        } else if (originalVote === 'downvote') {
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
-            downvoteButton.style.backgroundColor = '#F44336'; // Set red background
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-            voteStatusElement.value = 'downvote';
-            upvoteButton.style.backgroundColor = ''; // Reset background
-        } else {
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-            voteStatusElement.value = '';
-            upvoteButton.style.backgroundColor = ''; // Reset background
-        }
-    } else if (voteType === 'downvote') {
-        if (originalVote === 'downvote') {
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
-            voteStatusElement.value = 'downvote';
-            downvoteButton.style.backgroundColor = '#F44336'; // Set red background
-        } else if (originalVote === 'upvote') {
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
-            upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-            voteStatusElement.value = 'upvote';
-            downvoteButton.style.backgroundColor = ''; // Reset background
-        } else {
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-            voteStatusElement.value = '';
-            downvoteButton.style.backgroundColor = ''; // Reset background
-        }
-    }
 }
 
 

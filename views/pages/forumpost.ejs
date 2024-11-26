@@ -126,51 +126,47 @@
     function handleVote(postId, voteType) {
         const upvoteCountElement = document.getElementById(`upvote-count-${postId}`);
         const downvoteCountElement = document.getElementById(`downvote-count-${postId}`);
-        
-        // Check the current vote status of the user
+    
+        // Get current vote status (from a hidden field or session storage if needed)
         const currentVote = getCurrentVoteStatus(postId);
     
-        // If the user clicks the same button again, it should "undo" their vote
-        if (voteType === 'upvote' && currentVote === 'upvote') {
-            // Remove upvote (undo)
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
-            setVoteStatus(postId, null); // Remove user's vote
-            return;
-        }
-    
-        if (voteType === 'downvote' && currentVote === 'downvote') {
-            // Remove downvote (undo)
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
-            setVoteStatus(postId, null); // Remove user's vote
-            return;
-        }
-    
-        // Handle the voting logic: upvote or downvote
+        // If the user clicks the same vote type again, remove their vote (toggle behavior)
         if (voteType === 'upvote') {
-            // Increment the upvote count
-            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
+            if (currentVote === 'upvote') {
+                // Remove upvote
+                upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
+                setVoteStatus(postId, null); // Remove vote status
+                return; // Exit function to prevent further actions
+            }
     
-            // If the user had previously downvoted, undo it
+            // If user was downvoting, remove downvote first
             if (currentVote === 'downvote') {
                 downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
             }
     
-            // Set the user's vote to "upvoted"
-            setVoteStatus(postId, 'upvote');
-        } else if (voteType === 'downvote') {
-            // Increment the downvote count
-            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
+            // Add upvote
+            upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
+            setVoteStatus(postId, 'upvote'); // Update the user's vote status
+        } 
+        else if (voteType === 'downvote') {
+            if (currentVote === 'downvote') {
+                // Remove downvote
+                downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
+                setVoteStatus(postId, null); // Remove vote status
+                return; // Exit function to prevent further actions
+            }
     
-            // If the user had previously upvoted, undo it
+            // If user was upvoting, remove upvote first
             if (currentVote === 'upvote') {
                 upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
             }
     
-            // Set the user's vote to "downvoted"
-            setVoteStatus(postId, 'downvote');
+            // Add downvote
+            downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
+            setVoteStatus(postId, 'downvote'); // Update the user's vote status
         }
     
-        // Send the vote to the server
+        // Send the vote to the server (database update)
         fetch('/addvote', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -179,23 +175,20 @@
             .then(response => response.json())
             .then(data => {
                 if (!data.success) {
-                    // Revert if there was an error processing the vote
                     console.error("Error processing vote:", data.message);
-                    revertVote(postId, voteType, currentVote);
+                    revertVote(postId, voteType, currentVote); // Revert if there's an error
                 }
             })
             .catch(err => {
                 console.error("Error communicating with the server:", err);
-                revertVote(postId, voteType, currentVote);
+                revertVote(postId, voteType, currentVote); // Revert if there's an error
             });
     }
     
     // Get the current vote status of the user (upvoted, downvoted, or null)
     function getCurrentVoteStatus(postId) {
-        // This should fetch the user's current vote status from the backend if needed
-        // For now, assuming it's stored in a hidden field or similar mechanism
         const voteStatus = document.getElementById(`vote-status-${postId}`);
-        return voteStatus ? voteStatus.value : null;
+        return voteStatus ? voteStatus.value : null; // Assuming we store the vote status here
     }
     
     // Set the vote status (upvoted, downvoted, or null)
@@ -224,6 +217,7 @@
         }
     }
     </script>
+    
     
     
 

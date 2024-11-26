@@ -43,7 +43,7 @@
 
                     <div class="post-actions">
                         <!-- Upvote Button -->
-                        <button class="upvote <%= isLoggedIn && userVote === 'upvote' ? 'upvoted' : '' %>" 
+                        <button class="upvote <%= loggedin && userVote === 'upvote' ? 'upvoted' : '' %>" 
                             data-id="<%= post.forumId %>" 
                             id="upvote-button-<%= post.forumId %>">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -53,7 +53,7 @@
                     </button>
                 
                     <!-- Downvote Button -->
-                    <button class="downvote <%= isLoggedIn && userVote === 'downvote' ? 'downvoted' : '' %>" 
+                    <button class="downvote <%= loggedin && userVote === 'downvote' ? 'downvoted' : '' %>" 
                             data-id="<%= post.forumId %>" 
                             id="downvote-button-<%= post.forumId %>">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">

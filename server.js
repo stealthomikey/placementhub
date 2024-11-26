@@ -59,22 +59,12 @@ app.get('/forumpost', async (req, res) => {
     // Check if the user has voted on this post
     const userVote = userId ? post.voters.find(vote => vote.userId === userId) : null;
 
-    const isLoggedIn = req.session.loggedin || false; // Set logged in flag
-
-    // Debug logging
-    console.log('Rendering /forumpost:', {
-        user: req.session.user,
-        post: post,
-        userVote: userVote ? userVote.voteType : null,
-        isLoggedIn: isLoggedIn
-    });
-
     // Pass the data to the EJS template
     res.render('pages/forumpost', {
         user: req.session.user,
         post: post,
         userVote: userVote ? userVote.voteType : null, // Pass the vote type if logged in
-        isLoggedIn: isLoggedIn // Pass a flag to indicate if the user is logged in
+        loggedin: req.session.loggedin // Pass session.loggedin directly
     });
 });
 

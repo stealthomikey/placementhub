@@ -93,13 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     upvoteButtons.forEach(button => {
         if (button.classList.contains('active')) {
-            button.classList.add('upvoted');
+            button.style.backgroundColor = '#4CAF50'; // Green color for upvoted
+            button.querySelector('svg').style.fill = '#4CAF50';
         }
     });
 
     downvoteButtons.forEach(button => {
         if (button.classList.contains('active')) {
-            button.classList.add('downvoted');
+            button.style.backgroundColor = '#F44336'; // Red color for downvoted
+            button.querySelector('svg').style.fill = '#F44336';
         }
     });
 
@@ -134,7 +136,8 @@ function handleVote(postId, voteType) {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        upvoteButton.classList.remove('upvoted'); // Remove upvoted class
+        upvoteButton.style.backgroundColor = ''; // Reset to default
+        upvoteButton.querySelector('svg').style.fill = 'currentColor';
         return;
     }
 
@@ -142,29 +145,34 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        downvoteButton.classList.remove('downvoted'); // Remove downvoted class
+        downvoteButton.style.backgroundColor = ''; // Reset to default
+        downvoteButton.querySelector('svg').style.fill = 'currentColor';
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
-        downvoteButton.classList.remove('downvoted'); // Reset downvote button
+        downvoteButton.style.backgroundColor = ''; // Reset downvote button
+        downvoteButton.querySelector('svg').style.fill = 'currentColor';
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
-        upvoteButton.classList.remove('upvoted'); // Reset upvote button
+        upvoteButton.style.backgroundColor = ''; // Reset upvote button
+        upvoteButton.querySelector('svg').style.fill = 'currentColor';
     }
 
     // Add the selected vote
     if (voteType === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'upvote'; // Set the vote status
-        upvoteButton.classList.add('upvoted'); // Add upvoted class
+        upvoteButton.style.backgroundColor = '#4CAF50'; // Set green background
+        upvoteButton.querySelector('svg').style.fill = '#4CAF50'; // Set SVG color for upvote
     } else if (voteType === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) + 1;
         voteStatusElement.value = 'downvote'; // Set the vote status
-        downvoteButton.classList.add('downvoted'); // Add downvoted class
+        downvoteButton.style.backgroundColor = '#F44336'; // Set red background
+        downvoteButton.querySelector('svg').style.fill = '#F44336'; // Set SVG color for downvote
     }
 
     // Send the vote to the server (database update)

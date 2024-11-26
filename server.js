@@ -64,7 +64,7 @@ app.get('/forumpost', async (req, res) => {
         user: req.session.user,
         post: post,
         userVote: userVote ? userVote.voteType : null, // Pass the vote type if logged in
-        loggedIn: req.session.loggedin // Pass a flag to indicate if the user is logged in
+        isLoggedIn: req.session.loggedin || false // Pass a flag to indicate if the user is logged in
     });
 });
 

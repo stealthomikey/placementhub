@@ -79,11 +79,13 @@
 
 <%- include('../partials/footer.ejs') %>
 
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all upvote buttons
+    // Select all upvote and downvote buttons
     const upvoteButtons = document.querySelectorAll('.upvote');
     const downvoteButtons = document.querySelectorAll('.downvote');
 
+    // Attach event listeners to buttons
     upvoteButtons.forEach(button => {
         button.addEventListener('click', () => {
             const postId = button.getAttribute('data-id');
@@ -114,7 +116,7 @@ function handleVote(postId, voteType) {
         // Remove the upvote
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        upvoteButton.classList.remove('upvoted');
+        upvoteButton.classList.remove('upvoted'); // Revert to original state
         return;
     }
 
@@ -122,18 +124,18 @@ function handleVote(postId, voteType) {
         // Remove the downvote
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1;
         voteStatusElement.value = ''; // Reset the vote status
-        downvoteButton.classList.remove('downvoted');
+        downvoteButton.classList.remove('downvoted'); // Revert to original state
         return;
     }
 
     // Handle switching votes: if user is switching, adjust the opposite vote count
     if (voteType === 'upvote' && currentVote === 'downvote') {
         downvoteCountElement.innerText = parseInt(downvoteCountElement.innerText) - 1; // Remove downvote
-        downvoteButton.classList.remove('downvoted'); // Remove the red background
+        downvoteButton.classList.remove('downvoted'); // Remove red background
     }
     if (voteType === 'downvote' && currentVote === 'upvote') {
         upvoteCountElement.innerText = parseInt(upvoteCountElement.innerText) - 1; // Remove upvote
-        upvoteButton.classList.remove('upvoted'); // Remove the green background
+        upvoteButton.classList.remove('upvoted'); // Remove green background
     }
 
     // Add the selected vote
@@ -164,6 +166,7 @@ function handleVote(postId, voteType) {
         });
 }
 
+</script>
 
 </body>
 </html>

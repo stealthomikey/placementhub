@@ -76,25 +76,11 @@ app.get('/forum', async (req, res) => {
         // Fetch all forum posts from the database
         const forumPosts = await db.collection('forum').find({}).toArray();
 
-        const userId = req.session.user ? req.session.user.id : null;
-
         // Organize posts into categories and subcategories
         const categories = {};
 
         forumPosts.forEach(post => {
-            const { category, subcategory, voters } = post;
-
-            // Check if the user has voted on the current post
-            let userVote = null;
-            if (userId) {
-                const voter = voters.find(v => v.userId === userId);
-                if (voter) {
-                    userVote = voter.voteType; // either 'upvote' or 'downvote'
-                }
-            }
-
-            // Add the user's voting status to the post object
-            post.userVote = userVote;
+            const { category, subcategory } = post;
 
             // Initialize category if it doesn't exist
             if (!categories[category]) {
@@ -121,7 +107,6 @@ app.get('/forum', async (req, res) => {
         res.status(500).send('Error fetching forum posts');
     }
 });
-
 
 
 // Route to render the accommodation.ejs page
@@ -610,6 +595,7 @@ app.get('/createforumpost', (req, res) => {
     res.render('pages/createforumpost', { user: req.session.user });
 });
 
+// POST route for handling voting
 app.post('/addvote', async (req, res) => {
     if (!req.session.loggedin) {
         return res.status(401).json({ success: false, message: "User must be logged in to vote" });
@@ -635,40 +621,16 @@ app.post('/addvote', async (req, res) => {
         if (existingVote) {
             if (existingVote.voteType === voteType) {
                 // User clicked the same vote type, remove the vote
-                await db.collection('forum').updateOne(
-                    { forumId: postId },
-                    {
-                        $pull: { voters: { userId } },
-                        $inc: {
-                            upVotes: voteType === 'upvote' ? -1 : 0,
-                            downVotes: voteType === 'downvote' ? -1 : 0
-                        }
-                    }
-                );
+                await handleRemoveVote(postId, userId, voteType);
                 return res.json({ success: true, message: "Vote removed" });
             } else {
                 // User switched vote type
-                await db.collection('forum').updateOne(
-                    { forumId: postId, "voters.userId": userId },
-                    {
-                        $set: { "voters.$.voteType": voteType },
-                        $inc: {
-                            upVotes: voteType === 'upvote' ? 1 : -1,
-                            downVotes: voteType === 'downvote' ? 1 : -1
-                        }
-                    }
-                );
+                await handleUpdateVote(postId, userId, voteType);
                 return res.json({ success: true, message: "Vote updated" });
             }
         } else {
             // User hasn't voted yet, add the vote
-            await db.collection('forum').updateOne(
-                { forumId: postId },
-                {
-                    $push: { voters: { userId, voteType } },
-                    $inc: { upVotes: voteType === 'upvote' ? 1 : 0, downVotes: voteType === 'downvote' ? 1 : 0 }
-                }
-            );
+            await handleAddVote(postId, userId, voteType);
             return res.json({ success: true, message: "Vote added" });
         }
     } catch (error) {
@@ -676,3 +638,47 @@ app.post('/addvote', async (req, res) => {
         res.status(500).json({ success: false, message: "Error handling vote" });
     }
 });
+
+// Helper functions
+
+// Remove the user's vote from the post
+async function handleRemoveVote(postId, userId, voteType) {
+    return await db.collection('forum').updateOne(
+        { forumId: postId },
+        {
+            $pull: { voters: { userId } },
+            $inc: {
+                upVotes: voteType === 'upvote' ? -1 : 0,
+                downVotes: voteType === 'downvote' ? -1 : 0
+            }
+        }
+    );
+}
+
+// Update the user's vote type (switch from upvote to downvote or vice versa)
+async function handleUpdateVote(postId, userId, newVoteType) {
+    return await db.collection('forum').updateOne(
+        { forumId: postId, "voters.userId": userId },
+        {
+            $set: { "voters.$.voteType": newVoteType },
+            $inc: {
+                upVotes: newVoteType === 'upvote' ? 1 : -1,
+                downVotes: newVoteType === 'downvote' ? 1 : -1
+            }
+        }
+    );
+}
+
+// Add a new vote from the user
+async function handleAddVote(postId, userId, voteType) {
+    return await db.collection('forum').updateOne(
+        { forumId: postId },
+        {
+            $push: { voters: { userId, voteType } },
+            $inc: {
+                upVotes: voteType === 'upvote' ? 1 : 0,
+                downVotes: voteType === 'downvote' ? 1 : 0
+            }
+        }
+    );
+}

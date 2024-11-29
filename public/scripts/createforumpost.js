@@ -43,7 +43,7 @@
       case 'Degree':
         options = ['Computer Science', 'Engineering', 'Medicine', 'Business', 'Law', 'Other'];
         break;
-      case 'Accommodation':
+      case 'Acccommodation':
         options = ['Questions', 'Reviews', 'Other'];
         break;
       case 'Other':

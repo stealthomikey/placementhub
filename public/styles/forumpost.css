@@ -157,7 +157,7 @@ button svg {
 }
 
 /* Post Image */
-#post-image {
+.post-image {
   max-height: 200px; 
-  max-height: 200px; 
+  max-width: 200px; 
 }
